@@ -9,6 +9,6 @@ public interface GestoreProfiloRemote {
 	
 	String getRuolo(String nickname);
 	
-	boolean controllaDisponibilitaNickname(String nickname);
+	boolean disponibilitaNickname(String nickname);
 
 }

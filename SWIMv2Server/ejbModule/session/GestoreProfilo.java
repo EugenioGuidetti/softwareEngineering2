@@ -7,9 +7,6 @@ import org.jboss.ejb3.annotation.RemoteBinding;
 import entity.Profilo;
 import entity.User;
 
-/**
- * Session Bean implementation class GestoreProfilo
- */
 @Stateless
 @RemoteBinding(jndiBinding = "GestoreProfiloJNDI")
 public class GestoreProfilo implements GestoreProfiloRemote {
@@ -46,7 +43,7 @@ public class GestoreProfilo implements GestoreProfiloRemote {
 	}
 
 	@Override
-	public boolean controllaDisponibilitaNickname(String nickname) {
+	public boolean disponibilitaNickname(String nickname) {
 		Profilo profilo = entityManager.find(Profilo.class, nickname);
 		
 		if(profilo == null){

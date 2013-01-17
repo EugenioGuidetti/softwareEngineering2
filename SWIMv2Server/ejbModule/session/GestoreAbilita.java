@@ -7,10 +7,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
+import org.jboss.ejb3.annotation.RemoteBinding;
 import entity.Abilita;
 import entity.User;
 
 @Stateless
+@RemoteBinding(jndiBinding = "GestoreAbilitaJNDI")
 public class GestoreAbilita implements GestoreAbilitaRemote {
 	
 	@PersistenceContext(unitName = "swimv2_unit")

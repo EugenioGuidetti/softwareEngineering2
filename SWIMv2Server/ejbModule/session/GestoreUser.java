@@ -1,21 +1,15 @@
 package session;
 
 import java.util.Set;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TransactionRequiredException;
-
 import org.jboss.ejb3.annotation.RemoteBinding;
-
 import entity.Abilita;
 import entity.User;
 
-/**
- * Session Bean implementation class GestoreUser
- */
 @Stateless
 @RemoteBinding(jndiBinding = "GestoreUserJNDI")
 public class GestoreUser implements GestoreUserRemote {

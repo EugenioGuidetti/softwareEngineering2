@@ -7,10 +7,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
+import org.jboss.ejb3.annotation.RemoteBinding;
 import entity.User;
 import entity.PropostaAbilita;
 
 @Stateless
+@RemoteBinding(jndiBinding = "GestorePropostaAbilitaJNDI")
 public class GestorePropostaAbilita implements GestorePropostaAbilitaRemote {
 
 	@PersistenceContext(unitName = "swimv2_unit")
