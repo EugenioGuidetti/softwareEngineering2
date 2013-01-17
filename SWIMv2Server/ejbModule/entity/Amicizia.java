@@ -1,7 +1,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import javax.persistence.*;
 
 @Entity
@@ -17,11 +17,11 @@ public class Amicizia implements Serializable {
 	
 	@Column(name = "momento_richiesta", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private GregorianCalendar momentoRichiesta;
+	private Calendar momentoRichiesta;
 	
 	@Column(name = "momento_accettazione")
 	@Temporal(TemporalType.TIMESTAMP)
-	private GregorianCalendar momentoAccettazione;
+	private Calendar momentoAccettazione;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_richiedente", referencedColumnName = "nickname", nullable = false)
@@ -43,19 +43,19 @@ public class Amicizia implements Serializable {
 		this.id = id;
 	}
 
-	public GregorianCalendar getMomentoRichiesta() {
+	public Calendar getMomentoRichiesta() {
 		return momentoRichiesta;
 	}
 
-	public void setMomentoRichiesta(GregorianCalendar momentoRichiesta) {
+	public void setMomentoRichiesta(Calendar momentoRichiesta) {
 		this.momentoRichiesta = momentoRichiesta;
 	}
 
-	public GregorianCalendar getMomentoAccettazione() {
+	public Calendar getMomentoAccettazione() {
 		return momentoAccettazione;
 	}
 
-	public void setMomentoAccettazione(GregorianCalendar momentoAccettazione) {
+	public void setMomentoAccettazione(Calendar momentoAccettazione) {
 		this.momentoAccettazione = momentoAccettazione;
 	}
 

@@ -1,7 +1,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -32,7 +32,7 @@ public class Feedback implements Serializable{
 	
 	@Column(name = "momento_rilascio", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private GregorianCalendar momentoRilascio;
+	private Calendar momentoRilascio;
 	
 	@OneToOne(mappedBy = "feedbackRicevuto")
 	private Aiuto aiutoValutato;
@@ -65,11 +65,11 @@ public class Feedback implements Serializable{
 		this.valutazioenEstesa = valutazioenEstesa;
 	}
 
-	public GregorianCalendar getMomentoRilascio() {
+	public Calendar getMomentoRilascio() {
 		return momentoRilascio;
 	}
 
-	public void setMomentoRilascio(GregorianCalendar momentoRilascio) {
+	public void setMomentoRilascio(Calendar momentoRilascio) {
 		this.momentoRilascio = momentoRilascio;
 	}
 
