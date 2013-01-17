@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+    <local-tx-datasource>
+        <jndi-name>swimv2-ds</jndi-name>
+        <connection-url>jdbc:mysql://localhost/swimv2</connection-url>
+        <driver-class>com.mysql.jdbc.Driver</driver-class>
+        <user-name>admin</user-name>
+        <password>admin</password>
+        <valid-connection-checker-class-name>
+            org.jboss.resource.adapter.jdbc.vendor.MySQLValidConnectionChecker
+        </valid-connection-checker-class-name>
+        <metadata>
+            <type-mapping>mySQL</type-mapping>
+        </metadata>
+    </local-tx-datasource>
+</datasources>
