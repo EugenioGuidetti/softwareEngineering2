@@ -6,13 +6,13 @@ import javax.persistence.*;
 
 @NamedQueries( {
 	@NamedQuery(
-			name = "tutteLeAbilita", query = 
+			name = "abilitaSistema", query = 
 			"SELECT a " +
 			"FROM Abilita a " +
 			"ORDER BY a.nome"
 	),
 	@NamedQuery(
-			name = "tutteLeAbilitaDiUnoUser", query = 
+			name = "abilitaUser", query = 
 			"SELECT a " +
 			"FROM Abilita a, User u " +
 			"WHERE a IN u.abilitaDichiarate " +

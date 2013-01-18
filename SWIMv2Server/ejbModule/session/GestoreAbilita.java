@@ -32,7 +32,7 @@ public class GestoreAbilita implements GestoreAbilitaRemote {
 	@Override
 	public List<Abilita> getAbilitaSistema() {
 		List<Abilita> abilitaSistema;
-		Query query = entityManager.createNamedQuery("tutteLeAbilita");
+		Query query = entityManager.createNamedQuery("abilitaSistema");
 		try {
 			abilitaSistema = query.getResultList();
 			return abilitaSistema;
@@ -46,7 +46,7 @@ public class GestoreAbilita implements GestoreAbilitaRemote {
 	public List<Abilita> getAbilitaUser(String nickname) {
 		List<Abilita> abilitaUser;
 		User user = entityManager.find(User.class, nickname);
-		Query query = entityManager.createNamedQuery("tutteLeAbilitaDiUnoUser");
+		Query query = entityManager.createNamedQuery("abilitaUser");
 		query.setParameter("user", user);
 		try {
 			abilitaUser = query.getResultList();

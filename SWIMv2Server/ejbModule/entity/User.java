@@ -4,7 +4,14 @@ import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.*;
 
-@NamedQueries( { } )
+@NamedQueries( {
+	@NamedQuery(name = "amiciUser", query = 
+			"SELECT a.userDestinatario " +
+			"FROM Amicizia a " +
+			"WHERE a.userRichiedente = :user " +
+			"AND momentoAccettazione IS NOT NULL " +
+			"ORDER BY a.userDestinatario")
+} )
 
 @Entity
 @DiscriminatorValue("user")
