@@ -6,7 +6,7 @@ import javax.persistence.*;
 @NamedQueries( { 
 	@NamedQuery(name = "proposteAbilitaPerPresaVisione", query = 
 			"SELECT p " +
-			"FROM PropostaAbilita " +
+			"FROM PropostaAbilita p " +
 			"WHERE p.presaVisione = :boolean")
 } )
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "ruolo", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "profilo")
-public abstract class Profilo implements Serializable{
+public class Profilo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
