@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @NamedQueries( { 
-	@NamedQuery(name = "proposteAbilitaPerPresaVisionate", query = 
+	@NamedQuery(name = "proposteAbilitaPerPresaVisione", query = 
 			"SELECT p " +
 			"FROM PropostaAbilita " +
 			"WHERE p.presaVisione = :boolean")

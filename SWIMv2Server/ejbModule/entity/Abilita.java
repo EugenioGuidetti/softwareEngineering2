@@ -16,7 +16,7 @@ import javax.persistence.*;
 			"SELECT a " +
 			"FROM Abilita a, User u " +
 			"WHERE a IN u.abilitaDichiarate " +
-			"AND u = :user" +
+			"AND u = :user " +
 			"ORDER BY a.nome"
 	)
 } )

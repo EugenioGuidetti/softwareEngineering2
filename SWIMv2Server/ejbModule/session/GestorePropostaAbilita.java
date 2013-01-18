@@ -27,7 +27,7 @@ public class GestorePropostaAbilita implements GestorePropostaAbilitaRemote {
     public List<PropostaAbilita> getProposteNonVisionate() {
     	List<PropostaAbilita> proposteNonVisionate;
     	boolean statoProposta = false;
-    	Query query = entityManager.createNamedQuery("proposteAbilitaPerPresaVisionate");
+    	Query query = entityManager.createNamedQuery("proposteAbilitaPerPresaVisione");
     	query.setParameter("boolean", statoProposta);
     	try {
     		proposteNonVisionate = query.getResultList();
@@ -42,7 +42,7 @@ public class GestorePropostaAbilita implements GestorePropostaAbilitaRemote {
 	public List<PropostaAbilita> getProposteVisionate() {
     	List<PropostaAbilita> proposteVisionate;
     	boolean statoProposta = true;
-    	Query query = entityManager.createNamedQuery("proposteAbilitaPerPresaVisionate");
+    	Query query = entityManager.createNamedQuery("proposteAbilitaPerPresaVisione");
     	query.setParameter("boolean", statoProposta);
     	try {
     		proposteVisionate = query.getResultList();

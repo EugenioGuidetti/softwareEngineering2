@@ -46,7 +46,7 @@ public class GestoreAbilita implements GestoreAbilitaRemote {
 	public List<Abilita> getAbilitaUser(String nickname) {
 		List<Abilita> abilitaUser;
 		User user = entityManager.find(User.class, nickname);
-		Query query = entityManager.createNamedQuery("tutteLeAbilitaDiUnUser");
+		Query query = entityManager.createNamedQuery("tutteLeAbilitaDiUnoUser");
 		query.setParameter("user", user);
 		try {
 			abilitaUser = query.getResultList();
