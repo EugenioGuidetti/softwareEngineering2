@@ -14,9 +14,9 @@ public class Feedback implements Serializable{
 	
 	@Id
 	@Column(name = "id_aiuto")
-	@GeneratedValue(generator = "foreign")
+	@GeneratedValue(generator = "foreignKey")
 	@GenericGenerator(
-			name = "foreign", 
+			name = "foreignKey", 
 			strategy = "foreign", 
 			parameters = {
 					@Parameter(name = "property", value ="aiutoValutato")
@@ -34,7 +34,8 @@ public class Feedback implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar momentoRilascio;
 	
-	@OneToOne(mappedBy = "feedbackRicevuto")
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	private Aiuto aiutoValutato;
 	
 	public Feedback() {

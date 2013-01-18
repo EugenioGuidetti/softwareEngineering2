@@ -38,8 +38,7 @@ public class Aiuto implements Serializable{
 	@JoinColumn(name = "user_destinatario", referencedColumnName = "nickname", nullable = false)
 	private User userDestinatario;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id_aiuto")
+	@OneToOne(mappedBy = "aiutoValutato", fetch = FetchType.LAZY)
 	private Feedback feedRicevuto;
 	
 	public Aiuto() {
