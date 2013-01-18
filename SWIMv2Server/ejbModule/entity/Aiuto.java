@@ -4,6 +4,27 @@ import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.*;
 
+@NamedQueries( {
+	@NamedQuery(name = "richiesteAiutoInviate", query = 
+			"SELECT a " +
+			"FROM Aiuto a " +
+			"WHERE a.userRichidente = :user " +
+			"AND a.momentoAccettazione IS NULL " +
+			"ORDER BY a.momentoRichiesta"),
+	@NamedQuery(name = "richiesteAiutoRicevute", query = 
+			"SELECT a " +
+			"FROM Aiuto a " +
+			"WHERE a.userDestinatario = :user " +
+			"AND a.momentoAccettazione IS NULL " +
+			"ORDER BY a.momentoRichiesta"),
+	@NamedQuery(name = "aiutiRicevutEForniti", query = 
+			"SELECT a " +
+			"FROM Aiuto " +
+			"WHERE (a.userRichiedente = :user OR a.destinatario = :user) " +
+			"AND a.momentoAccettazione IS NOT NULL " +
+			"ORDER BY a.momentoAccettazione")
+} )
+
 @Entity
 @Table(name = "aiuto")
 public class Aiuto implements Serializable{

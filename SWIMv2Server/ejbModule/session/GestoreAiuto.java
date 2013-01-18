@@ -9,30 +9,31 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import org.jboss.ejb3.annotation.RemoteBinding;
+import entity.Abilita;
+import entity.Aiuto;
 import entity.User;
-import entity.Amicizia;
 
 @Stateless
-@RemoteBinding(jndiBinding = "GestoreAmiciziaJNDI")
-public class GestoreAmicizia implements GestoreAmiciziaRemote {
+@RemoteBinding(jndiBinding = "GestoreAiutoJNDI")
+public class GestoreAiuto implements GestoreAiutoRemote {
 	
 	@PersistenceContext(unitName = "swimv2_unit")
 	private EntityManager entityManager;
-	
-    public GestoreAmicizia() {
+
+    public GestoreAiuto() {
     	super();
     }
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Amicizia> getRichiesteInviate(String nicknameRichiedente) {
-		List<Amicizia> richiesteAmiciziaInviate;
+	public List<Aiuto> getRichiesteInviate(String nicknameRichiedente) {
+		List<Aiuto> richiesteAiutoInviate;
 		User user = entityManager.find(User.class, nicknameRichiedente);
-		Query query = entityManager.createNamedQuery("richiesteAmiciziaInviate");
+		Query query = entityManager.createNamedQuery("richiesteAiutoInviate");
 		query.setParameter("user", user);
 		try {
-			richiesteAmiciziaInviate = query.getResultList();
-			return richiesteAmiciziaInviate;
+			richiesteAiutoInviate = query.getResultList();
+			return richiesteAiutoInviate;
 		} catch (IllegalStateException e) {
 			return null;
 		}
@@ -40,45 +41,49 @@ public class GestoreAmicizia implements GestoreAmiciziaRemote {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Amicizia> getRichiesteRicevute(String nicknameDestinatario) {
-		List<Amicizia> richiesteAmiciziaRicevute;
+	public List<Aiuto> getRichiesteRicevute(String nicknameDestinatario) {
+		List<Aiuto> richiesteAiutoRicevute;
 		User user = entityManager.find(User.class, nicknameDestinatario);
-		Query query = entityManager.createNamedQuery("richiesteAmiciziaRicevute");
+		Query query = entityManager.createNamedQuery("richiesteAiutoRicevute");
 		query.setParameter("user", user);
 		try {
-			richiesteAmiciziaRicevute = query.getResultList();
-			return richiesteAmiciziaRicevute;
+			richiesteAiutoRicevute = query.getResultList();
+			return richiesteAiutoRicevute;
 		} catch (IllegalStateException e) {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Amicizia> getAmicizieAllacciate(String nickname) {
-		List<Amicizia> amicizieAllacciate;
+	public List<Aiuto> getAiutiRicevutiEForniti(String nickname) {
+		List<Aiuto> aiutiRicevutiEForniti;
 		User user = entityManager.find(User.class, nickname);
-		Query query = entityManager.createNamedQuery("amicizieAllacciate");
+		Query query = entityManager.createNamedQuery("aiutiRicevutEForniti");
 		query.setParameter("user", user);
 		try {
-			amicizieAllacciate = query.getResultList();
-			return amicizieAllacciate;
+			aiutiRicevutiEForniti = query.getResultList();
+			return aiutiRicevutiEForniti;
 		} catch (IllegalStateException e) {
 			return null;
 		}
 	}
 
 	@Override
-	public boolean inviaRichiesta(String nicknameRichiedente, String nicknameDestinatario,
-			Calendar momentoRichiesta) {
-		Amicizia amicizia = new Amicizia();
+	public boolean inviaRichiesta(String nicknameRichiedente,
+			String nicknameDestinatario, long idAbilitaRichiesta,
+			String descrizione, Calendar momentoRichiesta) {
+		Aiuto aiuto = new Aiuto();
 		User userRichiedente = entityManager.find(User.class, nicknameRichiedente);
 		User userDestinatario = entityManager.find(User.class, nicknameDestinatario);
-		amicizia.setUserRichiedente(userRichiedente);
-		amicizia.setUserDestinatario(userDestinatario);
-		amicizia.setMomentoRichiesta(momentoRichiesta);
+		Abilita abilitaRichiesta = entityManager.find(Abilita.class, idAbilitaRichiesta);
+		aiuto.setUserRichiedente(userRichiedente);
+		aiuto.setUserDestinatario(userDestinatario);
+		aiuto.setAbilitaRichiesta(abilitaRichiesta);
+		aiuto.setDescrizione(descrizione);
+		aiuto.setMomentoRichiesta(momentoRichiesta);
 		try {
-			entityManager.persist(amicizia);
+			entityManager.persist(aiuto);
 			entityManager.flush();
 			return true;
 		} catch (IllegalStateException e) {
@@ -94,8 +99,8 @@ public class GestoreAmicizia implements GestoreAmiciziaRemote {
 
 	@Override
 	public boolean accettaRichiesta(long id, Calendar momentoAccettazione) {
-		Amicizia amicizia = entityManager.find(Amicizia.class, id);
-		amicizia.setMomentoAccettazione(momentoAccettazione);
+		Aiuto aiuto = entityManager.find(Aiuto.class, id);
+		aiuto.setMomentoAccettazione(momentoAccettazione);
 		try {
 			entityManager.flush();
 			return true;
@@ -109,10 +114,10 @@ public class GestoreAmicizia implements GestoreAmiciziaRemote {
 	}
 
 	@Override
-	public boolean rimuovi(long id) {
-		Amicizia amicizia = entityManager.find(Amicizia.class, id);
+	public boolean rifiutaRichiesta(long id) {
+		Aiuto aiuto = entityManager.find(Aiuto.class, id);
 		try {
-			entityManager.remove(amicizia);
+			entityManager.remove(aiuto);
 			entityManager.flush();
 			return true;
 		} catch (IllegalStateException e) {

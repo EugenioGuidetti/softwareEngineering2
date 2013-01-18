@@ -12,6 +12,8 @@ public interface GestoreAmiciziaRemote {
 	
 	List<Amicizia> getRichiesteRicevute(String nicknameDestinatario);
 	
+	List<Amicizia> getAmicizieAllacciate(String nickname);
+	
 	boolean inviaRichiesta(String nicknameRichiedente, String nicknameDestinatario, Calendar momentoRichiesta);
 	
 	boolean accettaRichiesta(long id, Calendar momentoAccettazione);
