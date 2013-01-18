@@ -28,7 +28,7 @@ public class Feedback implements Serializable{
 	private int valutazioneNumerica;
 	
 	@Column(name = "valutazione_estesa", nullable = false)
-	private String valutazioenEstesa;
+	private String valutazioneEstesa;
 	
 	@Column(name = "momento_rilascio", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -59,11 +59,11 @@ public class Feedback implements Serializable{
 	}
 
 	public String getValutazioenEstesa() {
-		return valutazioenEstesa;
+		return valutazioneEstesa;
 	}
 
 	public void setValutazioenEstesa(String valutazioenEstesa) {
-		this.valutazioenEstesa = valutazioenEstesa;
+		this.valutazioneEstesa = valutazioenEstesa;
 	}
 
 	public Calendar getMomentoRilascio() {
