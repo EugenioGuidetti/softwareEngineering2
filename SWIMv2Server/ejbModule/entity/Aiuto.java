@@ -8,7 +8,7 @@ import javax.persistence.*;
 	@NamedQuery(name = "richiesteAiutoInviate", query = 
 			"SELECT a " +
 			"FROM Aiuto a " +
-			"WHERE a.userRichidente = :user " +
+			"WHERE a.userRichiedente = :user " +
 			"AND a.momentoAccettazione IS NULL " +
 			"ORDER BY a.momentoRichiesta"),
 	@NamedQuery(name = "richiesteAiutoRicevute", query = 
@@ -19,8 +19,8 @@ import javax.persistence.*;
 			"ORDER BY a.momentoRichiesta"),
 	@NamedQuery(name = "aiutiRicevutEForniti", query = 
 			"SELECT a " +
-			"FROM Aiuto " +
-			"WHERE (a.userRichiedente = :user OR a.destinatario = :user) " +
+			"FROM Aiuto a " +
+			"WHERE (a.userRichiedente = :user OR a.userDestinatario = :user) " +
 			"AND a.momentoAccettazione IS NOT NULL " +
 			"ORDER BY a.momentoAccettazione")
 } )
