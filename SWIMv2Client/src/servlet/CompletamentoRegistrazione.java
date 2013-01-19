@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-//import javax.servlet.RequestDispatcher;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +32,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			//RequestDispatcher dispatcher;
+			RequestDispatcher dispatcher;
 			Context context = new InitialContext();
 			GestoreAbilitaRemote gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
 			GestoreUserRemote gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
@@ -52,7 +52,8 @@ public class CompletamentoRegistrazione extends HttpServlet {
 				}
 				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
 			}
-			response.sendRedirect("index.jsp");
+			dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 		} catch (NamingException namingE) {
 			namingE.printStackTrace();
 		}
