@@ -66,7 +66,6 @@ public class GestoreAdmin implements GestoreAdminRemote {
 		admin.setAvatarPath(avatarPath);
 		
 		try {
-			System.out.println("provo a creare admin");
 			entityManager.persist(admin);
 			entityManager.flush();
 			return true;

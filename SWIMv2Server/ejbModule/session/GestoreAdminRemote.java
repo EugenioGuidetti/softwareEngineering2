@@ -13,8 +13,7 @@ public interface GestoreAdminRemote {
 	 * 
 	 * @return	profilo dell'amministratore del sistema
 	 */
-	Admin getAdmin(String nickname);
-	
+	Admin getAdmin(String nickname);	
 	/**
 	 * Il metodo serve per modificare la password del profilo associato al nickname passato come parametro
 	 * 
