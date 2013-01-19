@@ -111,7 +111,7 @@
 					<div id="titoloBox">
 						<center>Esegui l'accesso</center>
 					</div>
-					<form action="" method="post">
+					<form action="Login" method="post">
 						<div id="informazioniBox">
 							<p>
 								<label for="nickname">Nickname:</label>

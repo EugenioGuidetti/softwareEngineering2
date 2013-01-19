@@ -17,8 +17,6 @@ import session.GestoreAbilitaRemote;
 import session.GestoreProfiloRemote;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
-import utility.Messaggio;
-import utility.TipoMessaggio;
 import utility.Utilita;
 
 public class Registrazione extends HttpServlet {
@@ -53,13 +51,11 @@ public class Registrazione extends HttpServlet {
 			Pattern pattern = Pattern.compile(Utilita.EMAIL_PATTERN);
 			Matcher matcher = pattern.matcher(email);
 			if(!matcher.find()) {
-				Messaggio messaggio = new Messaggio(TipoMessaggio.ERRORE, Comunicazione.EMAIL_NON_VALIDA);
-				request.setAttribute("messaggio", messaggio);
+				request.setAttribute("messaggio", Comunicazione.emailNonValida());
 				dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 			} else if(!gestoreProfilo.disponibilitaNickname(nickname)) {
-				Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, Comunicazione.NICKNAME_NON_LIBERO);
-				request.setAttribute("messaggio", messaggio);
+				request.setAttribute("messaggio", Comunicazione.nicknameNonDisponibile());
 				dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 			} else {

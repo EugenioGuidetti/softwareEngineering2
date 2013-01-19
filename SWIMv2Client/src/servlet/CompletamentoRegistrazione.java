@@ -15,8 +15,6 @@ import entity.Abilita;
 import session.GestoreAbilitaRemote;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
-import utility.Messaggio;
-import utility.TipoMessaggio;
 
 public class CompletamentoRegistrazione extends HttpServlet {
 	
@@ -39,8 +37,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 			String nickname = (String) request.getAttribute("nickname");
 			String[] abilitaScelte = request.getParameterValues("abilitaScelte");			
 			Set<Abilita> abilitaDichiarate = new HashSet<Abilita>();
-			Messaggio messaggio = new Messaggio(TipoMessaggio.CONFERMA, Comunicazione.REGISTRAZIONE_COMPLETATA);
-			request.setAttribute("messaggio", messaggio);
+			request.setAttribute("messaggio", Comunicazione.registrazioneCompletata());
 			if(abilitaScelte != null) {
 				for(String abilitaScelta: abilitaScelte) {
 					try {
