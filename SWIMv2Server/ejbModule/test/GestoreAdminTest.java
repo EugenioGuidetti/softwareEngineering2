@@ -33,8 +33,6 @@ public class GestoreAdminTest {
 		
 		Object refAdmin = jndiContext.lookup("GestoreAdminJNDI");
 		gestoreAdminRemote = (GestoreAdminRemote) refAdmin;
-
-		
 	}
 	
 	/**
@@ -93,12 +91,13 @@ public class GestoreAdminTest {
 		 * Test: modifico la password da "admin" a "passwordAdmin" dell'amministratore associato al nickname "admin"
 		 */
 		assertEquals(true, admin.getPassword().equals("admin"));
-		admin.setPassword("passwordAdmin");
+		assertEquals(true, gestoreAdminRemote.modificaPassword("admin", "passwordAdmin"));
+		
+		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getPassword().equals("passwordAdmin"));
 		
 		gestoreAdminRemote.rimuoviAdmin("admin");
 	}
-	
 
 	/**
 	 * Verifica il funzionamento del metodo modificaEmail(String nickname, String email) definito 
@@ -115,7 +114,9 @@ public class GestoreAdminTest {
 		 * associato al nickname "admin"
 		 */
 		assertEquals(true, admin.getEmail().equals("admin@mail.com"));
-		admin.setEmail("admin.admin@mail.com");
+		assertEquals(true, gestoreAdminRemote.modificaEmail("admin","admin.admin@mail.com"));
+		
+		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getEmail().equals("admin.admin@mail.com"));
 		
 		gestoreAdminRemote.rimuoviAdmin("admin");
@@ -135,7 +136,9 @@ public class GestoreAdminTest {
 		 * Test: modifico il nome da "nome admin" a "Admin" dell'amministratore associato al nickname "admin"
 		 */
 		assertEquals(true, admin.getNome().equals("nome admin"));
-		admin.setNome("Admin");
+		assertEquals(true, gestoreAdminRemote.modificaNome("admin", "Admin"));
+		
+		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getNome().equals("Admin"));
 		
 		gestoreAdminRemote.rimuoviAdmin("admin");
@@ -155,7 +158,9 @@ public class GestoreAdminTest {
 		 * Test: modifico il nome da "cognome admin" a "Cognome" dell'amministratore associato al nickname "admin"
 		 */
 		assertEquals(true, admin.getCognome().equals("cognome admin"));
-		admin.setCognome("Cognome");
+		assertEquals(true, gestoreAdminRemote.modificaCognome("admin", "Cognome"));
+		
+		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getCognome().equals("Cognome"));
 		
 		gestoreAdminRemote.rimuoviAdmin("admin");

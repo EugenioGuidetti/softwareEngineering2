@@ -71,6 +71,9 @@ public class GestoreProfiloTest {
     	  */
     	 assertEquals(false, gestoreProfiloRemote.controlloCredenziali("pippo", "word"));
 
+    	 //rimuovo i profili creati
+    	 gestoreAdminRemote.rimuoviAdmin("admin");
+    	 gestoreUserRemote.elimina("pippo");
      }
 
      /**
@@ -91,8 +94,10 @@ public class GestoreProfiloTest {
     	  * Test: il nickname "admin" è associato ad un profilo classificato come "admin"
     	  */
     	 assertEquals("admin", gestoreProfiloRemote.getRuolo("admin"));
+    	 
+    	//rimuovo i profili creati
+    	 gestoreAdminRemote.rimuoviAdmin("admin");
+    	 gestoreUserRemote.elimina("pippo");
      }
      
-     
-
 }

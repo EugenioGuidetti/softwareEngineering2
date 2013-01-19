@@ -27,31 +27,67 @@ public class GestoreAdmin implements GestoreAdminRemote {
     }
     
 	@Override
-	public void modificaPassword(String nickname, String password) {
+	public boolean modificaPassword(String nickname, String password) {
 		Admin admin = entityManager.find(Admin.class, nickname);
 		admin.setPassword(password);
-		entityManager.flush();
+		try {
+			entityManager.flush();
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
+		} catch (TransactionRequiredException e) {
+			return false;
+		} catch (PersistenceException e) {
+			return false;
+		}	
 	}
 
 	@Override
-	public void modificaEmail(String nickname, String email) {
+	public boolean modificaEmail(String nickname, String email) {
 		Admin admin = entityManager.find(Admin.class, nickname);
 		admin.setEmail(email);
-		entityManager.flush();
+		try {
+			entityManager.flush();
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
+		} catch (TransactionRequiredException e) {
+			return false;
+		} catch (PersistenceException e) {
+			return false;
+		}	
 	}
 
 	@Override
-	public void modificaNome(String nickname, String nome) {
+	public boolean modificaNome(String nickname, String nome) {
 		Admin admin = entityManager.find(Admin.class, nickname);
 		admin.setNome(nome);
-		entityManager.flush();
+		try {
+			entityManager.flush();
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
+		} catch (TransactionRequiredException e) {
+			return false;
+		} catch (PersistenceException e) {
+			return false;
+		}	
 	}
 
 	@Override
-	public void modificaCognome(String nickname, String cognome) {
+	public boolean modificaCognome(String nickname, String cognome) {
 		Admin admin = entityManager.find(Admin.class, nickname);
 		admin.setCognome(cognome);
-		entityManager.flush();
+		try {
+			entityManager.flush();
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
+		} catch (TransactionRequiredException e) {
+			return false;
+		} catch (PersistenceException e) {
+			return false;
+		}	
 	}
 
 	@Override

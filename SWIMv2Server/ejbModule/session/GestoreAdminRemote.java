@@ -13,38 +13,50 @@ public interface GestoreAdminRemote {
 	 * 
 	 * @return	profilo dell'amministratore del sistema
 	 */
-	Admin getAdmin(String nickname);	
+	Admin getAdmin(String nickname);
 	/**
-	 * Il metodo serve per modificare la password del profilo associato al nickname passato come parametro
+	 * Il metodo serve per modificare la password del profilo associato ad un amministratore del sistema il cui nickname
+	 * è passato come parametro
 	 * 
-	 * @param nickname	del profilo di cui si vuole modificare la password
+	 * @param nickname	del profilo di cui si vuole modificare la password (default "admin")
 	 * @param password	nuova password da sostituire a quella già esistente
+	 * 
+	 * @return 	true, se la modifica è andata a buon fine; false altrimenti.
 	 */
-	void modificaPassword(String nickname, String password);
+	boolean modificaPassword(String nickname, String password);
 	
 	/**
-	 * Il metodo serve per modificare l'indirizzo email del profilo associato al nickname passato come parametro
+	 * Il metodo serve per modificare l'indirizzo email del profilo associato ad un amministratore del sistema il cui nickname
+	 * è passato come parametro
 	 * 
-	 * @param nickname	del profilo di cui si vuole modificare l'indirizzo email
+	 * @param nickname	del profilo di cui si vuole modificare l'indirizzo email (default "admin")
 	 * @param email		nuovo indirizzo email da sostituire a quello già esistente
+	 * 
+	 * @return 	true, se la modifica è andata a buon fine; false altrimenti.
 	 */
-	void modificaEmail(String nickname, String email);
+	boolean modificaEmail(String nickname, String email);
 	
 	/**
-	 * Il metodo serve per modificare il nome del profilo associato al nickname passato come parametro
+	 * Il metodo serve per modificare il nome del profilo associato ad un amministratore del sistema il cui nickname
+	 * è passato come parametro
 	 * 
-	 * @param nickname	del profilo di cui si vuole modificare il nome
+	 * @param nickname	del profilo di cui si vuole modificare il nome (default "admin")
 	 * @param nome		nuovo nome da sostituire a quello già esistente
+	 * 
+	 * @return 	true, se la modifica è andata a buon fine; false altrimenti.
 	 */
-	void modificaNome(String nickname, String nome);
+	boolean modificaNome(String nickname, String nome);
 	
 	/**
-	 * Il metodo serve per modificare il cognome del profilo associato al nickname passato come parametro
+	 * Il metodo serve per modificare il cognome del profilo associato ad un amministratore del sistema il cui nickname
+	 * è passato come parametro
 	 * 
-	 * @param nickname	del profilo di cui si vuole modificare il cognome
+	 * @param nickname	del profilo di cui si vuole modificare il cognome (default "admin")
 	 * @param cognome		nuovo cognome da sostituire a quello già esistente
+	 * 
+	 * @return 	true, se la modifica è andata a buon fine; false altrimenti.
 	 */
-	void modificaCognome(String nickname, String cognome);
+	boolean modificaCognome(String nickname, String cognome);
 	
 	/**
 	 * Il metodo serve per creare un nuovo profilo a cui assegnare il ruolo di amministratore del sistema

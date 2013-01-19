@@ -48,7 +48,7 @@ public class GestoreUser implements GestoreUserRemote {
 	@Override
 	public boolean modificaEmail(String nickname, String email) {
 		User user = entityManager.find(User.class, nickname);
-		user.setNome(email);
+		user.setEmail(email);
 		try {
 			entityManager.flush();
 			return true;
