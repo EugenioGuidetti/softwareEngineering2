@@ -4,10 +4,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.jboss.ejb3.annotation.RemoteBinding;
 import entity.Profilo;
-import entity.User;
 
 @Stateless
 @RemoteBinding(jndiBinding = "GestoreProfiloJNDI")
