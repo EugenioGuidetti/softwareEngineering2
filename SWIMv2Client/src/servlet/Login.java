@@ -49,7 +49,7 @@ public class Login extends HttpServlet {
 				}
 				if(ruolo.equals(ADMIN)) {
 					request.getSession().setAttribute("nickname", nickname);
-					response.sendRedirect("PagineAdmin/paginaAdmin.jsp");
+					response.sendRedirect("PaginaAdmin");
 				}
 			}
 		} catch (NamingException e) {

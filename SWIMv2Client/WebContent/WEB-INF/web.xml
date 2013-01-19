@@ -39,4 +39,14 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PaginaAdmin</display-name>
+    <servlet-name>PaginaAdmin</servlet-name>
+    <servlet-class>servlet.PaginaAdmin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaginaAdmin</servlet-name>
+    <url-pattern>/PaginaAdmin</url-pattern>
+  </servlet-mapping>
 </web-app>

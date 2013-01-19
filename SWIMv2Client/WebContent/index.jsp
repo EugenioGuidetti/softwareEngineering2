@@ -39,11 +39,11 @@
 						<div id="informazioniBox">
 							<p>
 								<label for="rNome">Nome:</label>
-								<input id="rNome" name="rNome" type="text" maxlength="20" required="required">
+								<input id="rNome" name="rNome" type="text" maxlength="255" required="required">
 							</p>
 							<p>
 								<label for="rCognome">Cognome:</label>
-								<input id="rCognome" name="rCognome" type="text" maxlength="20" required="required">
+								<input id="rCognome" name="rCognome" type="text" maxlength="255" required="required">
 							</p>
 							<p>
 								<label for="rSesso">Sesso:</label>
@@ -91,11 +91,11 @@
 							</p>
 							<p>
 								<label for="rNickname">Nickname:</label>
-								<input id="rNickname" name="rNickname" type="text" maxlength="20" required="required">
+								<input id="rNickname" name="rNickname" type="text" maxlength="25" required="required">
 							</p>
 							<p>
 								<label for="rPassword">Password:</label>
-								<input id="rPassword" name="rPassword" type="password" maxlength="20" required="required">
+								<input id="rPassword" name="rPassword" type="password" maxlength="255" required="required">
 							</p>
 							<p>
 								<label for="rEmail">Email:</label>
@@ -115,11 +115,11 @@
 						<div id="informazioniBox">
 							<p>
 								<label for="nickname">Nickname:</label>
-								<input id="nickname" name="nickname" type="text" maxlength="20" required="required">
+								<input id="nickname" name="nickname" type="text" maxlength="25" required="required">
 							</p>
 							<p>
 								<label for="password">Password:</label>
-								<input id="password" name="password" type="password" maxlength="20" required="required">
+								<input id="password" name="password" type="password" maxlength="255" required="required">
 							</p>
 						</div>
 						<center>

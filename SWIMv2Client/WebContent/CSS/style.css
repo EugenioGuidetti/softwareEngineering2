@@ -68,14 +68,42 @@ body {
 
 #informazioniBox {
 	text-align: right;
-	margin-right: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
-#informazioniBox input, select {
+#informazioniBox input, select, textarea {
 	width: 220px;
+	margin-right: 10px;
 }
 
-#checkAbilita input{
+#infoAdmin, #altreInfoAdmin {
+	text-align:left;
+	border: 1px solid grey;
+	border-radius: 5px;
+	background-color: white;
+	padding: 10px;
+	width: 339px;
+	overflow: auto;
+}
+
+#infoAdmin {
+	margin-bottom: 5px;
+}
+
+#avatar {
+	float:left;
+	margin-right: 10px;
+}
+
+#testo {
+	font-size: 20px;
+	float:left;
+	margin-left: 10px;
+	padding-top: 10px;
+}
+
+#checkAbilita input {
 	width: auto;
 }
 
@@ -85,6 +113,7 @@ body {
 }
 
 #iconaAbilita, #corpoAbilita {
+	background-color: white;
 	border: 1px solid grey;
 	border-radius: 5px;
 	padding: 5px;
@@ -92,9 +121,7 @@ body {
 }
 
 #iconaAbilita {
-	height: 50px;
-	width: 50px;
-	margin-right: 5px;
+	margin-right: 10px;
 }
 
 #corpoAbilita {

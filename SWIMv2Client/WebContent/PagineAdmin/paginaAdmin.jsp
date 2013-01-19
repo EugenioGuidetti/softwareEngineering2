@@ -10,7 +10,10 @@
 	<body>
 		<div id="pagina">
 			<div id="logo">
-				<img src="Immagini/logo.png">
+				<img src="Immagini/logo.png" width="235" height="107">
+			</div>
+			<div id="menuAdmin">
+				<!-- scrivere il menù per l'admin -->
 			</div>
 			<div id="body">
 				<div id="boxLeft">
@@ -18,6 +21,13 @@
 						<center>Informazioni personali</center>
 					</div>
 					<div id="informazioniBox">
+						<div id="infoAdmin">							
+							<div id="avatar">
+								<img src="<%= request.getAttribute("avatar") %>" width="70" height="70">
+							</div>
+							<div id="testo"><%= request.getAttribute("nome") %> <%= request.getAttribute("cognome") %><br>&rarr; <%= request.getSession().getAttribute("nickname") %></div>
+						</div>
+						<div id="altreInfoAdmin">Email:<br><%= request.getAttribute("email") %></div>
 					</div>
 				</div>
 				<div id="boxRight">
@@ -26,7 +36,22 @@
 					</div>
 					<form action="" method="post">
 						<div id="informazioniBox">
+							<p>
+								<label for="nome">Nome:</label>
+								<input id="nome" name="nome" type="text" maxlength="255" required="required">
+							</p>
+							<p>
+								<label for="descrizione">Descrizione:</label>
+								<textarea id="descrizione" name="descrizione" maxlength="140" rows="7" required="required"></textarea>
+							</p>
+							<p>
+								<label for="icona">Icona:</label>
+								<input id="icona" name="icona" type="file" accept="image/*">
+							</p>
 						</div>
+						<center>
+							<input id="pulsante" type="submit" value="Crea abilit&agrave;">
+						</center>
 					</form>
 				</div>
 			</div>	
