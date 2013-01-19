@@ -1,19 +1,10 @@
 package test;
 
 import static org.junit.Assert.*;
-
-import java.util.Set;
-
 import javax.naming.Context;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import entity.Abilita;
-import entity.Admin;
 import entity.User;
-
-import session.GestoreAdminRemote;
 import session.GestoreUserRemote;
 
 /**
@@ -50,15 +41,13 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testRegistraElimina(){		
-		/*
-		 * Test: lo user "toto" si registra al sistema (nickname disponibile)
-		 */
+		
+		//Test: lo user "toto" si registra al sistema (nickname disponibile)
 		assertEquals(true, gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967));
 		
-		/*
-		 * Test: lo user "toto" si elimina dal sistema
-		 */
+		//Test: lo user "toto" si elimina dal sistema e quindi non esiste più alcuno user con quel nickname
 		assertEquals(true, gestoreUserRemote.elimina("toto"));
+		assertEquals(null, gestoreUserRemote.getUser("toto"));
 	}
 	
 	/**
@@ -71,9 +60,7 @@ public class GestoreUserTest {
 		
 		User user = gestoreUserRemote.getUser("pippo");
 		
-		/*
-		 * Test: modifico la password da "pwd" a "password" dello user associato al nickname "pippo"
-		 */
+		//Test: modifico la password da "pwd" a "password" dello user associato al nickname "pippo"
 		assertEquals(true, user.getPassword().equals("pwd"));
 		assertEquals(true, gestoreUserRemote.modificaPassword("pippo", "password"));
 		
@@ -94,9 +81,7 @@ public class GestoreUserTest {
 
 		User user = gestoreUserRemote.getUser("pippo");
 
-		/*
-		 * Test: modifico l'indirizzo email da "pippo@mail.com" a "pippo.pippo@mail.com" dello user associato al nickname "pippo"
-		 */
+		//Test: modifico l'indirizzo email da "pippo@mail.com" a "pippo.pippo@mail.com" dello user associato al nickname "pippo"
 		assertEquals(true, user.getEmail().equals("pippo@mail.com"));
 		assertEquals(true, gestoreUserRemote.modificaEmail("pippo", "pippo.pippo@mail.com"));
 		
@@ -118,9 +103,7 @@ public class GestoreUserTest {
 
 		User user = gestoreUserRemote.getUser("pippo");
 
-		/*
-		 * Test: modifico il nome da "filippo" a "antonio" dello user associato al nickname "pippo"
-		 */
+		//Test: modifico il nome da "filippo" a "antonio" dello user associato al nickname "pippo"
 		assertEquals(true, user.getNome().equals("filippo"));
 		assertEquals(true, gestoreUserRemote.modificaNome("pippo", "antonio"));
 		
@@ -141,9 +124,7 @@ public class GestoreUserTest {
 
 		User user = gestoreUserRemote.getUser("pippo");
 
-		/*
-		 * Test: modifico il cognome da "roi" a "la russa" dello user associato al nickname "pippo"
-		 */
+		//Test: modifico il cognome da "roi" a "la russa" dello user associato al nickname "pippo"
 		assertEquals(true, user.getCognome().equals("roi"));
 		assertEquals(true, gestoreUserRemote.modificaCognome("pippo", "la russa"));
 		
@@ -164,9 +145,8 @@ public class GestoreUserTest {
 
 		User user = gestoreUserRemote.getUser("pippo");
 
-		/*
-		 * Test: modifico il path dell'avatar da "/image/pippo.png" a "/image/pippo2.png" dello user associato al nickname "pippo"
-		 */
+		
+		//Test: modifico il path dell'avatar da "/image/pippo.png" a "/image/pippo2.png" dello user associato al nickname "pippo"
 		assertEquals(true, user.getAvatarPath().equals("/image/pippo.png"));
 		assertEquals(true, gestoreUserRemote.modificaAvatar("pippo", "/image/pippo2.png"));
 		
@@ -187,9 +167,7 @@ public class GestoreUserTest {
 
 		User user = gestoreUserRemote.getUser("pippo");
 
-		/*
-		 * Test: modifico la città da "cagliari" a "palermo" dello user associato al nickname "pippo"
-		 */
+		//Test: modifico la città da "cagliari" a "palermo" dello user associato al nickname "pippo"
 		assertEquals(true, user.getCitta().equals("cagliari"));
 		assertEquals(true, gestoreUserRemote.modificaCitta("pippo", "palermo"));
 		
@@ -210,9 +188,7 @@ public class GestoreUserTest {
 
 		User user = gestoreUserRemote.getUser("pippo");
 
-		/*
-		 * Test: modifico l'anno di nascita da "1988" a "1970" dello user associato al nickname "pippo"
-		 */
+		//Test: modifico l'anno di nascita da "1988" a "1970" dello user associato al nickname "pippo"
 		assertEquals(true, user.getAnnoNascita() == 1988);
 		assertEquals(true, gestoreUserRemote.modificaAnnoNascita("pippo", 1970));
 		
@@ -233,9 +209,7 @@ public class GestoreUserTest {
 
 		User user = gestoreUserRemote.getUser("pippo");
 
-		/*
-		 * Test: modifico il sesso da "maschio" a "femmina"dello user associato al nickname "pippo"
-		 */
+		//Test: modifico il sesso da "maschio" a "femmina"dello user associato al nickname "pippo"
 		assertEquals(true, user.getSesso().equals("maschio"));
 		assertEquals(true, gestoreUserRemote.modificaSesso("pippo", "femmina"));
 		

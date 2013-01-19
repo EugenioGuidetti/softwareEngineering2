@@ -119,7 +119,7 @@ public class User extends Profilo implements Serializable{
 	@OneToMany(mappedBy = "userDestinatario")
 	private Set<Aiuto> aiutiForniti;
 	
-	@OneToMany(mappedBy = "userProponente")
+	@OneToMany(mappedBy = "userProponente", cascade = CascadeType.REMOVE)	//se elimino lo user elimino tutte le proposta abilita inviate dallo stesso
 	private Set<PropostaAbilita> proposteInviate;
 	
 	public User() {

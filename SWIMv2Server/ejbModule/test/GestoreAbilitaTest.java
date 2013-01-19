@@ -42,33 +42,32 @@ public class GestoreAbilitaTest {
 	 */
 	@Test
 	public void testCreaElimina(){
-		/*
-		 * All'inizio nel sistema non sono presenti abilità
-		 */
+		
+		//Test: all'inizio nel sistema non sono presenti abilità
 		assertEquals(0, gestoreAbilitaRemote.getAbilitaSistema().size());
 		
-		/*
-		 * Creo una nuova abilita
-		 */
+		//Test: creo due nuova abilita
 		assertEquals(true, gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "path"));
+		assertEquals(true, gestoreAbilitaRemote.crea("cameriere", "per serate di gale", "path"));
 		
-		/*
-		 * Nel sistema ora è presente un'abilità associata all'id 1 (auto-generato)
-		 */
-		assertEquals(1, gestoreAbilitaRemote.getAbilitaSistema().size());
-		Abilita abilita = gestoreAbilitaRemote.getAbilita(1);
-		assertEquals(true, abilita.getId() == 1);
+		//Test: nel sistema ora sono presenti due abilita
+		assertEquals(2, gestoreAbilitaRemote.getAbilitaSistema().size());
 		
-		/*
-		 * Elimino l'abilità associata all'id uguale a 1
-		 */
-		assertEquals(true, gestoreAbilitaRemote.elimina(1));
+		//recupero l'abilità da eliminare
+		Abilita abilitaDaEliminare = gestoreAbilitaRemote.getAbilitaSistema().get(0);
 		
-		/*
-		 * A questo punto nel sistema non sono presenti abilità
-		 */
-		assertEquals(0, gestoreAbilitaRemote.getAbilitaSistema().size());
+		//Test: elimino l'abilità recuperata
+		assertEquals(true, gestoreAbilitaRemote.elimina(abilitaDaEliminare.getId()));
 		
+		//Test: verifico che nel sistema non ci sia più un'abiità identificata dall'id dell'abilità eliminata
+		for(Abilita abilita: gestoreAbilitaRemote.getAbilitaSistema()){
+			assertEquals(false, abilita.getId() == abilitaDaEliminare.getId());
+		}
+		
+		//Elimino le altre abilità per i test successivi
+		for(Abilita abilita: gestoreAbilitaRemote.getAbilitaSistema()){
+			gestoreAbilitaRemote.elimina(abilita.getId());
+		}
 	}
 	
 	/**
@@ -77,28 +76,20 @@ public class GestoreAbilitaTest {
 	 */
 	@Test
 	public void testGetAbilitaSistema(){
-		/*
-		 * All'inizio nel sistema non sono presenti abilità
-		 */
+		
+		//Test: all'inizio nel sistema non sono presenti abilità
 		assertEquals(true, gestoreAbilitaRemote.getAbilitaSistema().size() == 0);
 		
-		/*
-		 * Creo 3 abilita nel sistema
-		 */
+		//Creo 3 abilita nel sistema
 		gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "gigolò.png");
 		gestoreAbilitaRemote.crea("bagnino", "piscina", "bagnino.png");
 		gestoreAbilitaRemote.crea("meccanio", "pulizia carburatori", "meccanico.png");
 		
-		/*
-		 * Ora nel sistema sono presetni 3 abilità
-		 * 
-		 */
+		//Test: ora nel sistema sono presetni 3 abilità
 		List<Abilita> abilitaSistema = gestoreAbilitaRemote.getAbilitaSistema();
 		assertEquals(true, abilitaSistema.size() == 3);
 		
-		/*
-		 * Elimino tutte le abilità create per il test successivo
-		 */
+		//Elimino tutte le abilità create per il test successivo
 		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
 			gestoreAbilitaRemote.elimina(a.getId());
 		}
@@ -114,27 +105,21 @@ public class GestoreAbilitaTest {
 		List<Abilita> listaAbilita;
 		Set<Abilita> setAbilita = new HashSet<Abilita>();
 			
-		/*
-		 * Aggiungole 3 abilità nel sistema ed uno user
-		 */
+		//Aggiungole 3 abilità nel sistema ed uno user
 		gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "gigolò.png");
 		gestoreAbilitaRemote.crea("bagnino", "piscina", "bagnino.png");
 		gestoreAbilitaRemote.crea("meccanio", "pulizia carburatori", "meccanico.png");
 		
 		gestoreUserRemote.registra("vercingetorige", "pwd", "vercingetorige@mail.com", "filippo", "rossi", "vercingetorige.png", "milano", "maschio", 1987);
 		
-		/*
-		 * Modifico l'insieme delle abilità dello user associato al nickname "vercingetorige"
-		 */
+		//Modifico l'insieme delle abilità dello user associato al nickname "vercingetorige"
 		listaAbilita = gestoreAbilitaRemote.getAbilitaSistema();
 		for(Abilita abilita: listaAbilita) {
 			setAbilita.add(abilita);
 		}
 		gestoreUserRemote.modificaAbilitaDichiarate("vercingetorige", setAbilita);
 		
-		/*
-		 * Verifico se il numero di abilità dichiarate dallo user "vercingetorige" è pari a 3
-		 */
+		//Test: verifico se il numero di abilità dichiarate dallo user "vercingetorige" è pari a 3
 		assertEquals(true, gestoreAbilitaRemote.getAbilitaUser("vercingetorige").size() == 3);
 		
 		/*
