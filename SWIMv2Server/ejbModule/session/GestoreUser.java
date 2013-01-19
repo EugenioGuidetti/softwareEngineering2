@@ -1,10 +1,12 @@
 package session;
 
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import org.jboss.ejb3.annotation.RemoteBinding;
 import entity.Abilita;
@@ -215,6 +217,145 @@ public class GestoreUser implements GestoreUserRemote {
 			return false;
 		} catch (PersistenceException e) {
 			return false;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaPerAbilita(long idAbilita) {
+		List<User> userCercati;
+		
+		Query query = entityManager.createNamedQuery("ricercaPerAbilita");
+		query.setParameter("idAbilita", idAbilita);
+		
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
+		}	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaPerNome(String nome) {
+		List<User> userCercati;
+
+		Query query = entityManager.createNamedQuery("ricercaPerNome");
+		query.setParameter("nome", nome);
+
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaPerCognome(String cognome) {
+		List<User> userCercati;
+
+		Query query = entityManager.createNamedQuery("ricercaPerCognome");
+		query.setParameter("cognome", cognome);
+
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaPerNomeCognome(String nome, String cognome) {
+		List<User> userCercati;
+
+		Query query = entityManager.createNamedQuery("ricercaPerNomeCognome");
+		query.setParameter("nome", nome);
+		query.setParameter("cognome", cognome);
+
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaAmiciPerAbilita(String nickname, long idAbilita) {
+		List<User> userCercati;
+		User user = entityManager.find(User.class, nickname);
+
+		Query query = entityManager.createNamedQuery("ricercaAmiciPerAbilita");
+		query.setParameter("idAbilita", idAbilita);
+		query.setParameter("user", user);
+
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaAmiciPerNome(String nickname, String nome) {
+		List<User> userCercati;
+		User user = entityManager.find(User.class, nickname);
+
+		Query query = entityManager.createNamedQuery("ricercaAmiciPerNome");
+		query.setParameter("nome", nome);
+		query.setParameter("user", user);
+
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaAmiciPerCognome(String nickname, String cognome) {
+		User user = entityManager.find(User.class, nickname);
+		List<User> userCercati;
+
+		Query query = entityManager.createNamedQuery("ricercaAmiciPerCognome");
+		query.setParameter("cognome", cognome);
+		query.setParameter("user", user);
+
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> ricercaAmiciPerNomeCognome(String nickname, String nome,
+			String cognome) {
+		User user = entityManager.find(User.class, nickname);
+		List<User> userCercati;
+
+		Query query = entityManager.createNamedQuery("ricercaAmciPerNomeCognome");
+		query.setParameter("nome", nome);
+		query.setParameter("cognome", cognome);
+		query.setParameter("user", user);
+
+		try {
+			userCercati = query.getResultList();
+			return userCercati;
+		} catch (IllegalStateException e) {
+			return null;
 		}
 	}
 

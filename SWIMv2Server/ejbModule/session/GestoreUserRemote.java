@@ -1,5 +1,6 @@
 package session;
 
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Remote;
 import entity.Abilita;
@@ -9,6 +10,22 @@ import entity.User;
 public interface GestoreUserRemote {
 
 	User getUser(String nickname);
+	
+	List<User> ricercaPerAbilita(long idAbilita);
+	
+	List<User>	ricercaPerNome(String nome);
+	
+	List<User>	ricercaPerCognome(String cognome);
+
+	List<User>	ricercaPerNomeCognome(String nome, String cognome);
+
+	List<User> ricercaAmiciPerAbilita(String nickname, long idAbilita);
+
+	List<User>	ricercaAmiciPerNome(String nickname, String nome);
+
+	List<User>	ricercaAmiciPerCognome(String nickname, String cognome);
+
+	List<User>	ricercaAmiciPerNomeCognome(String nickname, String nome, String cognome);
 
 	boolean modificaPassword(String nickname, String password);
 
@@ -33,4 +50,5 @@ public interface GestoreUserRemote {
 	
 	boolean elimina(String nickname);
 
+	
 }

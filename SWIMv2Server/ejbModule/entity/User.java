@@ -10,7 +10,80 @@ import javax.persistence.*;
 			"FROM Amicizia a " +
 			"WHERE a.userRichiedente = :user " +
 			"AND momentoAccettazione IS NOT NULL " +
-			"ORDER BY a.userDestinatario")
+			"ORDER BY a.userDestinatario"),
+			
+	@NamedQuery( name = "ricercaPerAbilita", query = 
+			"SELECT u " +
+			"FROM Abilita a, User u " +
+			"WHERE a.id = :idAbilita " +
+			"AND u IN a.userDichiaranti " +
+			"ORDER BY u.nome"),
+	
+	@NamedQuery( name = "ricercaPerNome", query = 
+			"SELECT u " +
+			"FROM User u " +
+			"WHERE u.nome = :nome " +
+			"ORDER BY u.cognome"),
+			
+	@NamedQuery( name = "ricercaPerCognome", query = 
+			"SELECT u " +
+			"FROM User u " +
+			"WHERE u.cognome = :cognome " +
+			"ORDER BY u.nome"),
+			
+	@NamedQuery( name = "ricercaPerNomeCognome", query = 
+			"SELECT u " +
+			"FROM User u " +
+			"WHERE u.nome = :nome " +
+			"OR u.cognome = :cognome " +
+			"ORDER BY u.cognome, u.nome"),
+			
+	@NamedQuery( name = "ricercaAmiciPerAbilita", query = 
+			"SELECT u " +
+			"FROM Abilita a, User u " +
+			"WHERE a.id = :idAbilita " +
+			"AND u IN a.userDichiaranti " +
+			"AND u IN (" +
+				"SELECT a.userDestinatario " +
+				"FROM Amicizia a " +
+				"WHERE a.userRichiedente = :user " +
+				"AND momentoAccettazione IS NOT NULL)" +
+			"ORDER BY u.nome"),
+			
+	@NamedQuery( name = "ricercaAmiciPerNome", query = 
+			"SELECT u " +
+			"FROM User u " +
+			"WHERE u.nome = :nome " +
+			"AND u IN (" +
+				"SELECT a.userDestinatario " +
+				"FROM Amicizia a " +
+				"WHERE a.userRichiedente = :user " +
+				"AND momentoAccettazione IS NOT NULL)" +
+			"ORDER BY u.cognome"),
+			
+
+	@NamedQuery( name = "ricercaAmiciPerCognome", query = 
+			"SELECT u " +
+			"FROM User u " +
+			"WHERE u.cognome = :cognome " +
+			"AND u IN (" +
+				"SELECT a.userDestinatario " +
+				"FROM Amicizia a " +
+				"WHERE a.userRichiedente = :user " +
+				"AND momentoAccettazione IS NOT NULL)" +
+			"ORDER BY u.nome"),
+	
+	@NamedQuery( name = "ricercaAmiciPerNomeCognome", query = 
+			"SELECT u " +
+			"FROM User u " +
+			"WHERE (u.nome = :nome OR u.cognome = :cognome ) " +
+			"AND u IN (" +
+				"SELECT a.userDestinatario " +
+				"FROM Amicizia a " +
+				"WHERE a.userRichiedente = :user " +
+				"AND momentoAccettazione IS NOT NULL)" +
+			"ORDER BY u.cognome, u.nome"),
+	
 } )
 
 @Entity
