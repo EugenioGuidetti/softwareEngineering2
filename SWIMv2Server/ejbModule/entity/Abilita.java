@@ -15,10 +15,9 @@ import javax.persistence.*;
 			name = "abilitaUser", query = 
 			"SELECT a " +
 			"FROM Abilita a, User u " +
-			"WHERE a IN u.abilitaDichiarate " +
+			"WHERE a IN elements(u.abilitaDichiarate) " +
 			"AND u = :user " +
-			"ORDER BY a.nome"
-	)
+			"ORDER BY a.nome")
 } )
 
 

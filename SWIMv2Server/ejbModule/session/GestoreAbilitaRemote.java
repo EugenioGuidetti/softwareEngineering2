@@ -42,5 +42,15 @@ public interface GestoreAbilitaRemote {
 	 * @return			true, se l'operazione è andata a buon fine; false, altrimenti
 	 */
 	boolean crea(String nome, String descrizione, String iconaPath);
+	
+	/**
+	 * Il metodo serve per eliminare dal sistema l'abilità associata all'identificatore passato come parametro
+	 * (predisposto per future versioni
+	 * )
+	 * @param id	identificatore dell'abilità da eliminare
+	 * 
+	 * @return		true, se l'operazione va a buon fine; false, altrimenti.
+	 */
+	boolean elimina(long id);
 
 }

@@ -75,7 +75,7 @@ public interface GestoreAdminRemote {
 
 	/**
 	 * Il metodo serve per rimuovere il profilo di amministratore del sistema associato al nickname passato come parametro
-	 * (predisposto per future versione)
+	 * (predisposto per future versioni)
 	 * 
 	 * @param nickname	del profilo di amministratore da rimuover
 	 * 

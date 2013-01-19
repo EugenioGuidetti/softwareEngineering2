@@ -77,4 +77,22 @@ public class GestoreAbilita implements GestoreAbilitaRemote {
 		}
 	}
 
+	@Override
+	public boolean elimina(long id) {
+		Abilita abilita = entityManager.find(Abilita.class, id);
+		try {
+			entityManager.remove(abilita);
+			entityManager.flush();
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
+		} catch (IllegalArgumentException e) {
+			return false;
+		} catch (TransactionRequiredException e) {
+			return false;
+		} catch (PersistenceException e) {
+			return false;
+		}
+	}
+
 }

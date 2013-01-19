@@ -16,7 +16,7 @@ import javax.persistence.*;
 			"SELECT u " +
 			"FROM Abilita a, User u " +
 			"WHERE a.id = :idAbilita " +
-			"AND u IN a.userDichiaranti " +
+			"AND u IN elements(a.userDichiaranti) " +
 			"ORDER BY u.nome"),
 	
 	@NamedQuery( name = "ricercaPerNome", query = 
@@ -42,7 +42,7 @@ import javax.persistence.*;
 			"SELECT u " +
 			"FROM Abilita a, User u " +
 			"WHERE a.id = :idAbilita " +
-			"AND u IN a.userDichiaranti " +
+			"AND u IN elements(a.userDichiaranti) " +
 			"AND u IN (" +
 				"SELECT a.userDestinatario " +
 				"FROM Amicizia a " +
@@ -101,7 +101,7 @@ public class User extends Profilo implements Serializable{
 	@Column(name = "anno_nascita")
 	private int annoNascita;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)	//se elimino un utente elimino anche tutte le sue dichiarazioni di abilità
 	@JoinTable(name = "dichiarazione", 
 		joinColumns = @JoinColumn(name = "user_dichiarante", referencedColumnName = "nickname"), 
 		inverseJoinColumns = @JoinColumn(name = "abilita_dichiarata", referencedColumnName = "id") )
