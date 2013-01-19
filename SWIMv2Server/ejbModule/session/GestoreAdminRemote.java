@@ -61,4 +61,13 @@ public interface GestoreAdminRemote {
 	 */
 	boolean creaAdmin(String nickname, String password, String email, String nome, String cognome, String avatarPath);
 
+	/**
+	 * Il metodo serve per rimuovere il profilo di amministratore del sistema associato al nickname passato come parametro
+	 * (predisposto per future versione)
+	 * 
+	 * @param nickname	del profilo di amministratore da rimuover
+	 * 
+	 * @return			true, se l'operazione va a buon fine; false, altrimenti.
+	 */
+	boolean rimuoviAdmin(String nickname);
 }

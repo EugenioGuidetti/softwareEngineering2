@@ -34,7 +34,25 @@ public class GestoreAdminTest {
 		Object refAdmin = jndiContext.lookup("GestoreAdminJNDI");
 		gestoreAdminRemote = (GestoreAdminRemote) refAdmin;
 
-		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
+		
+	}
+	
+	/**
+	 * Verifica il funzionamento del metodo creAdmin(String nickname, String password, String email, String nome, 
+	 * 													String cognome, String avatarPath)
+	 * definito nella classe Gestore Admin del package session
+	 */
+	@Test
+	public void testCreaRimuoviAdmin(){
+		/*
+		 * Test: creo un utente amministratore con il nickname "admin"
+		 */
+		assertEquals(true, gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "path/admin.png"));
+		
+		/*
+		 * Test: rimuovo il profilo utente associato al nickname "admin"
+		 */
+		assertEquals(true, gestoreAdminRemote.rimuoviAdmin("admin"));
 	}
 
 	/**
@@ -42,6 +60,8 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testGetAdmin(){
+		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
+		
 		/*
 		 * Test: il profilo dell'utente amministratore deve avere i seguenti attributi:
 		 * nickname = "admin", password = "admin", email = "admin@mail.com", nome = "nome admin", cognome = "cognome admin" 
@@ -55,6 +75,8 @@ public class GestoreAdminTest {
 		assertEquals(true, admin.getNome().equals("nome admin"));
 		assertEquals(true, admin.getCognome().equals("cognome admin"));
 		assertEquals(true, admin.getAvatarPath().equals("avatar path admin"));
+		
+		gestoreAdminRemote.rimuoviAdmin("admin");
 	}
 	
 	/**
@@ -63,6 +85,8 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaPassword(){
+		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
+		
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
 		
 		/*
@@ -71,6 +95,8 @@ public class GestoreAdminTest {
 		assertEquals(true, admin.getPassword().equals("admin"));
 		admin.setPassword("passwordAdmin");
 		assertEquals(true, admin.getPassword().equals("passwordAdmin"));
+		
+		gestoreAdminRemote.rimuoviAdmin("admin");
 	}
 	
 
@@ -80,6 +106,8 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaEmail(){
+		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
+		
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
 		
 		/*
@@ -89,6 +117,8 @@ public class GestoreAdminTest {
 		assertEquals(true, admin.getEmail().equals("admin@mail.com"));
 		admin.setEmail("admin.admin@mail.com");
 		assertEquals(true, admin.getEmail().equals("admin.admin@mail.com"));
+		
+		gestoreAdminRemote.rimuoviAdmin("admin");
 	}
 	
 	/**
@@ -97,6 +127,8 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaNome(){
+		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
+		
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
 		
 		/*
@@ -105,6 +137,8 @@ public class GestoreAdminTest {
 		assertEquals(true, admin.getNome().equals("nome admin"));
 		admin.setNome("Admin");
 		assertEquals(true, admin.getNome().equals("Admin"));
+		
+		gestoreAdminRemote.rimuoviAdmin("admin");
 	}
 	
 	/**
@@ -113,6 +147,8 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaCognome(){
+		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
+		
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
 		
 		/*
@@ -121,6 +157,8 @@ public class GestoreAdminTest {
 		assertEquals(true, admin.getCognome().equals("cognome admin"));
 		admin.setCognome("Cognome");
 		assertEquals(true, admin.getCognome().equals("Cognome"));
+		
+		gestoreAdminRemote.rimuoviAdmin("admin");
 	}
 	
 }

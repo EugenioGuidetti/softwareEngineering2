@@ -80,4 +80,22 @@ public class GestoreAdmin implements GestoreAdminRemote {
 		}
 	}
 
+	@Override
+	public boolean rimuoviAdmin(String nickname) {
+		Admin admin = entityManager.find(Admin.class, nickname);
+		try {
+			entityManager.remove(admin);
+			entityManager.flush();
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
+		} catch (IllegalArgumentException e) {
+			return false;
+		} catch (TransactionRequiredException e) {
+			return false;
+		} catch (PersistenceException e) {
+			return false;
+		}
+	}
+
 }

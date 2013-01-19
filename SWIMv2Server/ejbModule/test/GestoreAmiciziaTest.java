@@ -11,9 +11,6 @@ public class GestoreAmiciziaTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+
 
 }

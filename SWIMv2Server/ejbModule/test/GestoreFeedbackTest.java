@@ -11,9 +11,6 @@ public class GestoreFeedbackTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+
 
 }
