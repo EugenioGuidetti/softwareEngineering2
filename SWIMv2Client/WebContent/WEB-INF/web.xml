@@ -49,4 +49,14 @@
     <servlet-name>PaginaAdmin</servlet-name>
     <url-pattern>/PaginaAdmin</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreaAbilita</display-name>
+    <servlet-name>CreaAbilita</servlet-name>
+    <servlet-class>servlet.CreaAbilita</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreaAbilita</servlet-name>
+    <url-pattern>/CreaAbilita</url-pattern>
+  </servlet-mapping>
 </web-app>

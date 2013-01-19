@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page import="utility.Messaggio" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,6 +13,16 @@
 			<div id="logo">
 				<img src="Immagini/logo.png" width="235" height="107">
 			</div>
+			<%
+				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
+				if(messaggio != null) {
+			%>
+					<div id="messaggio<%= messaggio.getTipo().toString() %>">
+						<center><%= messaggio.getTesto() %></center>
+					</div>
+			<%
+				}
+			%>
 			<div id="menuAdmin">
 				<!-- scrivere il menù per l'admin -->
 			</div>
@@ -34,7 +45,7 @@
 					<div id="titoloBox">
 						<center>Crea una nuova abilit&agrave;</center>
 					</div>
-					<form action="" method="post">
+					<form action="CreaAbilita" method="post">
 						<div id="informazioniBox">
 							<p>
 								<label for="nome">Nome:</label>

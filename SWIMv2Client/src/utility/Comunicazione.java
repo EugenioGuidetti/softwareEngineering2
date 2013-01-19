@@ -10,7 +10,12 @@ public final class Comunicazione {
 			"Congratulazioni! La registrazione è terminata con successo.";
 	private static final String ERRORE_SERVLET = 
 			"Ops! Qualcosa è andato storto, ci scusiamo per il disagio. Accedi di nuovo tra qualche istante.";
-	private static final String CREDENZIALI_NON_VALIDE = "Le tue credenziali di accesso non sono valide. Controllale meglio!";
+	private static final String CREDENZIALI_NON_VALIDE = 
+			"Le tue credenziali di accesso non sono valide. Controllale meglio!";
+	private static final String ERRORE_CREAZIONE_ABILITA = 
+			"Ops! Qualcosa è andato storto durante la creazione dell'abilita.";
+	private static final String CONFERMA_CREAZIONE_ABILITA = 
+			"Complimenti! L'abilità è stata creata con successo.";
 	
 	private Comunicazione() {
 		super();
@@ -38,6 +43,16 @@ public final class Comunicazione {
 	
 	public static Messaggio credenzialiNonValide() {
 		Messaggio messaggio = new Messaggio(TipoMessaggio.ERRORE, CREDENZIALI_NON_VALIDE);
+		return messaggio;
+	}
+	
+	public static Messaggio erroreCreazioneAbilita() {
+		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CREAZIONE_ABILITA);
+		return messaggio;
+	}
+	
+	public static Messaggio confermaCreazioneAbilita() {
+		Messaggio messaggio = new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_CREAZIONE_ABILITA);
 		return messaggio;
 	}
 }
