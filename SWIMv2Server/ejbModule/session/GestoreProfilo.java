@@ -3,6 +3,8 @@ package session;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.jboss.ejb3.annotation.RemoteBinding;
 import entity.Profilo;
 import entity.User;
@@ -35,11 +37,19 @@ public class GestoreProfilo implements GestoreProfiloRemote {
 
 	@Override
 	public String getRuolo(String nickname) {
-		User user = entityManager.find(User.class, nickname);
-		if(user == null) {
+		String ruolo;
+		
+		Query q = entityManager.createNativeQuery("SELECT ruolo FROM profilo WHERE nickname = :nickname");
+		q.setParameter("nickname", nickname);
+		
+		ruolo = (String) q.getSingleResult();
+		
+		if(ruolo.equals(ADMIN)){
 			return ADMIN;
 		}
-		return USER;
+		else{
+			return USER;
+		}
 	}
 
 	@Override

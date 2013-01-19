@@ -46,5 +46,20 @@ public interface GestoreAdminRemote {
 	 * @param cognome		nuovo cognome da sostituire a quello già esistente
 	 */
 	void modificaCognome(String nickname, String cognome);
+	
+	/**
+	 * Il metodo serve per creare un nuovo profilo a cui assegnare il ruolo di amministratore del sistema
+	 * (predisposto per future versioni)
+	 * 
+	 * @param nickname	del profilo a cui si vuole assegnare il ruolo di amministratore
+	 * @param password	del profilo a cui si vuole assegnare il ruolo di amministratore
+	 * @param email		del profilo a cui si vuole assegnare il ruolo di amministratore
+	 * @param nome		del profilo a cui si vuole assegnare il ruolo di amministratore
+	 * @param cognome	del profilo a cui si vuole assegnare il ruolo di amministratore
+	 * @param avatarPath	del profilo a cui si vuole assegnare il ruolo di amministratore
+	 * 
+	 * @return			true, se l'operazione va a buon fine; false, altrimenti.
+	 */
+	boolean creaAdmin(String nickname, String password, String email, String nome, String cognome, String avatarPath);
 
 }

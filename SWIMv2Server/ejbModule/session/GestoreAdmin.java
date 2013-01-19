@@ -3,6 +3,9 @@ package session;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
+
 import org.jboss.ejb3.annotation.RemoteBinding;
 import entity.Admin;
 
@@ -49,6 +52,33 @@ public class GestoreAdmin implements GestoreAdminRemote {
 		Admin admin = entityManager.find(Admin.class, nickname);
 		admin.setCognome(cognome);
 		entityManager.flush();
+	}
+
+	@Override
+	public boolean creaAdmin(String nickname, String password, String email, String nome, String cognome, String avatarPath) {
+		Admin admin = new Admin();
+		
+		admin.setNickname(nickname);
+		admin.setPassword(password);
+		admin.setEmail(email);
+		admin.setNome(nome);
+		admin.setCognome(cognome);
+		admin.setAvatarPath(avatarPath);
+		
+		try {
+			System.out.println("provo a creare admin");
+			entityManager.persist(admin);
+			entityManager.flush();
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
+		} catch (IllegalArgumentException e) {
+			return false;
+		} catch (TransactionRequiredException e) {
+			return false;
+		} catch (PersistenceException e) {
+			return false;
+		}
 	}
 
 }

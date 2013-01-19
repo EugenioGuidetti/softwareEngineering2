@@ -19,13 +19,13 @@ public class User extends Profilo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "citta", nullable = false)
+	@Column(name = "citta")
 	private String citta;
 
-	@Column(name = "sesso", nullable = false)
+	@Column(name = "sesso")
 	private String sesso;
 
-	@Column(name = "anno_nascita", nullable = false)
+	@Column(name = "anno_nascita")
 	private int annoNascita;
 	
 	@ManyToMany
