@@ -29,15 +29,17 @@ public class CompletamentoRegistrazione extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			RequestDispatcher dispatcher;
-			Context context = new InitialContext();
-			GestoreAbilitaRemote gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			GestoreUserRemote gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-			String nickname = (String) request.getAttribute("nickname");
-			String[] abilitaScelte = request.getParameterValues("abilitaScelte");			
-			Set<Abilita> abilitaDichiarate = new HashSet<Abilita>();
-			request.setAttribute("messaggio", Comunicazione.registrazioneCompletata());
+		RequestDispatcher dispatcher;
+		Context context;
+		GestoreUserRemote gestoreUser;
+		GestoreAbilitaRemote gestoreAbilita;
+		String nickname = (String) request.getAttribute("nickname");
+		String[] abilitaScelte = request.getParameterValues("abilitaScelte");		
+		Set<Abilita> abilitaDichiarate = new HashSet<Abilita>();	
+		try { 
+			context = new InitialContext(); 
+			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 			if(abilitaScelte != null) {
 				for(String abilitaScelta: abilitaScelte) {
 					try {
@@ -49,6 +51,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 				}
 				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
 			}
+			request.setAttribute("messaggio", Comunicazione.registrazioneCompletata());
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		} catch (NamingException namingE) {

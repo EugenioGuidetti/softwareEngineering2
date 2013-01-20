@@ -23,8 +23,29 @@
 			<%
 				}
 			%>
-			<div id="menuAdmin">
-				<!-- scrivere il menù per l'admin -->
+			<div id="menu">
+				<ul>
+					<li>
+						<a href="PaginaAdmin">
+							<button type="button">&rarr; Pagina Admin</button>
+						</a>
+					</li>
+					<li>
+						<a>
+							<button type="button">Gestione Proposte</button>
+						</a>
+					</li>
+					<li>
+						<a>
+							<button type="button">Monitor Sistema</button>
+						</a>
+					</li>
+					<li>
+						<a href="Logout">
+							<button type="button">Logout</button>
+						</a>
+					</li>
+				</ul>
 			</div>
 			<div id="body">
 				<div id="boxLeft">
@@ -32,14 +53,19 @@
 						<center>Informazioni personali</center>
 					</div>
 					<div id="informazioniBox">
-						<div id="infoAdmin">							
+						<div id="infoProfilo">							
 							<div id="avatar">
-								<img src="<%= request.getAttribute("avatar") %>" width="70" height="70">
+								<img src="<%= request.getAttribute("avatar") %>" width="65" height="65">
 							</div>
-							<div id="testo"><%= request.getAttribute("nome") %> <%= request.getAttribute("cognome") %><br>&rarr; <%= request.getSession().getAttribute("nickname") %></div>
+							<div id="testo"><%= request.getAttribute("nome") %> <%= request.getAttribute("cognome") %><br>@<%= request.getSession().getAttribute("nickname") %></div>
 						</div>
-						<div id="altreInfoAdmin">Email:<br><%= request.getAttribute("email") %></div>
+						<div id="altreInfoProfilo">Email: <%= request.getAttribute("email") %></div>
 					</div>
+					<center>
+						<a href="modificaInfoAdmin.jsp">
+							<button id="pulsante" type="button">Modifica informazioni</button>
+						</a>
+					</center>
 				</div>
 				<div id="boxRight">
 					<div id="titoloBox">

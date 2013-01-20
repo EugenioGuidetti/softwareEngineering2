@@ -40,6 +40,33 @@ body {
 	background-color: #F11111;
 }
 
+#menu {
+	border: 1px solid grey;
+	border-radius: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+	padding-bottom: 15px;
+	background-color: #CFE7F5;
+	overflow: auto;
+}
+
+#menu ul {
+	list-style: none;
+	margin-left: -40px;
+}
+
+#menu li {
+	float: left;
+}
+
+#menu button {
+	height: 30px;
+	width: 175px;
+	font-weight: bold;
+	margin-left: 21px;
+	margin-right: 21px;
+}
+
 #boxLeft, #boxRight, #boxCenter {
 	border: 1px solid grey;
 	border-radius: 15px;
@@ -77,30 +104,41 @@ body {
 	margin-right: 10px;
 }
 
-#infoAdmin, #altreInfoAdmin {
-	text-align:left;
-	border: 1px solid grey;
-	border-radius: 5px;
-	background-color: white;
-	padding: 10px;
-	width: 339px;
+#infoProfilo, #altreInfoProfilo {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
 	overflow: auto;
 }
 
-#infoAdmin {
-	margin-bottom: 5px;
+#altreInfoProfilo {
+	padding: 10px;
+	background-color: white;
+	border: 1px solid grey;
+	border-radius: 5px;
+	text-align:left;
+}
+
+#avatar, #testo {
+	border: 1px solid grey;
+	border-radius: 5px;
+	background-color: white;
+	float: left;
 }
 
 #avatar {
-	float:left;
-	margin-right: 10px;
+	margin-right: 5px;
+	padding: 5px;
 }
 
 #testo {
 	font-size: 20px;
-	float:left;
-	margin-left: 10px;
+	margin-left: 5px;
 	padding-top: 10px;
+	padding-left:15px;
+	text-align: left;
+	width: 235px;
+	height: 65px;
 }
 
 #checkAbilita input {
@@ -130,7 +168,7 @@ body {
 }
 
 #pulsante {
-	width: 150px;
+	width: 200px;
 	height: 30px;
 	font-weight: bold;
 }
