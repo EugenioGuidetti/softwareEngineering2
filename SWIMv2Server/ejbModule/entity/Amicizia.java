@@ -26,7 +26,11 @@ import javax.persistence.*;
 } )
 
 @Entity
-@Table(name = "amicizia")
+@Table(name = "amicizia", uniqueConstraints = {
+							@UniqueConstraint(columnNames = {"user_richiedente", "user_destinatario"} )
+							}
+		)
+
 public class Amicizia implements Serializable {
 
 	private static final long serialVersionUID = 1L;

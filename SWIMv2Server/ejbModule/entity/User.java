@@ -107,10 +107,10 @@ public class User extends Profilo implements Serializable{
 		inverseJoinColumns = @JoinColumn(name = "abilita_dichiarata", referencedColumnName = "id") )
 	private Set<Abilita> abilitaDichiarate;
 	
-	@OneToMany(mappedBy = "userRichiedente")
+	@OneToMany(mappedBy = "userRichiedente", cascade = CascadeType.REMOVE)	//se elimino un utente elimino anche tutte le richieste di amicizia da lui inviate
 	private Set<Amicizia> amicizieRichieste;
 	
-	@OneToMany(mappedBy = "userDestinatario")
+	@OneToMany(mappedBy = "userDestinatario", cascade = CascadeType.REMOVE)	//se elimino un utente elimino anche tutte le richieste di amicizia a lui destinate
 	private Set<Amicizia> amicizieRicevute;
 	
 	@OneToMany(mappedBy = "userRichiedente")
