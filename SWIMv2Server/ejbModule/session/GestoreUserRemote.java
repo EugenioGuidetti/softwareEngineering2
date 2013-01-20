@@ -46,12 +46,12 @@ public interface GestoreUserRemote {
 	List<User>	ricercaPerCognome(String cognome);
 
 	/**
-	 * Il metodo serve per cercare tutti gli User che hanno un nome o un cognome uguale a quelli passati come parametri
+	 * Il metodo serve per cercare tutti gli User che hanno un nome ed un cognome uguale a quelli passati come parametri
 	 * 
 	 * @param nome		dello user che ha il ruolo di filtro nella ricerca
 	 * @param cognome	dello user che ha il ruolo di filtro nella ricerca
 	 * 
-	 * @return		lista degli User che hanno il nome o il cognome uguali a quelli passati come parametri
+	 * @return		lista degli User che hanno il nome ed il cognome uguali a quelli passati come parametri
 	 */
 	List<User>	ricercaPerNomeCognome(String nome, String cognome);
 

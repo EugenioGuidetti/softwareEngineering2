@@ -35,7 +35,7 @@ import javax.persistence.*;
 			"SELECT u " +
 			"FROM User u " +
 			"WHERE u.nome = :nome " +
-			"OR u.cognome = :cognome " +
+			"AND u.cognome = :cognome " +
 			"ORDER BY u.cognome, u.nome"),
 			
 	@NamedQuery( name = "ricercaAmiciPerAbilita", query = 
@@ -106,7 +106,7 @@ public class User extends Profilo implements Serializable{
 	private int annoNascita;
 	
 	@ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)	//se elimino un utente elimino anche tutte le sue dichiarazioni di abilità
-	@JoinTable(name = "dichiarazione", 
+	@JoinTable(name = "dichiarazione",
 		joinColumns = @JoinColumn(name = "user_dichiarante", referencedColumnName = "nickname"), 
 		inverseJoinColumns = @JoinColumn(name = "abilita_dichiarata", referencedColumnName = "id") )
 	private Set<Abilita> abilitaDichiarate;

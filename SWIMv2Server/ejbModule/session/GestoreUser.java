@@ -1,5 +1,6 @@
 package session;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -204,7 +205,11 @@ public class GestoreUser implements GestoreUserRemote {
 
 	@Override
 	public boolean elimina(String nickname) {
+		//elimino tutte le dichiarazioni di abilità dello user
+		modificaAbilitaDichiarate(nickname, new HashSet<Abilita>());
+		
 		User user = entityManager.find(User.class, nickname);
+				
 		try {
 			entityManager.remove(user);
 			entityManager.flush();
