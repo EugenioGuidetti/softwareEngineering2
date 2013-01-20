@@ -33,7 +33,6 @@ public class CreaAbilita extends HttpServlet {
 		try {
 			context = new InitialContext();
 			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			gestoreAbilita.crea(nome, descrizione, iconaPath);
 			if(gestoreAbilita.crea(nome, descrizione, iconaPath)) {
 				request.setAttribute("messaggio", Comunicazione.confermaCreazioneAbilita());
 				dispatcher.forward(request, response);
