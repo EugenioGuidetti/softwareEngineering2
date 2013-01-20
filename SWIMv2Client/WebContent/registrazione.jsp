@@ -34,13 +34,13 @@
 								for (Abilita abilita : abilitaSistema) {
 							%>
 									<div id="checkAbilita">
-										<input name="abilitaScelte" type="checkbox" value="<%=abilita.getId()%>">
+										<input name="abilitaScelte" type="checkbox" value="<%= abilita.getId() %>">
 										<div id="corpoAbilita">
 											<%=abilita.getNome()%><br>
-											<i>&ldquo;<%=abilita.getDescrizione()%>&rdquo;</i>
+											<i>&ldquo;<%= abilita.getDescrizione() %>&rdquo;</i>
 										</div>
 										<div id="iconaAbilita">
-											<img src="<%=abilita.getIconaPath()%>" width="65" height="65">
+											<img src="<%= abilita.getIconaPath() %>" width="65" height="65">
 										</div>
 									</div>
 							<%

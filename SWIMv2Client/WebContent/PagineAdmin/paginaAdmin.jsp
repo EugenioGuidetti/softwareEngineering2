@@ -31,7 +31,7 @@
 						</a>
 					</li>
 					<li>
-						<a>
+						<a href="GestioneProposte">
 							<button type="button">Gestione Proposte</button>
 						</a>
 					</li>
