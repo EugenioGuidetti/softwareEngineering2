@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -69,27 +70,39 @@ public class GestoreAmicizia implements GestoreAmiciziaRemote {
 	}
 
 	@Override
-	public boolean inviaRichiesta(String nicknameRichiedente, String nicknameDestinatario,
-			Calendar momentoRichiesta) {
+	public boolean inviaRichiesta(String nicknameRichiedente, String nicknameDestinatario, Calendar momentoRichiesta) {
 		Amicizia amicizia = new Amicizia();
 		User userRichiedente = entityManager.find(User.class, nicknameRichiedente);
 		User userDestinatario = entityManager.find(User.class, nicknameDestinatario);
-		amicizia.setUserRichiedente(userRichiedente);
-		amicizia.setUserDestinatario(userDestinatario);
-		amicizia.setMomentoRichiesta(momentoRichiesta);
-		try {
-			entityManager.persist(amicizia);
-			entityManager.flush();
-			return true;
-		} catch (IllegalStateException e) {
-			return false;
-		} catch (IllegalArgumentException e) {
-			return false;
-		} catch (TransactionRequiredException e) {
-			return false;
-		} catch (PersistenceException e) {
+		
+		/*
+		 * prima di inoltrare la richiesta di amicizia verifico se è già presente una richiesta di amicizia tra i due user
+		 * o se tra di essi è già presente un rapporto di amicizia
+		 */
+		if(! controllaAmici(nicknameRichiedente, nicknameDestinatario)){
+			//richiesta non presente e userDestinatario non è già amico di userRichiedente
+			amicizia.setUserRichiedente(userRichiedente);
+			amicizia.setUserDestinatario(userDestinatario);
+			amicizia.setMomentoRichiesta(momentoRichiesta);
+			try {
+				entityManager.persist(amicizia);
+				entityManager.flush();
+				return true;
+			} catch (IllegalStateException e) {
+				return false;
+			} catch (IllegalArgumentException e) {
+				return false;
+			} catch (TransactionRequiredException e) {
+				return false;
+			} catch (PersistenceException e) {
+				return false;
+			}
+		}
+		else{
+			//richiesta già presente o userDestinatario è già amico di userRichiedente
 			return false;
 		}
+		
 	}
 
 	@Override
@@ -126,4 +139,24 @@ public class GestoreAmicizia implements GestoreAmiciziaRemote {
 		}
 	}
 
+	@SuppressWarnings("unused")
+	@Override
+	public boolean controllaAmici(String nicknameRichiedente, String nicknameDestinatario) {
+		Amicizia amicizia;
+		User userRichiedente = entityManager.find(User.class, nicknameRichiedente);
+		User userDestinatario = entityManager.find(User.class, nicknameDestinatario);
+
+		Query query = entityManager.createNamedQuery("controllaAmici");
+		query.setParameter("userRichiedente", userRichiedente);
+		query.setParameter("userDestinatario", userDestinatario);
+		
+		try{
+			amicizia = (Amicizia) query.getSingleResult();
+			return true;
+		}catch (NoResultException e) {
+			return false;
+		}
+	}
+
+	
 }

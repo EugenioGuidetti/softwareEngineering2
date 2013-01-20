@@ -82,10 +82,35 @@ public class GestoreAmiciziaTest {
 
 	}
 	
+	/**
+	 * Verifica che uno user che abbia già inoltrato una richiesta di amicizia ad un altro user non ne possa inoltrare un'altra
+	 * mentre la prima è ancora in sospeso
+	 */
 	@Test
 	public void testInviaRichiestaGiaPresente(){
-		assert(true);
+		//creo due user
+		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
+		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
+		
+		//Test: lo user "toto" invia una richiesta di amicizia allo user "pippo"
+		Calendar momentoRichiesta = new GregorianCalendar();
+		assertEquals(true, gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta));
+
+		//Recupero la richiesta di amicizia inviata
+		Amicizia amiciziaInviata = gestoreAmiciziaRemote.getRichiesteInviate("toto").get(0);
+
+		//Test: verifico che il momento di accettazione sia null (richiesta in sospeso)
+		assertEquals(null, amiciziaInviata.getMomentoAccettazione());
+		
+		//Test: lo user "toto" invia una nuova richiesta di amicizia allo user "pippo" nonostante ci sia una richiesta in sospeso
+		momentoRichiesta = new GregorianCalendar();
+		assertEquals(false, gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta));
+	
+		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
+		gestoreUserRemote.elimina("toto");
+		gestoreUserRemote.elimina("pippo");
 	}
+	
 
 	/**
 	 * Verifica il funzionamento dei metodi:
@@ -138,6 +163,50 @@ public class GestoreAmiciziaTest {
 		gestoreUserRemote.elimina("toto");
 		gestoreUserRemote.elimina("pippo");
 	}
+	
+	/**
+	 * Verifica che uno user che abbia già allacciato un rapporto di amicizia con un altro user non possa inviare a quest'ultimo
+	 * un'altra richiesta di amicizia
+	 */
+	@Test
+	public void testInviaRichiestaGiaAmici(){
+		//creo due user
+		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
+		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
+
+		//lo user "toto" invia una richiesta di amicizia allo user "pippo"
+		Calendar momentoRichiesta = new GregorianCalendar();
+		gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta);
+
+		//inserisco una sleep per far trascorrere qualche secondo
+		try {
+			Thread.sleep(4000);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+
+		//recupero la richiesta di amicizia da accettare
+		Amicizia amiciziaDaAccettare = gestoreAmiciziaRemote.getRichiesteRicevute("pippo").get(0);
+
+		//Test: lo user "pippo" accetta la richiesta di amicizia ricevuta dallo user "toto"
+		Calendar momentoAccettazione = new GregorianCalendar();
+		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
+
+		//recupero la richiesta di amicizia accettata
+		Amicizia amiciziaAccettata = gestoreAmiciziaRemote.getAmicizieAllacciate("toto").get(0);
+
+		//Test: verifico che il momento di accettazione della richiesta di amicizia accettata sia diverso da null
+		assertEquals(false, amiciziaAccettata.getMomentoAccettazione() == null);
+
+		//lo user "toto" invia una nuova richiesta di amicizia allo user "pippo"
+		momentoRichiesta = new GregorianCalendar();
+		assertEquals(false, gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta));
+				
+		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
+		gestoreUserRemote.elimina("toto");
+		gestoreUserRemote.elimina("pippo");
+	}
+	
 
 	/**
 	 * Verifica il funzionamento del metodo rimuovi(long id) definito nella classe GestoreAmicizia del package session

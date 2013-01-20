@@ -69,4 +69,16 @@ public interface GestoreAmiciziaRemote {
 	 */
 	boolean rimuovi(long id);
 
+	/**
+	 * Il metodo serve per controllare se gli user associati ai due nickname passati come parametri sono già amici o se 
+	 * esiste una richiesta di amicizia pendente (non ancora accettata o rifiutata=
+	 * 
+	 * @param nicknameRichiedente
+	 * @param nicknameDestinatario
+	 * 
+	 * @return		true, se tra gli user associati ai nickname passati come parametri è già stato un rapporto di amicizia
+	 * 					oppure è presente una richiesta di amicizia pendente;
+	 * 				false, altrimenti.
+	 */
+	boolean controllaAmici(String nicknameRichiedente, String nicknameDestinatario);
 }
