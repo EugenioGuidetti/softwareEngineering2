@@ -101,7 +101,7 @@ public class User extends Profilo implements Serializable{
 	@Column(name = "anno_nascita")
 	private int annoNascita;
 	
-	@ManyToMany(cascade = CascadeType.REMOVE)	//se elimino un utente elimino anche tutte le sue dichiarazioni di abilità
+	@ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)	//se elimino un utente elimino anche tutte le sue dichiarazioni di abilità
 	@JoinTable(name = "dichiarazione", 
 		joinColumns = @JoinColumn(name = "user_dichiarante", referencedColumnName = "nickname"), 
 		inverseJoinColumns = @JoinColumn(name = "abilita_dichiarata", referencedColumnName = "id") )

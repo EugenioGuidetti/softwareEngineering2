@@ -1,10 +1,18 @@
 package test;
 
 import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.naming.Context;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import entity.Abilita;
 import entity.User;
+import session.GestoreAbilitaRemote;
 import session.GestoreUserRemote;
 
 /**
@@ -14,25 +22,30 @@ import session.GestoreUserRemote;
  *
  */
 public class GestoreUserTest {
+	
 	/*
 	 * Definisco il contesto per poter agganciare il test alle session
 	 */
-	static private Context jndiContext;  
-	static private GestoreUserRemote gestoreUserRemote;
-
-	/*
-	 * 
-	 * Definisco il contesto, agganciando i gestori remoti attraverso le lookup
-	 * Definisco le condizioni iniziali del database inserendo l'utente admin
-	 */
+	 static private Context jndiContext;  
+     static private GestoreAbilitaRemote gestoreAbilitaRemote;
+     static private GestoreUserRemote gestoreUserRemote;
+     
+     /*
+      * Definisco il contesto, agganciando i gestori remoti attraverso le lookup
+      * Definisco le condizioni iniziali del database inserendo l'utente admin
+      */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-
+		
 		jndiContext = SupportoTest.getInitialContext();
-
+		
+		Object refAbilita = jndiContext.lookup("GestoreAbilitaJNDI");
+		gestoreAbilitaRemote = (GestoreAbilitaRemote) refAbilita;
+		
 		Object refUser = jndiContext.lookup("GestoreUserJNDI");
 		gestoreUserRemote = (GestoreUserRemote) refUser;
 	}
+
 
 	/**
 	 * Verifica il funzionamento del metodo registra(String nickname, String password, String email, String nome, 
@@ -218,6 +231,52 @@ public class GestoreUserTest {
 
 		gestoreUserRemote.elimina("pippo");
 
+	}
+	
+	/**
+	 * Verifica il funzionamento del metodo  modificaAbilitaDichiarate(String nickname, Set<Abilita> abilitaDichiarate) definito
+	 * nella classe GestoreUser del package session
+	 */
+	@Test
+	public void testModificaAbilitaDichiarate(){
+			
+		List<Abilita> listaAbilitaSistema;
+		Set<Abilita> abilitaUser;
+		Set<Abilita> setAbilita = new HashSet<Abilita>();
+			
+		//Aggiungo 3 abilità nel sistema (inizialmente vuoto)
+		gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "gigolò.png");
+		gestoreAbilitaRemote.crea("bagnino", "piscina", "bagnino.png");
+		gestoreAbilitaRemote.crea("meccanio", "pulizia carburatori", "meccanico.png");
+		
+		//Creo uno user
+		gestoreUserRemote.registra("vercingetorige", "pwd", "vercingetorige@mail.com", "filippo", "rossi", "vercingetorige.png", "milano", "maschio", 1987);
+		
+		//Test: verifico che l'insieme delle abilità dichiarate dallo user è vuoto
+		assertEquals(true, gestoreUserRemote.getUser("vercingetorige").getAbilitaDichiarate().isEmpty());
+		
+		// Test: modifico l'insieme delle abilità dello user associato al nickname "vercingetorige".
+		listaAbilitaSistema = gestoreAbilitaRemote.getAbilitaSistema();
+		for(Abilita abilita: listaAbilitaSistema) {
+			setAbilita.add(abilita);
+		}
+		assertEquals(true, gestoreUserRemote.modificaAbilitaDichiarate("vercingetorige", setAbilita));
+		
+		//recupero le abilità dichiarate dallo user
+		abilitaUser = gestoreUserRemote.getUser("vercingetorige").getAbilitaDichiarate();
+		
+		//Test: dopo la modifica l'insieme delle abilità dichiarate dalla user coinciderà con quello delle abilità disponibili nel sistema
+		assertEquals(3, abilitaUser.size());
+		
+		/*
+		 * Elimino lo user "vercingetorige"
+		 * Elimino tutte le abilità create per il test successivo
+		 */
+		gestoreUserRemote.elimina("vercingetorige");
+		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
+			gestoreAbilitaRemote.elimina(a.getId());
+		}
+		
 	}
 
 }
