@@ -113,10 +113,10 @@ public class User extends Profilo implements Serializable{
 	@OneToMany(mappedBy = "userDestinatario", cascade = CascadeType.REMOVE)	//se elimino un utente elimino anche tutte le richieste di amicizia a lui destinate
 	private Set<Amicizia> amicizieRicevute;
 	
-	@OneToMany(mappedBy = "userRichiedente")
+	@OneToMany(mappedBy = "userRichiedente", cascade = CascadeType.REMOVE)	//se elimino un utente elimino anche tutte le richieste di aiuto da lui inviate
 	private Set<Aiuto> aiutiRichiesti;
 	
-	@OneToMany(mappedBy = "userDestinatario")
+	@OneToMany(mappedBy = "userDestinatario", cascade = CascadeType.REMOVE)	//se elimino un utente elimino anche tutte le richieste di aiuto a lui inviate
 	private Set<Aiuto> aiutiForniti;
 	
 	@OneToMany(mappedBy = "userProponente", cascade = CascadeType.REMOVE)	//se elimino lo user elimino tutte le proposta abilita inviate dallo stesso

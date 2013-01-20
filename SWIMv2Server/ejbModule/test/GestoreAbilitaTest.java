@@ -21,7 +21,6 @@ public class GestoreAbilitaTest {
      
      /*
       * Definisco il contesto, agganciando i gestori remoti attraverso le lookup
-      * Definisco le condizioni iniziali del database inserendo l'utente admin
       */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

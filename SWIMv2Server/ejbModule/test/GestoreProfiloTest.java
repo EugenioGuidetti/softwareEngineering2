@@ -28,7 +28,6 @@ public class GestoreProfiloTest {
       
      /*
       * Definisco il contesto, agganciando i gestori remoti attraverso le lookup
-      * Definisco le condizioni iniziali del database inserendo due utenti: l'admin e lo user pippo
       */
      @BeforeClass
      public static void setUpBeforeClass() throws NamingException {

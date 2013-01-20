@@ -59,7 +59,7 @@ public class GestoreAiuto implements GestoreAiutoRemote {
 	public List<Aiuto> getAiutiRicevutiEForniti(String nickname) {
 		List<Aiuto> aiutiRicevutiEForniti;
 		User user = entityManager.find(User.class, nickname);
-		Query query = entityManager.createNamedQuery("aiutiRicevutEForniti");
+		Query query = entityManager.createNamedQuery("aiutiRicevutiEForniti");
 		query.setParameter("user", user);
 		try {
 			aiutiRicevutiEForniti = query.getResultList();
@@ -128,6 +128,36 @@ public class GestoreAiuto implements GestoreAiutoRemote {
 			return false;
 		} catch (PersistenceException e) {
 			return false;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aiuto> getAiutiRicevuti(String nickname) {
+		List<Aiuto> aiutiRicevuti;
+		User user = entityManager.find(User.class, nickname);
+		Query query = entityManager.createNamedQuery("aiutiRicevuti");
+		query.setParameter("user", user);
+		try {
+			aiutiRicevuti = query.getResultList();
+			return aiutiRicevuti;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aiuto> getAiutiForniti(String nickname) {
+		List<Aiuto> aiutiForniti;
+		User user = entityManager.find(User.class, nickname);
+		Query query = entityManager.createNamedQuery("aiutiForniti");
+		query.setParameter("user", user);
+		try {
+			aiutiForniti = query.getResultList();
+			return aiutiForniti;
+		} catch (IllegalStateException e) {
+			return null;
 		}
 	}
 
