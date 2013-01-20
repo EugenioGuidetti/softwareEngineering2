@@ -84,6 +84,10 @@ import javax.persistence.*;
 				"AND momentoAccettazione IS NOT NULL)" +
 			"ORDER BY u.cognome, u.nome"),
 	
+	@NamedQuery( name = "getTuttiUser", query = 
+			"SELECT u " +
+			"FROM User u")
+	
 } )
 
 @Entity

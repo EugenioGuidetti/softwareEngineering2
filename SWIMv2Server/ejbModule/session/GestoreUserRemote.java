@@ -226,6 +226,13 @@ public interface GestoreUserRemote {
 	 * @return		true, se l'operazione è andata a buon fine; false, altrimenti.
 	 */
 	boolean elimina(String nickname);
+	
+	/**
+	 * Il metodo serve per recuperare tutti gli User esistenti nel sistema
+	 * 
+	 * @return		lista degli User esistenti nel sistema
+	 */
+	List<User> getUserSistema();
 
 	
 }

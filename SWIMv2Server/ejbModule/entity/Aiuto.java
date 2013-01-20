@@ -75,7 +75,7 @@ public class Aiuto implements Serializable{
 	@JoinColumn(name = "user_destinatario", referencedColumnName = "nickname", nullable = false)
 	private User userDestinatario;
 	
-	@OneToOne(mappedBy = "aiutoValutato", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "aiutoValutato")
 	private Feedback feedRicevuto;
 	
 	public Aiuto() {

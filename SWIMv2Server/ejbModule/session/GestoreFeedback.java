@@ -28,25 +28,33 @@ public class GestoreFeedback implements GestoreFeedbackRemote {
 	}
 
 	@Override
-	public boolean rilascia(long idAiuto, int valutazioneNumerica,
-			String valutazioneEstesa, Calendar momentoRilascio) {
+	public boolean rilascia(long idAiuto, int valutazioneNumerica, String valutazioneEstesa, Calendar momentoRilascio) {
 		Feedback feedback = new Feedback();
 		Aiuto aiutoValutato = entityManager.find(Aiuto.class, idAiuto);
-		feedback.setId(idAiuto);
-		feedback.setValutazioneNumerica(valutazioneNumerica);
-		feedback.setValutazioenEstesa(valutazioneEstesa);
-		feedback.setAiutoValutato(aiutoValutato);
-		try {
-			entityManager.persist(feedback);
-			entityManager.flush();
-			return true;
-		} catch (IllegalStateException e) {
-			return false;
-		} catch (IllegalArgumentException e) {
-			return false;
-		} catch (TransactionRequiredException e) {
-			return false;
-		} catch (PersistenceException e) {
+		//verifico che l'aiuto valutato si riferisca ad una richiesta di aiuto accettata
+		if(aiutoValutato.getMomentoAccettazione() != null){
+			//l'aiuto da valutare corrisponde ad una richiesta di aiuto accettata
+			feedback.setId(idAiuto);
+			feedback.setValutazioneNumerica(valutazioneNumerica);
+			feedback.setValutazioenEstesa(valutazioneEstesa);
+			feedback.setAiutoValutato(aiutoValutato);
+			try {
+				entityManager.persist(feedback);
+				entityManager.flush();
+				System.out.println("gestore feedback... idAiuto: "+ idAiuto);
+				return true;
+			} catch (IllegalStateException e) {
+				return false;
+			} catch (IllegalArgumentException e) {
+				return false;
+			} catch (TransactionRequiredException e) {
+				return false;
+			} catch (PersistenceException e) {
+				return false;
+			}
+		}
+		else{
+			//l'aiuto da valutare è ancora una richiesta
 			return false;
 		}
 	}

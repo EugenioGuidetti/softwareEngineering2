@@ -277,5 +277,21 @@ public class GestoreUserTest {
 		}
 		
 	}
+	
+	/**
+	 * Verifica il funzionamento del metodo getUserSistema() definito nella classe GestoreUser del package session
+	 */
+	@Test
+	public void testUserSistema(){
+		//Test: all'inizio nel sistema non sono presenti user
+		assertEquals(0, gestoreUserRemote.getUserSistema().size());
+		
+		//aggiungo due utenti al sistema
+		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
+		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
+
+		//Test: nel sistema ora sono presenti 2 user
+		assertEquals(2, gestoreUserRemote.getUserSistema().size());
+	}
 
 }

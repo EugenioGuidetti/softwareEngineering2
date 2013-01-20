@@ -359,4 +359,18 @@ public class GestoreUser implements GestoreUserRemote {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getUserSistema() {
+		List<User> userSistema;
+		
+		Query query = entityManager.createNamedQuery("getTuttiUser");
+		try {
+			userSistema = query.getResultList();
+			return userSistema;
+		} catch (IllegalStateException e) {
+			return null;
+		}
+	}
+
 }

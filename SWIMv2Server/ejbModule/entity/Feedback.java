@@ -8,20 +8,18 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "feedback")
+@GenericGenerator(
+			name = "aiuto_foreignKey",
+			strategy = "foreign",
+			parameters = { @Parameter( name = "property", value = "aiutoValutato") }
+			)
 public class Feedback implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(generator = "aiuto_foreignKey")
 	@Column(name = "id_aiuto")
-	@GeneratedValue(generator = "foreignKey")
-	@GenericGenerator(
-			name = "foreignKey", 
-			strategy = "foreign", 
-			parameters = {
-					@Parameter(name = "property", value ="aiutoValutato")
-			}
-	)
 	private long id;
 	
 	@Column(name = "valutazione_numerica", nullable = false)
@@ -34,7 +32,7 @@ public class Feedback implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar momentoRilascio;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Aiuto aiutoValutato;
 	
