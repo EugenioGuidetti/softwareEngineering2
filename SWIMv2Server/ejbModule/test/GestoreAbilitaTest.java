@@ -47,7 +47,7 @@ public class GestoreAbilitaTest {
 		
 		//Test: creo due nuova abilita
 		assertEquals(true, gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "path"));
-		assertEquals(true, gestoreAbilitaRemote.crea("cameriere", "per serate di gale", "path"));
+		assertEquals(true, gestoreAbilitaRemote.crea("cameriere", "per serate di gala", "path"));
 		
 		//Test: nel sistema ora sono presenti due abilita
 		assertEquals(2, gestoreAbilitaRemote.getAbilitaSistema().size());

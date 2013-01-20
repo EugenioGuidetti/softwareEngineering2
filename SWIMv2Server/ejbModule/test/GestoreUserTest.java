@@ -293,5 +293,35 @@ public class GestoreUserTest {
 		//Test: nel sistema ora sono presenti 2 user
 		assertEquals(2, gestoreUserRemote.getUserSistema().size());
 	}
+	
+	/**
+	 * Verifica il funzionamento del metodo ricercaPerAbilita(long idAbilita) definito nella classe GestoreUser del
+	 * package session
+	 */
+	@Test
+	public void testRicercaPerAbilita(){
+		//aggiungo tre utenti al sistema
+		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
+		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
+		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
+		
+		//aggiungo un'abilità al sistema
+		gestoreAbilitaRemote.crea("cameriere", "per serate di gale", "path");
+		
+		//recupero l'abilità creata
+		Abilita abilita = gestoreAbilitaRemote.getAbilitaSistema().get(0);
+		
+		//modifico l'insieme delle abilità dichiarate degli user "pippo" e "kikka"
+		Set<Abilita> abilitaDichiarate = new HashSet<Abilita>();
+		abilitaDichiarate.add(abilita);
+		gestoreUserRemote.modificaAbilitaDichiarate("pippo", abilitaDichiarate);
+		gestoreUserRemote.modificaAbilitaDichiarate("kikka", abilitaDichiarate);
+		
+		//Test: nel sistema esistono 2 user che hanno tra le abilità dichiarate "abilita"; 
+		assertEquals(2, gestoreUserRemote.ricercaPerAbilita(abilita.getId()).size());
+		
+		
+		
+	}
 
 }
