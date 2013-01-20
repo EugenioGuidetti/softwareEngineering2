@@ -49,7 +49,7 @@ public class GestoreUserTest {
 
 		Object refUser = jndiContext.lookup("GestoreUserJNDI");
 		gestoreUserRemote = (GestoreUserRemote) refUser;
-		
+
 		Object refAmicizia = jndiContext.lookup("GestoreAmiciziaJNDI");
 		gestoreAmiciziaRemote = (GestoreAmiciziaRemote) refAmicizia;
 	}
@@ -373,12 +373,12 @@ public class GestoreUserTest {
 		for(User user: risultatoRicerca){
 			nicknameRicerca.add(user.getNickname());
 		}
-		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno dichiarato "abilita"
+		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno come nome "antonio"
 		assertEquals(true, nicknameRicerca.contains("tonino"));
 		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
 
-		//elimino gli user e l'abilità creata per gli altri test
+		//elimino gli user per gli altri test
 		gestoreUserRemote.elimina("tonino");
 		gestoreUserRemote.elimina("kikka");
 		gestoreUserRemote.elimina("toto");
@@ -404,7 +404,7 @@ public class GestoreUserTest {
 		for(User user: risultatoRicerca){
 			nicknameRicerca.add(user.getNickname());
 		}
-		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno dichiarato "abilita"
+		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno il cognome uguale a "rossi"
 		assertEquals(false, nicknameRicerca.contains("pippo"));
 		assertEquals(true, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
@@ -414,7 +414,7 @@ public class GestoreUserTest {
 		gestoreUserRemote.elimina("kikka");
 		gestoreUserRemote.elimina("toto");
 	}
-	
+
 	/**
 	 * Verifica il funzionamento del metodo ricercaPerNomeCognome(String nome, String cognome) definito nella 
 	 * classe GestoreUser del package session
@@ -436,7 +436,7 @@ public class GestoreUserTest {
 		for(User user: risultatoRicerca){
 			nicknameRicerca.add(user.getNickname());
 		}
-		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno dichiarato "abilita"
+		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che si chiamano "anotio" "rossi"
 		assertEquals(false, nicknameRicerca.contains("pippo"));
 		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
@@ -446,7 +446,7 @@ public class GestoreUserTest {
 		gestoreUserRemote.elimina("kikka");
 		gestoreUserRemote.elimina("toto");
 	}
-	
+
 	/**
 	 * Verifica il funzionamento del metodo ricercaAmiciPerAbilita(String nickname, long idAbilita) definito nella classe GestoreUser del
 	 * package session
@@ -473,7 +473,7 @@ public class GestoreUserTest {
 		//instauro un rapporto di amicizia tra "kikka" (richiedente) e "toto" (destinatario)
 		Calendar momentoRichiesta = new GregorianCalendar();
 		gestoreAmiciziaRemote.inviaRichiesta("kikka", "toto", momentoRichiesta);
-		
+
 		try {
 			Thread.sleep(4000);
 		} catch(InterruptedException ex) {
@@ -484,8 +484,8 @@ public class GestoreUserTest {
 
 		Calendar momentoAccettazione = new GregorianCalendar();
 		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
-		
-		
+
+
 		//Test: nel sistema tra gli amicici di kikka non esiste nessuno che ha tra le abilità dichiarate "abilita" 
 		assertEquals(0, gestoreUserRemote.ricercaAmiciPerAbilita("kikka", abilita.getId()).size());
 
@@ -510,99 +510,221 @@ public class GestoreUserTest {
 	/**
 	 * Verifica il funzionamento del metodo ricercaAmiciPerNome(String nickname, String nome) definito nella classe GestoreUser del package session
 	 */
-	/*
 	@Test
 	public void testRicercaAmiciPerNome(){
+		Amicizia amiciziaDaAccettare;
+		Calendar momentoAccettazione;
+		List<User> risultatoRicerca;
+		List<String> nicknameRicerca;
+
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
 		gestoreUserRemote.registra("tonino", "pwd", "tonino@mail.com", "antonio", "roi", "/image/tonino.png", "cagliari", "maschio", 1988);
 
-		//Test: nel sistema esistono 2 user che si chiamano "antonio" 
-		assertEquals(2, gestoreUserRemote.ricercaPerNome("antonio").size());
+		/*
+		 * instauro un rapporto di amicizia tra "kikka" (richiedente) e "toto" (destinatario)
+		 * instauro un rapporto di amicizia tra "toto" (richiedente) e "tonino" (destinatario)
+		 */
+		Calendar momentoRichiesta = new GregorianCalendar();
+		gestoreAmiciziaRemote.inviaRichiesta("kikka", "toto", momentoRichiesta);
+		gestoreAmiciziaRemote.inviaRichiesta("toto", "kikka", momentoRichiesta);
 
-		//recupero i risultati della ricerca estraendone i nickname
-		List<User> risultatoRicerca = gestoreUserRemote.ricercaPerNome("antonio");
-		List<String> nicknameRicerca = new ArrayList<String>();
-		//recupero i nickname degli user che appartengono al risultato della ricerca
+		try {
+			Thread.sleep(4000);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+
+		amiciziaDaAccettare = gestoreAmiciziaRemote.getRichiesteRicevute("toto").get(0);
+		momentoAccettazione = new GregorianCalendar();
+		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
+
+		amiciziaDaAccettare = gestoreAmiciziaRemote.getRichiesteRicevute("kikka").get(0);
+		momentoAccettazione = new GregorianCalendar();
+		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
+
+		//Test: nel sistema tra gli amici di "kikka" esiste un solo user che si chiama "antonio"
+		assertEquals(1, gestoreUserRemote.ricercaAmiciPerNome("kikka", "antonio").size());
+
+		//recupero i risultati della ricerca effettuata da "kikka" estraendone i nickname
+		risultatoRicerca = gestoreUserRemote.ricercaAmiciPerNome("kikka", "antonio");
+		nicknameRicerca = new ArrayList<String>();
+		//recupero i nickname degli user che appartengono al risultato della ricerca effettuata da "kikka"
 		for(User user: risultatoRicerca){
 			nicknameRicerca.add(user.getNickname());
 		}
-		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno dichiarato "abilita"
-		assertEquals(true, nicknameRicerca.contains("tonino"));
-		assertEquals(false, nicknameRicerca.contains("kikka"));
+
+		//Test: verifico se tra i risultati della ricerca effettuata da "kikka" ci sono solo gli user che hanno come nome "antonio"
+		assertEquals(false, nicknameRicerca.contains("tonino"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
 
-		//elimino gli user e l'abilità creata per gli altri test
+
+		//Test: nel sistema tra gli amici di "toto" non esiste nessuno user che si chima "antonio"
+		assertEquals(0, gestoreUserRemote.ricercaAmiciPerNome("toto", "antonio").size());
+
+		//recupero i risultati della ricerca effettuata da "toto" estraendone i nickname
+		risultatoRicerca = gestoreUserRemote.ricercaAmiciPerNome("toto", "antonio");
+		nicknameRicerca = new ArrayList<String>();
+		//recupero i nickname degli user che appartengono al risultato della ricerca effettuata da "toto"
+		for(User user: risultatoRicerca){
+			nicknameRicerca.add(user.getNickname());
+		}
+		//Test: verifico se tra i risultati della ricerca effettuata da "toto" ci sono solo gli user che hanno come nome "antonio"
+		assertEquals(false, nicknameRicerca.contains("kikka"));
+		assertEquals(false, nicknameRicerca.contains("tonino"));
+
+		//elimino gli user per gli altri test
 		gestoreUserRemote.elimina("tonino");
 		gestoreUserRemote.elimina("kikka");
 		gestoreUserRemote.elimina("toto");
 	}
-	*/
+
 	/**
 	 * Verifica il funzionamento del metodo ricercaAmiciPerCognome(String nickname, String cognome) definito nella classe GestoreUser del package session
 	 */
-	/*
 	@Test
 	public void testRicercaAmiciPerCognome(){
+		Amicizia amiciziaDaAccettare;
+		Calendar momentoAccettazione;
+		List<User> risultatoRicerca;
+		List<String> nicknameRicerca;
+
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
-		//Test: nel sistema esistono 2 user che hanno come cognome "rossi" 
-		assertEquals(2, gestoreUserRemote.ricercaPerCognome("rossi").size());
+		/*
+		 * instauro un rapporto di amicizia tra "kikka" (richiedente) e "toto" (destinatario)
+		 * instauro un rapporto di amicizia tra "toto" (richiedente) e "pippo" (destinatario)
+		 */
+		Calendar momentoRichiesta = new GregorianCalendar();
+		gestoreAmiciziaRemote.inviaRichiesta("kikka", "toto", momentoRichiesta);
+		gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta);
 
-		//recupero i risultati della ricerca estraendone i nickname
-		List<User> risultatoRicerca = gestoreUserRemote.ricercaPerCognome("rossi");
-		List<String> nicknameRicerca = new ArrayList<String>();
-		//recupero i nickname degli user che appartengono al risultato della ricerca
+		try {
+			Thread.sleep(4000);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+
+		amiciziaDaAccettare = gestoreAmiciziaRemote.getRichiesteRicevute("toto").get(0);
+		momentoAccettazione = new GregorianCalendar();
+		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
+
+		amiciziaDaAccettare = gestoreAmiciziaRemote.getRichiesteRicevute("pippo").get(0);
+		momentoAccettazione = new GregorianCalendar();
+		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
+
+		//Test: nel sistema tra gli amici di "kikka" esiste un solo user che si ha come cognome "rossi"
+		assertEquals(1, gestoreUserRemote.ricercaAmiciPerCognome("kikka", "rossi").size());
+
+		//recupero i risultati della ricerca effettuata da "kikka" estraendone i nickname
+		risultatoRicerca = gestoreUserRemote.ricercaAmiciPerCognome("kikka", "rossi");
+		nicknameRicerca = new ArrayList<String>();
+		//recupero i nickname degli user che appartengono al risultato della ricerca effettuata da "kikka"
 		for(User user: risultatoRicerca){
 			nicknameRicerca.add(user.getNickname());
 		}
-		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno dichiarato "abilita"
+
+		//Test: verifico se tra i risultati della ricerca effettuata da "kikka" ci sono solo gli user che hanno come cognome "rossi"
 		assertEquals(false, nicknameRicerca.contains("pippo"));
-		assertEquals(true, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
+
+
+		//Test: nel sistema tra gli amici di "pippo" non esiste nessuno user che ha come cognome "rossi"
+		assertEquals(0, gestoreUserRemote.ricercaAmiciPerCognome("pippo", "rossi").size());
+
+		//recupero i risultati della ricerca effettuata da "tonino" estraendone i nickname
+		risultatoRicerca = gestoreUserRemote.ricercaAmiciPerCognome("pippo", "rossi");
+		nicknameRicerca = new ArrayList<String>();
+		//recupero i nickname degli user che appartengono al risultato della ricerca effettuata da "pippo"
+		for(User user: risultatoRicerca){
+			nicknameRicerca.add(user.getNickname());
+		}
+		//Test: verifico se tra i risultati della ricerca effettuata da pippo ci sono solo gli user che hanno come cognome "rossi"
+		assertEquals(false, nicknameRicerca.contains("kikka"));
+		assertEquals(false, nicknameRicerca.contains("toto"));
 
 		//elimino gli user per gli altri test
 		gestoreUserRemote.elimina("pippo");
 		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
+		gestoreUserRemote.elimina("toto");	
 	}
-	*/
+
 	/**
 	 * Verifica il funzionamento del metodo ricercaAmiciPerNomeCognome(String nickname, String nome, String cognome) definito nella 
 	 * classe GestoreUser del package session
 	 */
-	/*
 	@Test
 	public void testRicercaAmiciPerNomeCognome(){
+		Amicizia amiciziaDaAccettare;
+		Calendar momentoAccettazione;
+		List<User> risultatoRicerca;
+		List<String> nicknameRicerca;
+
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
-		//Test: nel sistema esiste 1 user che ha per nome "antonio" e per cognome "rossi" 
-		assertEquals(1, gestoreUserRemote.ricercaPerNomeCognome("antonio", "rossi").size());
+		/*
+		 * instauro un rapporto di amicizia tra "kikka" (richiedente) e "toto" (destinatario)
+		 * instauro un rapporto di amicizia tra "kikka" (richiedente) e "pippo" (destinatario)
+		 */
+		Calendar momentoRichiesta = new GregorianCalendar();
+		gestoreAmiciziaRemote.inviaRichiesta("kikka", "toto", momentoRichiesta);
+		gestoreAmiciziaRemote.inviaRichiesta("kikka", "pippo", momentoRichiesta);
 
-		//recupero i risultati della ricerca estraendone i nickname
-		List<User> risultatoRicerca = gestoreUserRemote.ricercaPerNomeCognome("antonio", "rossi");
-		List<String> nicknameRicerca = new ArrayList<String>();
-		//recupero i nickname degli user che appartengono al risultato della ricerca
+		try {
+			Thread.sleep(4000);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+
+		amiciziaDaAccettare = gestoreAmiciziaRemote.getRichiesteRicevute("toto").get(0);
+		momentoAccettazione = new GregorianCalendar();
+		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
+
+		amiciziaDaAccettare = gestoreAmiciziaRemote.getRichiesteRicevute("pippo").get(0);
+		momentoAccettazione = new GregorianCalendar();
+		gestoreAmiciziaRemote.accettaRichiesta(amiciziaDaAccettare.getId(), momentoAccettazione);
+
+		//Test: nel sistema tra gli amici di "kikka" esiste un solo user che si chiama "antonio" "rossi"
+		assertEquals(1, gestoreUserRemote.ricercaAmiciPerNomeCognome("kikka", "antonio", "rossi").size());
+
+		//recupero i risultati della ricerca effettuata da "kikka" estraendone i nickname
+		risultatoRicerca = gestoreUserRemote.ricercaAmiciPerNomeCognome("kikka", "antonio", "rossi");
+		nicknameRicerca = new ArrayList<String>();
+		//recupero i nickname degli user che appartengono al risultato della ricerca effettuata da "kikka"
 		for(User user: risultatoRicerca){
 			nicknameRicerca.add(user.getNickname());
 		}
-		//Test: verifico se tra i risultati della ricerca ci sono solo gli user che hanno dichiarato "abilita"
+
+		//Test: verifico se tra i risultati della ricerca effettuata da "kikka" ci sono solo gli user che hanno come cognome "rossi"
 		assertEquals(false, nicknameRicerca.contains("pippo"));
-		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
+
+
+		//Test: nel sistema tra gli amici di "pippo" non esiste nessuno user che si chiama "antonio" "rossi"
+		assertEquals(0, gestoreUserRemote.ricercaAmiciPerNomeCognome("pippo", "antonio", "rossi").size());
+
+		//recupero i risultati della ricerca effettuata da "tonino" estraendone i nickname
+		risultatoRicerca = gestoreUserRemote.ricercaAmiciPerNomeCognome("pippo", "antonio", "rossi");
+		nicknameRicerca = new ArrayList<String>();
+		//recupero i nickname degli user che appartengono al risultato della ricerca effettuata da "pippo"
+		for(User user: risultatoRicerca){
+			nicknameRicerca.add(user.getNickname());
+		}
+		//Test: verifico se tra i risultati della ricerca effettuata da pippo ci sono solo gli user che hanno come cognome "rossi"
+		assertEquals(false, nicknameRicerca.contains("kikka"));
+		assertEquals(false, nicknameRicerca.contains("toto"));
 
 		//elimino gli user per gli altri test
 		gestoreUserRemote.elimina("pippo");
 		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
+		gestoreUserRemote.elimina("toto");	
 	}
 
-	*/
 }

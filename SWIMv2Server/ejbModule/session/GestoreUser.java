@@ -351,7 +351,7 @@ public class GestoreUser implements GestoreUserRemote {
 		User user = entityManager.find(User.class, nickname);
 		List<User> userCercati;
 
-		Query query = entityManager.createNamedQuery("ricercaAmciPerNomeCognome");
+		Query query = entityManager.createNamedQuery("ricercaAmiciPerNomeCognome");
 		query.setParameter("nome", nome);
 		query.setParameter("cognome", cognome);
 		query.setParameter("user", user);
