@@ -14,56 +14,53 @@
 			<div id="logo">
 				<img src="Immagini/logo.png">
 			</div>
-			<%
-				//eventualmente il messaggio
-			%>
 			<div id="body">
-				<center>
-					<div id="boxCenter">
-						<div id="titoloBox">
-							<center>Completa la registrazione</center>
-						</div>
-						<form action="CompletamentoRegistrazione" method="post">
-							<div id="informazioniBox">
-								<p>
-									<label for="avatar">Avatar:</label>
-									<input id="avatar" name="rAvatar" type="file" accept="image/*">
-								</p>
-								<p>
-									<label>Abilit&agrave;:</label>
-									<br>
-									<%
-										@SuppressWarnings("unchecked")
-										List<Abilita> abilitaSistema = (List<Abilita>) request.getAttribute("abilitaSistema");
-										for(Abilita abilita: abilitaSistema) {
-									%>
-											<div id="abilita">
-												<div id="checkAbilita">
-													<input name="abilitaScelte" type="checkbox" value="<%= abilita.getId() %>">
-													<div id="corpoAbilita">
-														<%= abilita.getNome() %>
-														<br>
-														<i><%= abilita.getDescrizione() %></i>
-													</div>
-													<div id="iconaAbilita">
-														<img src="<%= abilita.getIconaPath() %>">
-													</div>
-													</input>
-												</div>
-											</div>
-									<%
-										}
-									%>
-								</p>
-							</div>
-							<center>
-								<input id="pulsante" type="submit" value="Concludi">
-							</center>
-						</form>
+				<div id="boxLeft">
+					<div id="titoloBox">
+						<center>Completa la registrazione</center>
 					</div>
-				</center>
+					<form action="CompletamentoRegistrazione" method="post">
+						<div id="informazioniBox">
+							<p>
+								<label for="rAvatar">Avatar:</label>
+								<input id="rAvatar" name="rAvatar" type="file" accept="image/*">
+							</p>
+							<center>Abilit&agrave;:</center>
+							<br>
+							<%
+								@SuppressWarnings("unchecked")
+								List<Abilita> abilitaSistema = (List<Abilita>) 
+									request.getAttribute("abilitaSistema");
+								for (Abilita abilita : abilitaSistema) {
+							%>
+									<div id="checkAbilita">
+										<input name="abilitaScelte" type="checkbox" value="<%=abilita.getId()%>">
+										<div id="corpoAbilita">
+											<%=abilita.getNome()%><br>
+											<i>&ldquo;<%=abilita.getDescrizione()%>&rdquo;</i>
+										</div>
+										<div id="iconaAbilita">
+											<img src="<%=abilita.getIconaPath()%>" width="65" height="65">
+										</div>
+									</div>
+							<%
+								}
+							%>
+						</div>
+						<center>
+							<input id="pulsante" type="submit" value="Concludi">
+						</center>
+					</form>
+				</div>
+				<div id="boxRight">
+					<div id="titoloBox">
+						<center>Indicazioni</center>
+					</div>
+					<div id="indicazioni">
+						<p>Testo sul fatto che le scelte contenute in questa pagina sono del tutto opzionali rispetto alla creazione del profilo</p>
+					</div>
+				</div>
 			</div>
 		</div>
-	
 	</body>
 </html>
