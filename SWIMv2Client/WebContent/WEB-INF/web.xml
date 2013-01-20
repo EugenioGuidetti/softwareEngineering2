@@ -69,4 +69,14 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GestioneProposte</display-name>
+    <servlet-name>GestioneProposte</servlet-name>
+    <servlet-class>servlet.GestioneProposte</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GestioneProposte</servlet-name>
+    <url-pattern>/GestioneProposte</url-pattern>
+  </servlet-mapping>
 </web-app>

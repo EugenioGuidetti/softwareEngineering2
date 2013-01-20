@@ -25,10 +25,6 @@
 						</div>
 						<form action="CompletamentoRegistrazione" method="post">
 							<div id="informazioniBox">
-								<%
-									String nickname = (String) request.getAttribute("nickname");
-									request.setAttribute("nickname", nickname);
-								%>
 								<p>
 									<label for="avatar">Avatar:</label>
 									<input id="avatar" name="rAvatar" type="file" accept="image/*">
@@ -36,9 +32,10 @@
 								<p>
 									<label>Abilit&agrave;:</label>
 									<br>
-									<%	int i = 0;
-										while(request.getAttribute("abilita" + i) != null) {
-											Abilita abilita = (Abilita) request.getAttribute("abilita" + i);
+									<%
+										@SuppressWarnings("unchecked")
+										List<Abilita> abilitaSistema = (List<Abilita>) request.getAttribute("abilitaSistema");
+										for(Abilita abilita: abilitaSistema) {
 									%>
 											<div id="abilita">
 												<div id="checkAbilita">
@@ -55,7 +52,6 @@
 												</div>
 											</div>
 									<%
-											i++;
 										}
 									%>
 								</p>

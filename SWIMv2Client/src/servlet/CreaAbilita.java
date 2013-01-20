@@ -13,6 +13,7 @@ import session.GestoreAbilitaRemote;
 import utility.Comunicazione;
 
 public class CreaAbilita extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
     public CreaAbilita() {

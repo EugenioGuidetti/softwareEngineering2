@@ -14,6 +14,7 @@ import session.GestoreAdminRemote;
 import utility.Comunicazione;
 
 public class PaginaAdmin extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
     public PaginaAdmin() {

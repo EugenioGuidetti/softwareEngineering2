@@ -33,7 +33,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 		Context context;
 		GestoreUserRemote gestoreUser;
 		GestoreAbilitaRemote gestoreAbilita;
-		String nickname = (String) request.getAttribute("nickname");
+		String nickname = (String) request.getSession().getAttribute("nickname");
 		String[] abilitaScelte = request.getParameterValues("abilitaScelte");		
 		Set<Abilita> abilitaDichiarate = new HashSet<Abilita>();	
 		try { 
@@ -51,6 +51,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 				}
 				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
 			}
+			request.getSession().invalidate();
 			request.setAttribute("messaggio", Comunicazione.registrazioneCompletata());
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);

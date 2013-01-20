@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.naming.Context;
@@ -12,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entity.Abilita;
 import session.GestoreAbilitaRemote;
 import session.GestoreProfiloRemote;
 import session.GestoreUserRemote;
@@ -32,22 +30,25 @@ public class Registrazione extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher;
+		Context context;
+		GestoreProfiloRemote gestoreProfilo;
+		GestoreUserRemote gestoreUser;
+		GestoreAbilitaRemote gestoreAbilita;
+		String nome = (String) request.getParameter("rNome");
+		String cognome = (String) request.getParameter("rCognome");
+		String sesso = (String) request.getParameter("rSesso");
+		int annoNascita = Integer.parseInt(request.getParameter("rAnnoNascita"));
+		String citta = (String) request.getParameter("rCitta");
+		String nickname = (String) request.getParameter("rNickname");
+		String password = (String) request.getParameter("rPassword");
+		String email = (String) request.getParameter("rEmail");
+		String avatar = Utilita.USER_DEFAULT_AVATAR;
 		try {
-			Context context = new InitialContext();
-			GestoreProfiloRemote gestoreProfilo = (GestoreProfiloRemote) context.lookup("GestoreProfiloJNDI");
-			GestoreUserRemote gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-			GestoreAbilitaRemote gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			RequestDispatcher dispatcher;
-			String nome = (String) request.getParameter("rNome");
-			String cognome = (String) request.getParameter("rCognome");
-			String sesso = (String) request.getParameter("rSesso");
-			int annoNascita = Integer.parseInt(request.getParameter("rAnnoNascita"));
-			String citta = (String) request.getParameter("rCitta");
-			String nickname = (String) request.getParameter("rNickname");
-			String password = (String) request.getParameter("rPassword");
-			String email = (String) request.getParameter("rEmail");
-			String avatar = Utilita.USER_DEFAULT_AVATAR;
-			
+			context = new InitialContext();
+			gestoreProfilo = (GestoreProfiloRemote) context.lookup("GestoreProfiloJNDI");
+			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
+			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");			
 			Pattern pattern = Pattern.compile(Utilita.EMAIL_PATTERN);
 			Matcher matcher = pattern.matcher(email);
 			if(!matcher.find()) {
@@ -60,11 +61,8 @@ public class Registrazione extends HttpServlet {
 				dispatcher.forward(request, response);
 			} else {
 				gestoreUser.registra(nickname, password, email, nome, cognome, avatar, citta, sesso, annoNascita);
-				request.setAttribute("nickname", nickname);
-				List<Abilita> abilitaSistema = gestoreAbilita.getAbilitaSistema();
-				for(Abilita abilita : abilitaSistema) {
-					request.setAttribute("abilita" + abilitaSistema.indexOf(abilita), abilita);
-				}
+				request.getSession().setAttribute("nickname", nickname);
+				request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
 				dispatcher = request.getRequestDispatcher("registrazione.jsp");
 				dispatcher.forward(request, response);
 			}
