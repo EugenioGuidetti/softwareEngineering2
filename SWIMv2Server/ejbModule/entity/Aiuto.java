@@ -75,7 +75,7 @@ public class Aiuto implements Serializable{
 	@JoinColumn(name = "user_destinatario", referencedColumnName = "nickname", nullable = false)
 	private User userDestinatario;
 	
-	@OneToOne(mappedBy = "aiutoValutato")
+	@OneToOne(mappedBy = "aiutoValutato", cascade = CascadeType.REMOVE)  //se elimino l'aiuto elimino anche il feedback associato
 	private Feedback feedRicevuto;
 	
 	public Aiuto() {

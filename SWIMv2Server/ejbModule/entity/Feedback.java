@@ -3,8 +3,15 @@ package entity;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.*;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
+@NamedQuery(name = "calcolaValoriReputazione", query = 
+	"SELECT COUNT(f), AVG(f.valutazioneNumerica) " +
+	"FROM Feedback f " +
+	"WHERE f.aiutoValutato.userDestinatario = :user " +
+	"AND f.aiutoValutato.abilitaRichiesta = :abilita")
 
 @Entity
 @Table(name = "feedback")
