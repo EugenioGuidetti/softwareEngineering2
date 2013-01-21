@@ -1,6 +1,9 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -164,5 +167,19 @@ public class GestoreUtilitiesTest {
 		for(Abilita abilita: gestoreAbilitaRemote.getAbilitaSistema()){
 			gestoreAbilitaRemote.elimina(abilita.getId());
 		}
+	}
+	
+	@Test
+	public void test(){
+		File tempDir = new File(System.getProperty("java.io.tmpdir")); // to get temp directory path
+		String temp1;
+		try {
+			temp1 = tempDir.getCanonicalPath();
+			System.out.println(temp1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
