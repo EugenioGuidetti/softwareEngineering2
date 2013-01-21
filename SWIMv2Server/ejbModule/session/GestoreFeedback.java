@@ -34,14 +34,13 @@ public class GestoreFeedback implements GestoreFeedbackRemote {
 		//verifico che l'aiuto valutato si riferisca ad una richiesta di aiuto accettata
 		if(aiutoValutato.getMomentoAccettazione() != null){
 			//l'aiuto da valutare corrisponde ad una richiesta di aiuto accettata
-			feedback.setId(idAiuto);
 			feedback.setValutazioneNumerica(valutazioneNumerica);
 			feedback.setValutazioenEstesa(valutazioneEstesa);
+			feedback.setMomentoRilascio(momentoRilascio);
 			feedback.setAiutoValutato(aiutoValutato);
 			try {
 				entityManager.persist(feedback);
 				entityManager.flush();
-				System.out.println("gestore feedback... idAiuto: "+ idAiuto);
 				return true;
 			} catch (IllegalStateException e) {
 				return false;

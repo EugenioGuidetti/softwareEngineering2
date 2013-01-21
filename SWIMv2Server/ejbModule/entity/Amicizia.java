@@ -70,10 +70,6 @@ public class Amicizia implements Serializable {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public Calendar getMomentoRichiesta() {
 		return momentoRichiesta;
 	}

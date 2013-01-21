@@ -7,7 +7,8 @@ import javax.persistence.*;
 	@NamedQuery(name = "proposteAbilitaPerPresaVisione", query = 
 			"SELECT p " +
 			"FROM PropostaAbilita p " +
-			"WHERE p.presaVisione = :boolean")
+			"WHERE p.presaVisione = :boolean " +
+			"ORDER BY p.id")
 } )
 
 @Entity
@@ -40,10 +41,6 @@ public class PropostaAbilita implements Serializable{
 	
 	public long getId() {
 		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getNome() {
