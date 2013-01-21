@@ -46,7 +46,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 						long id = Long.parseLong(abilitaScelta);
 						abilitaDichiarate.add(gestoreAbilita.getAbilita(id));
 					} catch (NumberFormatException numberFormatE) {
-						numberFormatE.printStackTrace();
+						//messaggio
 					}
 				}
 				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
@@ -56,7 +56,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		} catch (NamingException namingE) {
-			namingE.printStackTrace();
+			//messaggio
 		}
 	}
 

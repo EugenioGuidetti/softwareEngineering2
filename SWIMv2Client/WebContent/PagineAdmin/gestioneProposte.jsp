@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="entity.PropostaAbilita" %>
 <%@ page import="java.util.List" %>
+<%@ page import="utility.Messaggio" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,6 +15,16 @@
 			<div id="logo">
 				<img src="Immagini/logo.png" width="235" height="107">
 			</div>
+			<%
+				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
+				if(messaggio != null) {
+			%>
+					<div id="messaggio<%= messaggio.getTipo().toString() %>">
+						<center><%= messaggio.getTesto() %></center>
+					</div>
+			<%
+				}
+			%>
 			<div id="menu">
 				<ul>
 					<li>
@@ -43,7 +54,7 @@
 					<div id="titoloBox">
 						<center>Proposte abilit&agrave; non visionate</center>
 					</div>					
-					<form action="" method="post">
+					<form action="GestioneProposteActions" method="post">
 						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")
@@ -79,7 +90,7 @@
 					<div id="titoloBox">
 						<center>Proposte abilit&agrave; visionate</center>
 					</div>
-					<form action="" method="post">
+					<form action="GestioneProposteActions" method="post">
 						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")

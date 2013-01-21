@@ -16,6 +16,11 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante la creazione dell'abilita.";
 	private static final String CONFERMA_CREAZIONE_ABILITA = 
 			"Complimenti! L'abilità è stata creata con successo.";
+	private static final String ERRORE_CARICAMENTO_PROPOSTE = 
+			"Ops! Qualcosa è andato storto durante il caricamento delle proposte.";
+	private static final String ERRORE_MODIFICA_PROPOSTE = 
+			"Ops! Qualcosa è andato storto durante la modifica delle proposte.";
+	
 	
 	private Comunicazione() {
 		super();
@@ -55,4 +60,15 @@ public final class Comunicazione {
 		Messaggio messaggio = new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_CREAZIONE_ABILITA);
 		return messaggio;
 	}
+
+	public static Messaggio erroreCaricamentoProposte() {
+		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_PROPOSTE);
+		return messaggio;
+	}
+	
+	public static Messaggio erroreModificaProposte() {
+		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_PROPOSTE);
+		return messaggio;
+	}
+	
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestorePropostaAbilitaRemote;
+import utility.Comunicazione;
 
 public class GestioneProposte extends HttpServlet {
 	
@@ -22,16 +23,18 @@ public class GestioneProposte extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		Context context;
-		GestorePropostaAbilitaRemote gestorePropostaAbilita;
+		GestorePropostaAbilitaRemote gestoreProposta;
 		try {
 			context = new InitialContext();
-			gestorePropostaAbilita = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
-			request.setAttribute("proposteNonVisionate", gestorePropostaAbilita.getProposteNonVisionate());
-			request.setAttribute("proposteVisionate", gestorePropostaAbilita.getProposteVisionate());
+			gestoreProposta = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
+			request.setAttribute("proposteNonVisionate", gestoreProposta.getProposteNonVisionate());
+			request.setAttribute("proposteVisionate", gestoreProposta.getProposteVisionate());
 			dispatcher = request.getRequestDispatcher("PagineAdmin/gestioneProposte.jsp");
 			dispatcher.forward(request, response);
 		} catch (NamingException e) {
-			
+			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoProposte());
+			dispatcher = request.getRequestDispatcher("PagineAdmin/gestioneProposte.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
