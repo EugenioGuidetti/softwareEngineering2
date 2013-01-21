@@ -109,4 +109,14 @@
     <servlet-name>PaginaGuest</servlet-name>
     <url-pattern>/PaginaGuest</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RicercaGuest</display-name>
+    <servlet-name>RicercaGuest</servlet-name>
+    <servlet-class>servlet.RicercaGuest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RicercaGuest</servlet-name>
+    <url-pattern>/RicercaGuest</url-pattern>
+  </servlet-mapping>
 </web-app>

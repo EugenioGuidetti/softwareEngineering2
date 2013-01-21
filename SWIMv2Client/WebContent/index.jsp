@@ -131,14 +131,14 @@
 					<div id="titoloBox">
 						<center>Accedi senza regstrarti</center>
 					</div>
-					<form action="" method="post">
-						<div id="informazioniBox">
-							<p></p>
-						</div>
-						<center>
-							<input id="pulsante" type="submit" value="Accesso Guest">
-						</center>
-					</form>
+					<div id="informazioniBox">
+						<p></p>
+					</div>
+					<center>
+						<a href="PaginaGuest">
+							<button id=pulsante type="button">Accesso Guest</button>
+						</a>
+					</center>
 				</div>
 			</div>
 		</div>		

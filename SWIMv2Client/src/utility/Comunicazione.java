@@ -22,6 +22,8 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante la modifica delle proposte.";
 	private static final String ERRORE_CARICAMENTO_MONITOR = 
 			"Ops! Qualcosa è andato storto durante il caricamento dei dati.";
+	private static final String ERRORE_CARICAMENTO_ABILITA = 
+			"Ops! Qualcosa è andato storto durante il caricamento delle abilita";
 	
 	
 	private Comunicazione() {
@@ -75,6 +77,11 @@ public final class Comunicazione {
 
 	public static Messaggio erroreCaricamentoMonitor() {
 		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_MONITOR);
+		return messaggio;
+	}
+	
+	public static Messaggio erroreCaricamentoAbilita() {
+		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_ABILITA);
 		return messaggio;
 	}
 	

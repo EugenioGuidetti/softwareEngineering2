@@ -74,6 +74,7 @@
 								}
 							%>
 							<div id="proposteActions">
+								<br>
 								<input id="azione1" name="azione" type="radio" value="visiona">
 								<label for="azione1">Segna come visionata/e</label>
 								<br>
