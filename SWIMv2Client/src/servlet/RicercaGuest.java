@@ -41,13 +41,23 @@ public class RicercaGuest extends HttpServlet {
 		cognome = request.getParameter("cognome");
 		abilita = request.getParameter("abilita");
 		filtroRicerca = request.getParameter("filtroRicerca");
+		
+		System.out.println("@@@@@@@@ NUOVA RICERCA @@@@@@@@");
+		System.out.println("nome: " + nome);
+		System.out.println("cognome: " + cognome);
+		System.out.println("abilita: " + abilita);
+		System.out.println("filtro: " + filtroRicerca);
 		try {
 			context = new InitialContext();
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
 			request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
 			if(filtroRicerca != null) {
+				//ha selezionato un tipo di ricerca
+				
 				if(filtroRicerca.equals(PER_ABILITA) && abilita != null) {
+					//ha selezionato la ricerca per abilità scegliendo un'abilità
+					System.out.println("ricerca per abilita avviata");
 					try {
 						long id = Long.parseLong(abilita);
 						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerAbilita(id));
@@ -56,13 +66,20 @@ public class RicercaGuest extends HttpServlet {
 					}
 				}
 				if(filtroRicerca.equals(PER_NOME)) {
-					if(nome != null && cognome != null) {
+					//ha selezionato la ricerca per nome
+					if(!nome.equals("") && !cognome.equals("")) {
+						//ha inserito sia nome che cognome
+						System.out.println("ricerca per nome cognome avviata");
 						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerNomeCognome(nome, cognome));
 					}
-					if(nome != null && cognome == null) {
+					if(!nome.equals("") && cognome.equals("")) {
+						//ha inserito solo il nome
+						System.out.println("ricerca per nome  avviata");
 						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerNome(nome));
 					}
-					if(nome == null && cognome != null) {
+					if(nome.equals("") && !cognome.equals("")) {
+						//ha inserito solo il cognome
+						System.out.println("ricerca per cognome  avviata");
 						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerCognome(cognome));
 					}
 				}
