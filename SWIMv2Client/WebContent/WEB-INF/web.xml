@@ -89,4 +89,14 @@
     <servlet-name>GestioneProposteActions</servlet-name>
     <url-pattern>/GestioneProposteActions</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MonitorSistema</display-name>
+    <servlet-name>MonitorSistema</servlet-name>
+    <servlet-class>servlet.MonitorSistema</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MonitorSistema</servlet-name>
+    <url-pattern>/MonitorSistema</url-pattern>
+  </servlet-mapping>
 </web-app>
