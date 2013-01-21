@@ -99,4 +99,14 @@
     <servlet-name>MonitorSistema</servlet-name>
     <url-pattern>/MonitorSistema</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PaginaGuest</display-name>
+    <servlet-name>PaginaGuest</servlet-name>
+    <servlet-class>servlet.PaginaGuest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaginaGuest</servlet-name>
+    <url-pattern>/PaginaGuest</url-pattern>
+  </servlet-mapping>
 </web-app>

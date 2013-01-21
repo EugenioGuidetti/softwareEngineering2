@@ -23,7 +23,7 @@
 			<%
 				}
 			%>
-			<div id="menu">
+			<div id="menuAdmin">
 				<ul>
 					<li>
 						<a href="PaginaAdmin">
@@ -62,7 +62,7 @@
 						<div id="altreInfoProfilo">Email: <%= request.getAttribute("email") %></div>
 					</div>
 					<center>
-						<a href="modificaInfoAdmin.jsp">
+						<a href="modificaInformazioni.jsp">
 							<button id="pulsante" type="button">Modifica informazioni</button>
 						</a>
 					</center>

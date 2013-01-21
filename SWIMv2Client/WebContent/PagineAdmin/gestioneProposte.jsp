@@ -25,7 +25,7 @@
 			<%
 				}
 			%>
-			<div id="menu">
+			<div id="menuAdmin">
 				<ul>
 					<li>
 						<a href="PaginaAdmin">
