@@ -28,8 +28,8 @@ public class MonitorSistema extends HttpServlet {
 		GestoreUserRemote gestoreUser;
 		try {
 			context = new InitialContext();
-			gestoreAbilita = (GestoreAbilitaRemote) context.list("GestoreAbilitaJNDI");
-			gestoreUser = (GestoreUserRemote) context.list("GestoreUserJNDI");
+			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 			request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
 			request.setAttribute("userSistema", gestoreUser.getUserSistema());
 			dispatcher = request.getRequestDispatcher("PagineAdmin/monitorSistema.jsp");

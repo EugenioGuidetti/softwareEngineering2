@@ -170,7 +170,7 @@ body {
 	width: auto;
 }
 
-#checkAbilita, #proposta {
+#checkAbilita, #proposta, #abilita {
 	text-align: left;
 	overflow: auto;
 	margin-bottom: 5px;
@@ -194,6 +194,11 @@ body {
 	margin-left: 5px;
 	width: 210px;
 }
+
+#abilita #corpoAbilita {
+	width: 240px
+}
+
 
 #corpoProposta {
 	width: 295px;

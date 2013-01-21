@@ -36,7 +36,8 @@
 									<div id="checkAbilita">
 										<input name="abilitaScelte" type="checkbox" value="<%= abilita.getId() %>">
 										<div id="corpoAbilita">
-											<%=abilita.getNome()%><br>
+											<strong><%=abilita.getNome()%></strong>
+											<br>
 											<i>&ldquo;<%= abilita.getDescrizione() %>&rdquo;</i>
 										</div>
 										<div id="iconaAbilita">

@@ -39,7 +39,7 @@
 						</a>
 					</li>
 					<li>
-						<a>
+						<a href="MonitorSistema">
 							<button type="button">&rarr; Monitor Sistema</button>
 						</a>
 					</li>
@@ -63,12 +63,13 @@
 							for(Abilita abilita: abilitaSistema) {
 						%>
 								<div id="abilita">
+									<div id="corpoAbilita">
+										<strong><%= abilita.getNome() %></strong>
+										<br>
+										<i>&ldquo;<%= abilita.getDescrizione() %>&rdquo;</i>
+									</div>
 									<div id="iconaAbilita">
 										<img src="<%= abilita.getIconaPath() %>" width="65" height="65">
-									</div>
-									<div id="corpoAbilita">
-										<%= abilita.getNome() %><br>
-										<i>&ldquo;<%= abilita.getDescrizione() %>&rdquo;</i>
 									</div>
 								</div>
 						<%

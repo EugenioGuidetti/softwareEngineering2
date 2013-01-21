@@ -36,7 +36,7 @@
 						</a>
 					</li>
 					<li>
-						<a>
+						<a href="MonitorSistema">
 							<button type="button">Monitor Sistema</button>
 						</a>
 					</li>
