@@ -1,37 +1,48 @@
 package servlet;
 
 import java.io.IOException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import session.GestoreAbilitaRemote;
+import session.GestoreUserRemote;
+import utility.Comunicazione;
 
-/**
- * Servlet implementation class MonitorSistema
- */
 public class MonitorSistema extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public MonitorSistema() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		RequestDispatcher dispatcher;
+		Context context;
+		GestoreAbilitaRemote gestoreAbilita;
+		GestoreUserRemote gestoreUser;
+		try {
+			context = new InitialContext();
+			gestoreAbilita = (GestoreAbilitaRemote) context.list("GestoreAbilitaJNDI");
+			gestoreUser = (GestoreUserRemote) context.list("GestoreUserJNDI");
+			request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
+			request.setAttribute("userSistema", gestoreUser.getUserSistema());
+			dispatcher = request.getRequestDispatcher("PagineAdmin/monitorSistema.jsp");
+			dispatcher.forward(request, response);
+		} catch (NamingException e) {
+			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoMonitor());
+			dispatcher = request.getRequestDispatcher("PagineAdmin/monitorSistema.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

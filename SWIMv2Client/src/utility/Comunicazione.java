@@ -20,6 +20,8 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante il caricamento delle proposte.";
 	private static final String ERRORE_MODIFICA_PROPOSTE = 
 			"Ops! Qualcosa è andato storto durante la modifica delle proposte.";
+	private static final String ERRORE_CARICAMENTO_MONITOR = 
+			"Ops! Qualcosa è andato storto durante il caricamento dei dati.";
 	
 	
 	private Comunicazione() {
@@ -68,6 +70,11 @@ public final class Comunicazione {
 	
 	public static Messaggio erroreModificaProposte() {
 		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_PROPOSTE);
+		return messaggio;
+	}
+
+	public static Messaggio erroreCaricamentoMonitor() {
+		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_MONITOR);
 		return messaggio;
 	}
 	
