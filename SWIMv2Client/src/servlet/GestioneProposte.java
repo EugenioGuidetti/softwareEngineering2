@@ -27,8 +27,8 @@ public class GestioneProposte extends HttpServlet {
 			context = new InitialContext();
 			gestorePropostaAbilita = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
 			request.setAttribute("proposteNonVisionate", gestorePropostaAbilita.getProposteNonVisionate());
-			request.setAttribute("propostaVisionate", gestorePropostaAbilita.getProposteVisionate());
-			dispatcher = request.getRequestDispatcher("gestioneProposte.jsp");
+			request.setAttribute("proposteVisionate", gestorePropostaAbilita.getProposteVisionate());
+			dispatcher = request.getRequestDispatcher("PagineAdmin/gestioneProposte.jsp");
 			dispatcher.forward(request, response);
 		} catch (NamingException e) {
 			

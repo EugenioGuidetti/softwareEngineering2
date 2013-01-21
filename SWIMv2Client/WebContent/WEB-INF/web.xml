@@ -79,4 +79,14 @@
     <servlet-name>GestioneProposte</servlet-name>
     <url-pattern>/GestioneProposte</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GestioneProposteActions</display-name>
+    <servlet-name>GestioneProposteActions</servlet-name>
+    <servlet-class>servlet.GestioneProposteActions</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GestioneProposteActions</servlet-name>
+    <url-pattern>/GestioneProposteActions</url-pattern>
+  </servlet-mapping>
 </web-app>

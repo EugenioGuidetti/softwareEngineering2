@@ -106,6 +106,15 @@ body {
 	margin-right: 10px;
 }
 
+#proposteActions {
+	text-align: center;
+}
+
+#proposteActions input {
+	width: auto;
+	margin-right: auto;
+}
+
 #indicazioni {
 	border: 1px solid grey;
 	border-radius: 5px;
@@ -157,7 +166,11 @@ body {
 	width: auto;
 }
 
-#checkAbilita {
+#proposta input {
+	width: auto;
+}
+
+#checkAbilita, #proposta {
 	text-align: left;
 	overflow: auto;
 	margin-bottom: 5px;
@@ -165,7 +178,7 @@ body {
 	margin-right: 10px;
 }
 
-#iconaAbilita, #corpoAbilita {	
+#iconaAbilita, #corpoAbilita, #corpoProposta {	
 	border: 1px solid grey;
 	border-radius: 5px;
 	background-color: white;
@@ -180,6 +193,10 @@ body {
 #corpoAbilita {
 	margin-left: 5px;
 	width: 210px;
+}
+
+#corpoProposta {
+	width: 295px;
 }
 
 #pulsante {

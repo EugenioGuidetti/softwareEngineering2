@@ -42,9 +42,9 @@
 				<div id="boxLeft">
 					<div id="titoloBox">
 						<center>Proposte abilit&agrave; non visionate</center>
-					</div>
-					<div id="informazioniBox">
-						<form action="" method="post">
+					</div>					
+					<form action="" method="post">
+						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")
 								List<PropostaAbilita> proposteNonVisionate = 
@@ -54,27 +54,56 @@
 									<div id="proposta">
 										<input name="proposteScelte" type="checkbox" value="<%= proposta.getId() %>">
 										<div id="corpoProposta">
-											@<%= proposta.getUserProponente().getNickname() %> ha proposto l'abilit&agrave;:
 											<strong><%= proposta.getNome() %></strong><br>
-											<i>&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i>
+											<i>&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i><br>
+											proposta da @<%= proposta.getUserProponente().getNickname() %>
 										</div>
 									</div>
 							<%
 								}
 							%>
-							<!-- aggiungere la scelta visiona/cancella -->
-						</form>
-					</div>
+							<div id="proposteActions">
+								<input id="azione1" name="azione" type="radio" value="visiona">
+								<label for="azione1">Segna come visionata/e</label>
+								<br>
+								<input id="azione2" name="azione" type="radio" value="cancella">
+								<label for="azione2">Cancella la/e proposta/e</label>
+							</div>
+						</div>
+						<center>
+							<input id="pulsante" type="submit" value="Procedi">
+						</center>
+					</form>
 				</div>
 				<div id="boxRight">
 					<div id="titoloBox">
 						<center>Proposte abilit&agrave; visionate</center>
 					</div>
-					<div id="informazioniBox">
-						<%
-							
-						%>
-					</div>
+					<form action="" method="post">
+						<div id="informazioniBox">
+							<%
+								@SuppressWarnings("unchecked")
+								List<PropostaAbilita> proposteVisionate = 
+									(List<PropostaAbilita>) request.getAttribute("proposteVisionate");
+								for(PropostaAbilita proposta: proposteVisionate) {
+							%>
+									<div id="proposta">
+										<input name="proposteScelte" type="checkbox" value="<%= proposta.getId() %>">
+										<div id="corpoProposta">
+											<strong><%= proposta.getNome() %></strong><br>
+											<i>&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i><br>
+											proposta da @<%= proposta.getUserProponente().getNickname() %>
+										</div>
+									</div>
+							<%
+								}
+							%>
+							<input name="azione" type="hidden" value="cancella">							
+						</div>
+						<center>
+							<input id="pulsante" type="submit" value="Cancella ">
+						</center>
+					</form>
 				</div>
 			</div>
 		</div>
