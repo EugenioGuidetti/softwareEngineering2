@@ -7,6 +7,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Insert title here</title>
+		<link rel="stylesheet" href="CSS/style.css">
 	</head>
 	<body>
 		<div id="pagina">
@@ -34,8 +35,7 @@
 					</div>
 					<form action="RicercaGuest" method="post">
 						<div id="informazioniBox">
-							<center>Filtro sul nome</center>
-							<br>
+							<center>Filtro sul nome:</center>
 							<p>
 								<label for="nome">Nome:</label>
 								<input id="nome" name="nome" type="text" maxlength="255">
@@ -44,25 +44,28 @@
 								<label for="cognome">Cognome:</label>
 								<input id="cognome" name="cognome" type="text" maxlength="255">
 							</p>
-							<center>Filtro per abilita:</center>
-							<br>
-							<%
-								@SuppressWarnings("unchecked")
-								List<Abilita> abilitaSistema = 
-									(List<Abilita>) request.getAttribute("abilitaSistema");
-								for(Abilita abilita: abilitaSistema) {
-							%>
-									<p>
-										<input id="abilita<%= abilita.getId() %>" name="abilita" type="radio" value="<%= abilita.getId() %>">
+							<div id="filtroAbilita">
+								<center>Filtro per abilita:</center>
+								<br>
+								<%
+									@SuppressWarnings("unchecked")
+									List<Abilita> abilitaSistema = 
+										(List<Abilita>) request.getAttribute("abilitaSistema");
+									for(Abilita abilita: abilitaSistema) {
+								%>
 										<label for="abilita<%= abilita.getId() %>">
 											<strong><%= abilita.getNome() %></strong>
 										</label>
-									</p>
-							<%
-								}
-							%>
+										<input id="abilita<%= abilita.getId() %>" name="abilita" type="radio" value="<%= abilita.getId() %>">
+										<br>
+								<%
+									}
+								%>
+							</div>
 							<div id="filtriRicerca">
+								<br>
 								<center>Scegli un filtro:</center>
+								<br>
 								<input id="filtro1" name="filtroRicerca" type="radio" value="perNome">
 								<label for="filtro1">Ricerca per nome</label>
 								<br>

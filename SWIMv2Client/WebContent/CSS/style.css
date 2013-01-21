@@ -41,7 +41,7 @@ body {
 	background-color: #F11111;
 }
 
-#menuAdmin {
+#menuAdmin, #menuGuest {
 	border: 1px solid grey;
 	border-radius: 15px;
 	margin-top: 15px;
@@ -52,16 +52,16 @@ body {
 	overflow: auto;
 }
 
-#menuAdmin ul {
+#menuAdmin ul, #menuGuest ul {
 	list-style: none;
 	margin-left: -40px;
 }
 
-#menuAdmin li {
+#menuAdmin li, #menuGuest li {
 	float: left;
 }
 
-#menuAdmin button {
+#menuAdmin button, #menuGuest button {
 	height: 30px;
 	width: 175px;
 	font-weight: bold;
@@ -106,14 +106,18 @@ body {
 	margin-right: 10px;
 }
 
-#proposteActions {
+#proposteActions, #filtriRicerca {
 	text-align: center;
 }
 
-#proposteActions input {
+#proposteActions input, #filtriRicerca input {
 	width: auto;
 	margin-right: auto;
 }
+
+ #filtroAbilita input {
+ 	width: auto;
+ }
 
 #indicazioni {
 	border: 1px solid grey;
