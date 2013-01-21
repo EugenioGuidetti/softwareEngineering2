@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Abilita" %>
+<%@ page import="entity.User" %>
+<%@ page import="utility.Messaggio" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -81,6 +83,29 @@
 				<div id="boxRight">
 					<div id="titoloBox">
 						<center>Risultati della ricerca</center>
+					</div>
+					<div id="informazioniBox">
+						<%
+							@SuppressWarnings("unchecked")
+							List<User> risultatiRicerca = 
+								(List<User>) request.getAttribute("risultatiRicerca");
+							if(risultatiRicerca != null) {
+								for(User user: risultatiRicerca) {
+						%>
+									<div id="infoProfilo">							
+										<div id="avatar">
+											<img src="<%= user.getAvatarPath() %>" width="65" height="65">
+										</div>
+										<div id="testo">
+											<%= user.getNome() %> <%= user.getCognome() %>
+											<br>
+											@<%= user.getNickname() %>
+										</div>
+									</div>
+						<%
+								}
+							}
+						%>
 					</div>
 				</div>
 			</div>

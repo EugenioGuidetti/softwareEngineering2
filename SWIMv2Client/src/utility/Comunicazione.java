@@ -23,7 +23,9 @@ public final class Comunicazione {
 	private static final String ERRORE_CARICAMENTO_MONITOR = 
 			"Ops! Qualcosa è andato storto durante il caricamento dei dati.";
 	private static final String ERRORE_CARICAMENTO_ABILITA = 
-			"Ops! Qualcosa è andato storto durante il caricamento delle abilita";
+			"Ops! Qualcosa è andato storto durante il caricamento delle abilita.";
+	private static final String ERRORE_RICERCA = 
+			"Ops! Qualcosa è andato storto durante l'esecuzione della ricerca.";
 	
 	
 	private Comunicazione() {
@@ -31,58 +33,51 @@ public final class Comunicazione {
 	}
 
 	public static Messaggio emailNonValida() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.ERRORE, EMAIL_NON_VALIDA);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.ERRORE, EMAIL_NON_VALIDA);
 	}
 	
 	public static Messaggio nicknameNonDisponibile() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, NICKNAME_NON_DISPONIBILE);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.AVVISO, NICKNAME_NON_DISPONIBILE);
 	}
 	
 	public static Messaggio registrazioneCompletata() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.CONFERMA, REGISTRAZIONE_COMPLETATA);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.CONFERMA, REGISTRAZIONE_COMPLETATA);
 	}
 	
 	public static Messaggio erroreServlet() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_SERVLET);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_SERVLET);
 	}
 	
 	public static Messaggio credenzialiNonValide() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.ERRORE, CREDENZIALI_NON_VALIDE);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.ERRORE, CREDENZIALI_NON_VALIDE);
 	}
 	
 	public static Messaggio erroreCreazioneAbilita() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CREAZIONE_ABILITA);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CREAZIONE_ABILITA);
 	}
 	
 	public static Messaggio confermaCreazioneAbilita() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_CREAZIONE_ABILITA);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_CREAZIONE_ABILITA);
 	}
 
 	public static Messaggio erroreCaricamentoProposte() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_PROPOSTE);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_PROPOSTE);
 	}
 	
 	public static Messaggio erroreModificaProposte() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_PROPOSTE);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_PROPOSTE);
 	}
 
 	public static Messaggio erroreCaricamentoMonitor() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_MONITOR);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_MONITOR);
 	}
 	
 	public static Messaggio erroreCaricamentoAbilita() {
-		Messaggio messaggio = new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_ABILITA);
-		return messaggio;
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_ABILITA);
+	}
+	
+	public static Messaggio erroreRicerca() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_RICERCA);
 	}
 	
 }
