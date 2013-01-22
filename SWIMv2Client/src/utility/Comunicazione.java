@@ -26,6 +26,10 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante il caricamento delle abilita.";
 	private static final String ERRORE_RICERCA = 
 			"Ops! Qualcosa è andato storto durante l'esecuzione della ricerca.";
+	private static final String ERRORE_MODICA_INFORMAZIONI = 
+			"Ops! Qualcosa è andato storto durante la modifica delle informazioni.";
+	private static final String ERRORE_CARICAMENTO_INFORMAZIONI =
+			"Ops! Qualcosa è andato storto durante il caricamento delle informazioni.";
 	
 	
 	private Comunicazione() {
@@ -78,6 +82,14 @@ public final class Comunicazione {
 	
 	public static Messaggio erroreRicerca() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_RICERCA);
+	}
+	
+	public static Messaggio erroreModificaInformazioni() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODICA_INFORMAZIONI);
+	}
+	
+	public static Messaggio erroreCaricamentoInformazioni() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_INFORMAZIONI);
 	}
 	
 }

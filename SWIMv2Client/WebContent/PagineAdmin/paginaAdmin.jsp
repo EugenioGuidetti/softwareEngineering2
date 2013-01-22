@@ -14,7 +14,13 @@
 				<img src="Immagini/logo.png" width="235" height="107">
 			</div>
 			<%
-				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
+				Messaggio messaggio = null;
+				if(request.getAttribute("messaggio") != null) {
+					messaggio = (Messaggio) request.getAttribute("messaggio");
+				} else if(request.getSession().getAttribute("messaggio") != null) {
+					messaggio = (Messaggio) request.getSession().getAttribute("messaggio");
+					request.getSession().removeAttribute("messaggio");
+				}
 				if(messaggio != null) {
 			%>
 					<div id="messaggio<%= messaggio.getTipo().toString() %>">
@@ -62,7 +68,7 @@
 						<div id="altreInfoProfilo">Email: <%= request.getAttribute("email") %></div>
 					</div>
 					<center>
-						<a href="modificaInformazioni.jsp">
+						<a href="PagineAdmin/modificaInformazioni.jsp">
 							<button id="pulsante" type="button">Modifica informazioni</button>
 						</a>
 					</center>
