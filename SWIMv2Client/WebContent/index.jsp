@@ -35,7 +35,7 @@
 					<div id="titoloBox">
 						<center>Effettua la registrazione</center>
 					</div>
-					<form action="Registrazione" method="post">
+					<form action="/SWIMv2Client/Registrazione" method="post">
 						<div id="informazioniBox">
 							<p>
 								<label for="rNome">Nome:</label>
@@ -111,7 +111,7 @@
 					<div id="titoloBox">
 						<center>Esegui l'accesso</center>
 					</div>
-					<form action="Login" method="post">
+					<form action="/SWIMv2Client/Login" method="post">
 						<div id="informazioniBox">
 							<p>
 								<label for="nickname">Nickname:</label>
@@ -135,7 +135,7 @@
 						<p></p>
 					</div>
 					<center>
-						<a href="PaginaGuest">
+						<a href="/SWIMv2Client/PaginaGuest">
 							<button id=pulsante type="button">Accesso Guest</button>
 						</a>
 					</center>

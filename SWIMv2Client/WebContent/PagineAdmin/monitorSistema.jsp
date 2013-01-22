@@ -29,22 +29,22 @@
 			<div id="menuAdmin">
 				<ul>
 					<li>
-						<a href="PaginaAdmin">
+						<a href="/SWIMv2Client/PaginaAdmin">
 							<button type="button">Pagina Admin</button>
 						</a>
 					</li>
 					<li>
-						<a href="GestioneProposte">
+						<a href="/SWIMv2Client/GestioneProposte">
 							<button type="button">Gestione Proposte</button>
 						</a>
 					</li>
 					<li>
-						<a href="MonitorSistema">
+						<a href="/SWIMv2Client/MonitorSistema">
 							<button type="button">&rarr; Monitor Sistema</button>
 						</a>
 					</li>
 					<li>
-						<a href="Logout">
+						<a href="/SWIMv2Client/Logout">
 							<button type="button">Logout</button>
 						</a>
 					</li>

@@ -28,22 +28,22 @@
 			<div id="menuAdmin">
 				<ul>
 					<li>
-						<a href="PaginaAdmin">
+						<a href="/SWIMv2Client/PaginaAdmin">
 							<button type="button">Pagina Admin</button>
 						</a>
 					</li>
 					<li>
-						<a href="GestioneProposte">
+						<a href="/SWIMv2Client/GestioneProposte">
 							<button type="button">&rarr; Gestione Proposte</button>
 						</a>
 					</li>
 					<li>
-						<a href="MonitorSistema">
+						<a href="/SWIMv2Client/MonitorSistema">
 							<button type="button">Monitor Sistema</button>
 						</a>
 					</li>
 					<li>
-						<a href="Logout">
+						<a href="/SWIMv2Client/Logout">
 							<button type="button">Logout</button>
 						</a>
 					</li>
@@ -54,7 +54,7 @@
 					<div id="titoloBox">
 						<center>Proposte abilit&agrave; non visionate</center>
 					</div>					
-					<form action="GestioneProposteActions" method="post">
+					<form action="/SWIMv2Client/GestioneProposteActions" method="post">
 						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")
@@ -91,7 +91,7 @@
 					<div id="titoloBox">
 						<center>Proposte abilit&agrave; visionate</center>
 					</div>
-					<form action="GestioneProposteActions" method="post">
+					<form action="/SWIMv2Client/GestioneProposteActions" method="post">
 						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")

@@ -19,7 +19,7 @@
 					<div id="titoloBox">
 						<center>Completa la registrazione</center>
 					</div>
-					<form action="CompletamentoRegistrazione" method="post">
+					<form action="/SWIMv2Client/CompletamentoRegistrazione" method="post">
 						<div id="informazioniBox">
 							<p>
 								<label for="rAvatar">Avatar:</label>

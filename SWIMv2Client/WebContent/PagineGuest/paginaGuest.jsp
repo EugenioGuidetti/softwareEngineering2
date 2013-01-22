@@ -19,12 +19,12 @@
 			<div id="menuGuest">
 				<ul>
 					<li>
-						<a href="PaginaGuest">
+						<a href="/SWIMv2Client/PaginaGuest">
 							<button type="button">&rarr; PaginaGuest</button>
 						</a>
 					</li>
 					<li>
-						<a href="Logout">
+						<a href="/SWIMv2Client/Logout">
 							<button type="button">Home Page</button>
 						</a>
 					</li>
@@ -35,7 +35,7 @@
 					<div id="titoloBox">
 						<center>Ricerca</center>
 					</div>
-					<form action="RicercaGuest" method="post">
+					<form action="/SWIMv2Client/RicercaGuest" method="post">
 						<div id="informazioniBox">
 							<center>Filtro sul nome:</center>
 							<p>
@@ -49,20 +49,19 @@
 							<div id="filtroAbilita">
 								<center>Filtro per abilita:</center>
 								<br>
-								<%
-									@SuppressWarnings("unchecked")
-									List<Abilita> abilitaSistema = 
-										(List<Abilita>) request.getAttribute("abilitaSistema");
-									for(Abilita abilita: abilitaSistema) {
-								%>
-										<label for="abilita<%= abilita.getId() %>">
-											<strong><%= abilita.getNome() %></strong>
-										</label>
-										<input id="abilita<%= abilita.getId() %>" name="abilita" type="radio" value="<%= abilita.getId() %>">
-										<br>
-								<%
-									}
-								%>
+								<label for="abilita">Abilita:</label>
+								<select id="abilita" name="abilita">
+									<%
+										@SuppressWarnings("unchecked")
+										List<Abilita> abilitaSistema = 
+											(List<Abilita>) request.getAttribute("abilitaSistema");
+										for(Abilita abilita: abilitaSistema) {
+									%>
+											<option value="<%= abilita.getId() %>"><%= abilita.getNome() %></option>
+									<%
+										}
+									%>
+								</select>
 							</div>
 							<div id="filtriRicerca">
 								<br>
