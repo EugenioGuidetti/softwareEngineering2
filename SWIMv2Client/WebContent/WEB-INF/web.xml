@@ -129,4 +129,14 @@
     <servlet-name>CompletaModificaAdmin</servlet-name>
     <url-pattern>/CompletaModificaAdmin</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PaginaUser</display-name>
+    <servlet-name>PaginaUser</servlet-name>
+    <servlet-class>servlet.PaginaUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaginaUser</servlet-name>
+    <url-pattern>/PaginaUser</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -30,6 +30,8 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante la modifica delle informazioni.";
 	private static final String ERRORE_CARICAMENTO_INFORMAZIONI =
 			"Ops! Qualcosa è andato storto durante il caricamento delle informazioni.";
+	private static final String FILE_TROPPO_GRANDE = 
+			"Il file caricato supera le dimensioni massime accettate.";
 	
 	
 	private Comunicazione() {
@@ -90,6 +92,10 @@ public final class Comunicazione {
 	
 	public static Messaggio erroreCaricamentoInformazioni() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_INFORMAZIONI);
+	}
+	
+	public static Messaggio fileTroppoGrande() {
+		return new Messaggio(TipoMessaggio.ERRORE, FILE_TROPPO_GRANDE);
 	}
 	
 }
