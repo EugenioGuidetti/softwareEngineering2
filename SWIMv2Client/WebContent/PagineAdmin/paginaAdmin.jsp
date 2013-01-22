@@ -68,7 +68,7 @@
 						<div id="altreInfoProfilo">Email: <%= request.getAttribute("email") %></div>
 					</div>
 					<center>
-						<a href="PagineAdmin/modificaInformazioni.jsp">
+						<a href="modificaInfoAdmin.jsp">
 							<button id="pulsante" type="button">Modifica informazioni</button>
 						</a>
 					</center>

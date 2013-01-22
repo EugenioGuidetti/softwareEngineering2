@@ -12,6 +12,44 @@
 			<div id="logo">
 				<img src="/SWIMv2Client/Immagini/logo.png" width="235" height="107">
 			</div>
+			<div id="body">
+				<div id="boxLeft">
+					<div id="titoloBox">
+						<center>Modifica le informazioni personali</center>
+					</div>
+					<form action="ModificaInfoAdmin" method="post">
+						<div id="informazioniBox">
+							<p>
+								<label for="nNome">Nome:</label>
+								<input id="nNome" name="nNome" type="text" maxlength="255">
+							</p>
+							<p>
+								<label for="nCognome">Cognome:</label>
+								<input id="nCognome" name="nCognome" type="text" maxlength="255">
+							</p>
+							<p>
+								<label for="nPassword">Password:</label>
+								<input id="nPassword" name="nPassword" type="password" maxlength="255">
+							</p>
+							<p>
+								<label for="nEmail">Email:</label>
+								<input id="nEmail" name="nEmail" type="text" maxlength="255">
+							</p>
+						</div>
+						<center>
+							<input id="pulsante" type="submit" value="Modifica">
+						</center>
+					</form>
+				</div>
+				<div id="boxRight">
+					<div id="titoloBox">
+						<center>Indicazioni</center>
+					</div>
+					<div id="indicazioni">
+						<p>Testo sul fatto che vanno compilati solo i campi che si intende modificare, gli altri vanno lasciati bianchi</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
