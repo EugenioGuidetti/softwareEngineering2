@@ -17,7 +17,7 @@
 					<div id="titoloBox">
 						<center>Modifica le informazioni personali</center>
 					</div>
-					<form action="ModificaInfoAdmin" method="post">
+					<form action="/SWIMv2Client/ModificaInfoAdmin" method="post">
 						<div id="informazioniBox">
 							<p>
 								<label for="nNome">Nome:</label>

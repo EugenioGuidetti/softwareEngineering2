@@ -14,7 +14,7 @@ import session.GestoreAdminRemote;
 import utility.Comunicazione;
 import utility.Utilita;
 
-public class ModificaInfoAdmin extends HttpServlet {
+public class ModificaInfoAdminOld extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +29,7 @@ public class ModificaInfoAdmin extends HttpServlet {
 	private Pattern pattern;
 	private Matcher matcher;
 
-    public ModificaInfoAdmin() {
+    public ModificaInfoAdminOld() {
         super();
     }
 
@@ -39,11 +39,16 @@ public class ModificaInfoAdmin extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		nickname = (String) request.getSession().getAttribute("nickname");
+		System.out.println("nickname: " + nickname);
 		nome = request.getParameter("nNome");
+		System.out.println("nome: " + nome);
 		cognome = request.getParameter("nCognome");
+		System.out.println("cognome: " + cognome);
 		password = request.getParameter("nPassword");
+		System.out.println("password: " + password);
 		email = request.getParameter("nEmail");
-		try {
+		System.out.println("email: " + email);
+		/*try {
 			context = new InitialContext();
 			gestoreAdmin = (GestoreAdminRemote) context.lookup("GestoreAdminJNDI");
 			if(!email.equals("")){
@@ -82,7 +87,7 @@ public class ModificaInfoAdmin extends HttpServlet {
 		} finally {
 			dispatcher = request.getRequestDispatcher("PaginaAdmin");
 			dispatcher.forward(request, response);
-		}
+		}*/
 	}
 
 }

@@ -119,14 +119,4 @@
     <servlet-name>RicercaGuest</servlet-name>
     <url-pattern>/RicercaGuest</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ModificaInfoAdmin</display-name>
-    <servlet-name>ModificaInfoAdmin</servlet-name>
-    <servlet-class>servlet.ModificaInfoAdmin</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ModificaInfoAdmin</servlet-name>
-    <url-pattern>/ModificaInfoAdmin</url-pattern>
-  </servlet-mapping>
 </web-app>
