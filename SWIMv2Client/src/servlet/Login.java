@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
 				ruolo = gestoreProfilo.getRuolo(nickname);
 				if(ruolo.equals(USER)) {
 					request.getSession().setAttribute("nickname", nickname);
-					response.sendRedirect("PagineUser/paginaUser.jsp");
+					response.sendRedirect("PaginaUser");
 				}
 				if(ruolo.equals(ADMIN)) {
 					request.getSession().setAttribute("nickname", nickname);

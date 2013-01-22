@@ -129,7 +129,7 @@
 				</div>
 				<div id="boxRight">
 					<div id="titoloBox">
-						<center>Accedi senza regstrarti</center>
+						<center>Accedi senza registrarti</center>
 					</div>
 					<div id="informazioniBox">
 						<p></p>

@@ -33,8 +33,7 @@ public class PaginaAdmin extends HttpServlet {
 			context = new InitialContext();
 			gestoreAdmin = (GestoreAdminRemote) context.lookup("GestoreAdminJNDI");
 			admin = gestoreAdmin.getAdmin(nickname);
-			request.setAttribute("nome", admin.getNome());
-			request.setAttribute("cognome", admin.getCognome());
+			request.setAttribute("nomeCompleto", admin.getNome() + " " + admin.getCognome());
 			request.setAttribute("email", admin.getEmail());
 			request.setAttribute("avatar", admin.getAvatarPath());
 			dispatcher = request.getRequestDispatcher("PagineAdmin/paginaAdmin.jsp");

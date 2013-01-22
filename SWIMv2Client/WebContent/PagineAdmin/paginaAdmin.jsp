@@ -63,7 +63,11 @@
 							<div id="avatar">
 								<img src="<%= request.getAttribute("avatar") %>" width="65" height="65">
 							</div>
-							<div id="testo"><%= request.getAttribute("nome") %> <%= request.getAttribute("cognome") %><br>@<%= request.getSession().getAttribute("nickname") %></div>
+							<div id="testo">
+								<%= request.getAttribute("nomeCompleto") %>
+								<br>
+								@<%= request.getSession().getAttribute("nickname") %>
+							</div>
 						</div>
 						<div id="altreInfoProfilo">Email: <%= request.getAttribute("email") %></div>
 					</div>
