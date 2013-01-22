@@ -13,12 +13,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>SWIMv2</title>
-		<link rel="stylesheet" href="CSS/style.css">
+		<link rel="stylesheet" href="/SWIMv2Client/CSS/style.css">
 	</head>
 	<body>
 		<div id="pagina">
 			<div id="logo">
-				<img src="Immagini/logo.png">
+				<img src="/SWIMv2Client/Immagini/logo.png">
 			</div>
 			<%
 				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
