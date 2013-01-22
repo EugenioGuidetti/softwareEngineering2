@@ -213,3 +213,7 @@ body {
 	height: 30px;
 	font-weight: bold;
 }
+
+.underline {
+	text-decoration: underline;
+}

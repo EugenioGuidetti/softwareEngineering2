@@ -37,7 +37,7 @@
 					</div>
 					<form action="/SWIMv2Client/RicercaGuest" method="post">
 						<div id="informazioniBox">
-							<center>Filtro sul nome:</center>
+							<center class="underline">Filtro sul nome:</center>
 							<p>
 								<label for="nome">Nome:</label>
 								<input id="nome" name="nome" type="text" maxlength="255">
@@ -47,7 +47,7 @@
 								<input id="cognome" name="cognome" type="text" maxlength="255">
 							</p>
 							<div id="filtroAbilita">
-								<center>Filtro per abilita:</center>
+								<center class="underline">Filtro per abilita:</center>
 								<br>
 								<label for="abilita">Abilita:</label>
 								<select id="abilita" name="abilita">
@@ -65,7 +65,7 @@
 							</div>
 							<div id="filtriRicerca">
 								<br>
-								<center>Scegli un filtro:</center>
+								<center class="underline">Scegli un filtro:</center>
 								<br>
 								<input id="filtro1" name="filtroRicerca" type="radio" value="perNome">
 								<label for="filtro1">Ricerca per nome</label>
