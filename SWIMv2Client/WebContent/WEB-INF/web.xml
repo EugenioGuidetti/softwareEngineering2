@@ -139,4 +139,24 @@
     <servlet-name>PaginaUser</servlet-name>
     <url-pattern>/PaginaUser</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RichiesteAmicizia</display-name>
+    <servlet-name>RichiesteAmicizia</servlet-name>
+    <servlet-class>servlet.RichiesteAmicizia</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RichiesteAmicizia</servlet-name>
+    <url-pattern>/RichiesteAmicizia</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AmicizieActions</display-name>
+    <servlet-name>AmicizieActions</servlet-name>
+    <servlet-class>servlet.AmicizieActions</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AmicizieActions</servlet-name>
+    <url-pattern>/AmicizieActions</url-pattern>
+  </servlet-mapping>
 </web-app>

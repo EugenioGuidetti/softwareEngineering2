@@ -4,6 +4,7 @@
 <%@ page import="entity.User" %>
 <%@ page import="entity.Abilita" %>
 <%@ page import="entity.ReputazioneAbilita" %>
+<%@ page import="utility.Messaggio" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,6 +18,16 @@
 			<div id="logo">
 				<img src="/SWIMv2Client/Immagini/logo.png" width="235" height="107">
 			</div>
+			<%
+				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
+				if(messaggio != null) {
+			%>
+					<div id="messaggio<%= messaggio.getTipo().toString() %>">
+						<center><%= messaggio.getTesto() %></center>
+					</div>
+			<%
+				}
+			%>
 			<div id="menuUser">
 				<ul>
 					<li>
