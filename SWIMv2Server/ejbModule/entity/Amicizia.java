@@ -22,7 +22,7 @@ import javax.persistence.*;
 			"FROM Amicizia a " +
 			"WHERE a.userRichiedente = :user " +
 			"AND a.momentoAccettazione IS NOT NULL " +
-			"ORDER BY a.momentoAccettazione"),
+			"ORDER BY a.userDestinatario.cognome, a.userDestinatario.nome"),
 	
 	@NamedQuery(name = "controllaAmici", query = 
 			"SELECT a " +
