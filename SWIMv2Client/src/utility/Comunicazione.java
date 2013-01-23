@@ -13,9 +13,13 @@ public final class Comunicazione {
 	private static final String CREDENZIALI_NON_VALIDE = 
 			"Le tue credenziali di accesso non sono valide. Controllale meglio!";
 	private static final String ERRORE_CREAZIONE_ABILITA = 
-			"Ops! Qualcosa è andato storto durante la creazione dell'abilita.";
+			"Ops! Qualcosa è andato storto durante la creazione dell'abilità.";
 	private static final String CONFERMA_CREAZIONE_ABILITA = 
 			"Complimenti! L'abilità è stata creata con successo.";
+	private static final String ERRORE_CARICAMENTO_ABILITA = 
+			"Ops! Qualcosa è andato storto durante il caricamento delle abilità.";
+	private static final String ERRORE_MODIFICA_ABILITA = 
+			"Ops! Qualcosa è andato storto durante la modifica delle abilità.";
 	private static final String ERRORE_CARICAMENTO_PROPOSTE = 
 			"Ops! Qualcosa è andato storto durante il caricamento delle proposte.";
 	private static final String ERRORE_MODIFICA_PROPOSTE = 
@@ -26,8 +30,6 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante la modifica delle amicizie.";
 	private static final String ERRORE_CARICAMENTO_MONITOR = 
 			"Ops! Qualcosa è andato storto durante il caricamento dei dati.";
-	private static final String ERRORE_CARICAMENTO_ABILITA = 
-			"Ops! Qualcosa è andato storto durante il caricamento delle abilita.";
 	private static final String ERRORE_RICERCA = 
 			"Ops! Qualcosa è andato storto durante l'esecuzione della ricerca.";
 	private static final String ERRORE_MODICA_INFORMAZIONI = 
@@ -73,6 +75,14 @@ public final class Comunicazione {
 	public static Messaggio confermaCreazioneAbilita() {
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_CREAZIONE_ABILITA);
 	}
+	
+	public static Messaggio erroreCaricamentoAbilita() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_ABILITA);
+	}
+	
+	public static Messaggio erroreModificaAbilita() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_ABILITA);
+	}
 
 	public static Messaggio erroreCaricamentoProposte() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_PROPOSTE);
@@ -92,10 +102,6 @@ public final class Comunicazione {
 
 	public static Messaggio erroreCaricamentoMonitor() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_MONITOR);
-	}
-	
-	public static Messaggio erroreCaricamentoAbilita() {
-		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_ABILITA);
 	}
 	
 	public static Messaggio erroreRicerca() {

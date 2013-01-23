@@ -42,12 +42,12 @@
 								@SuppressWarnings("unchecked")
 								List<Abilita> abilitaSistema = (List<Abilita>) 
 									request.getAttribute("abilitaSistema");
-								for (Abilita abilita : abilitaSistema) {
+								for (Abilita abilita: abilitaSistema) {
 							%>
 									<div id="checkAbilita">
 										<input name="abilitaScelte" type="checkbox" value="<%= abilita.getId() %>">
 										<div id="corpoAbilita">
-											<strong><%=abilita.getNome()%></strong>
+											<strong><%= abilita.getNome() %></strong>
 											<br>
 											<i>&ldquo;<%= abilita.getDescrizione() %>&rdquo;</i>
 										</div>

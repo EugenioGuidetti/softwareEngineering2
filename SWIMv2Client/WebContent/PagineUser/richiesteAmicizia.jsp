@@ -90,7 +90,7 @@
 					<div id="titoloBox">
 						<center>Richieste di amicizia ricevute</center>
 					</div>
-					<form action="AmicizieActions" method="post">
+					<form action="/SWIMv2Client/RichiesteAmiciziaActions" method="post">
 						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")

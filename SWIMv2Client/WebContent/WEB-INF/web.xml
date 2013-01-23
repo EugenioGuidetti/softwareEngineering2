@@ -179,4 +179,24 @@
     <servlet-name>RimuoviAmicizie</servlet-name>
     <url-pattern>/RimuoviAmicizie</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Abilita</display-name>
+    <servlet-name>Abilita</servlet-name>
+    <servlet-class>servlet.Abilita</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Abilita</servlet-name>
+    <url-pattern>/Abilita</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModificaAbilita</display-name>
+    <servlet-name>ModificaAbilita</servlet-name>
+    <servlet-class>servlet.ModificaAbilita</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModificaAbilita</servlet-name>
+    <url-pattern>/ModificaAbilita</url-pattern>
+  </servlet-mapping>
 </web-app>

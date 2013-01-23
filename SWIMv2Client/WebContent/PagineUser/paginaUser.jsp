@@ -120,7 +120,7 @@
 							%>
 						</div>
 						<center>
-							<a href="PagineUser/modificaInfoUser.jsp">
+							<a href="/SWIMv2Client/Abilita">
 								<button id="pulsante" type="button">Modifica le tue abilit&agrave;</button>
 							</a>
 						</center>
