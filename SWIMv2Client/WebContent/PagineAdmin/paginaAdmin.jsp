@@ -77,7 +77,7 @@
 					<div id="titoloBox">
 						<center>Crea una nuova abilit&agrave;</center>
 					</div>
-					<form action="/SWIMv2Client/CreaAbilita" method="post">
+					<form action="/SWIMv2Client/CreaAbilita" method="post" enctype="multipart/form-data">
 						<div id="informazioniBox">
 							<p>
 								<label for="nome">Nome:</label>
