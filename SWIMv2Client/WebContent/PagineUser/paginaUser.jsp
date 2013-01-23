@@ -10,6 +10,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>SWIMv2</title>
+		<link rel="stylesheet" href="/SWIMv2Client/CSS/style.css">
 	</head>
 	<body>
 		<div id="pagina">
@@ -70,7 +71,7 @@
 							Email: <%= request.getAttribute("email") %><br>
 							Sesso: <%= request.getAttribute("sesso") %><br>
 							Anno di nascita: <%= request.getAttribute("annoNascita") %><br>
-							Citt&grave;: <%= request.getAttribute("citta") %><br>
+							Citt&agrave;: <%= request.getAttribute("citta") %><br>
 						</div>
 					</div>
 					<center>
@@ -93,9 +94,9 @@
 						%>
 									<div id="abilita">
 										<div id="corpoAbilita">
-											<strong><%= abilita.getNome() %></strong>
-											<img src="/SWIMv2Client/Immagini/stelle<%= abilitaUser.get(abilita).getMediaValutazioniFeedback() %>.png" width="" height="">
-											(<%= abilitaUser.get(abilita).getNumeroFeedbackRicevuti() %>)
+											<strong><%= abilita.getNome() %></strong> (<%= abilitaUser.get(abilita).getNumeroFeedbackRicevuti() %>)
+											<br>
+											<img class="stelle" src="/SWIMv2Client/Immagini/stelle<%= abilitaUser.get(abilita).getMediaValutazioniFeedback() %>.png" width="179" height="34">											
 										</div>
 										<div id="iconaAbilita">
 											<img src="<%= abilita.getIconaPath() %>" width="65" height="65">
@@ -113,7 +114,7 @@
 					</center>
 					<center>
 						<a href="PagineUser/proponiAbilita.jsp">
-							<button id="pulsante" type="button">Proponi una nuova abilit&agrave;</button>
+							<button class="pulsantiVicini" id="pulsante" type="button">Proponi una nuova abilit&agrave;</button>
 						</a>
 					</center>
 				</div>

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,7 @@ public class PaginaUser extends HttpServlet {
 			request.setAttribute("email", user.getEmail());
 			amicizie = gestoreAmicizia.getAmicizieAllacciate(nickname);
 			if(!amicizie.isEmpty()) {
+				amici = new ArrayList<User>();
 				for(Amicizia amicizia: amicizie) {
 					amici.add(amicizia.getUserDestinatario());
 				}
@@ -64,7 +66,7 @@ public class PaginaUser extends HttpServlet {
 			}
 			abilitaDichiarate = user.getAbilitaDichiarate();
 			if(!abilitaDichiarate.isEmpty()) {
-				gestoreUtilities = (GestoreUtilitiesRemote) context.lookup("GestoreUtilities");
+				gestoreUtilities = (GestoreUtilitiesRemote) context.lookup("GestoreUtilitiesJNDI");
 				abilitaValutate = new HashMap<Abilita, ReputazioneAbilita>();
 				for(Abilita abilita: abilitaDichiarate) {
 					abilitaValutate.put
