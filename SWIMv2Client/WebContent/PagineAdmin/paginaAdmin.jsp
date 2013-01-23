@@ -14,13 +14,7 @@
 				<img src="/SWIMv2Client/Immagini/logo.png" width="235" height="107">
 			</div>
 			<%
-				Messaggio messaggio = null;
-				if(request.getAttribute("messaggio") != null) {
-					messaggio = (Messaggio) request.getAttribute("messaggio");
-				} else if(request.getSession().getAttribute("messaggio") != null) {
-					messaggio = (Messaggio) request.getSession().getAttribute("messaggio");
-					request.getSession().removeAttribute("messaggio");
-				}
+				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
 				if(messaggio != null) {
 			%>
 					<div id="messaggio<%= messaggio.getTipo().toString() %>">
@@ -69,7 +63,9 @@
 								@<%= request.getSession().getAttribute("nickname") %>
 							</div>
 						</div>
-						<div id="altreInfoProfilo">Email: <%= request.getAttribute("email") %></div>
+						<div id="altreInfoProfilo">
+							Email: <%= request.getAttribute("email") %>
+						</div>
 					</div>
 					<center>
 						<a href="PagineAdmin/modificaInfoAdmin.jsp">

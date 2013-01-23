@@ -20,6 +20,21 @@ import utility.Utilita;
 public class Registrazione extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private RequestDispatcher dispatcher;
+	private Context context;
+	private GestoreProfiloRemote gestoreProfilo;
+	private GestoreUserRemote gestoreUser;
+	private GestoreAbilitaRemote gestoreAbilita;
+	private String nome;
+	private String cognome;
+	private String sesso;
+	private int annoNascita;
+	private String citta;
+	private String nickname;
+	private String password;
+	private String email;
+	private String avatar;
     
     public Registrazione() {
         super();
@@ -30,20 +45,15 @@ public class Registrazione extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher;
-		Context context;
-		GestoreProfiloRemote gestoreProfilo;
-		GestoreUserRemote gestoreUser;
-		GestoreAbilitaRemote gestoreAbilita;
-		String nome = (String) request.getParameter("rNome");
-		String cognome = (String) request.getParameter("rCognome");
-		String sesso = (String) request.getParameter("rSesso");
-		int annoNascita = Integer.parseInt(request.getParameter("rAnnoNascita"));
-		String citta = (String) request.getParameter("rCitta");
-		String nickname = (String) request.getParameter("rNickname");
-		String password = (String) request.getParameter("rPassword");
-		String email = (String) request.getParameter("rEmail");
-		String avatar = Utilita.USER_DEFAULT_AVATAR;
+		nome = (String) request.getParameter("rNome");
+		cognome = (String) request.getParameter("rCognome");
+		sesso = (String) request.getParameter("rSesso");
+		annoNascita = Integer.parseInt(request.getParameter("rAnnoNascita"));
+		citta = (String) request.getParameter("rCitta");
+		nickname = (String) request.getParameter("rNickname");
+		password = (String) request.getParameter("rPassword");
+		email = (String) request.getParameter("rEmail");
+		avatar = Utilita.USER_DEFAULT_AVATAR;
 		try {
 			context = new InitialContext();
 			gestoreProfilo = (GestoreProfiloRemote) context.lookup("GestoreProfiloJNDI");
@@ -63,6 +73,7 @@ public class Registrazione extends HttpServlet {
 				gestoreUser.registra(nickname, password, email, nome, cognome, avatar, citta, sesso, annoNascita);
 				request.getSession().setAttribute("nickname", nickname);
 				request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
+				request.setAttribute("messaggio", Comunicazione.registrazioneCompletata());
 				dispatcher = request.getRequestDispatcher("registrazione.jsp");
 				dispatcher.forward(request, response);
 			}

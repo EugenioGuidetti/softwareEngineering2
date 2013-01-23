@@ -9,7 +9,7 @@ public final class Comunicazione {
 	private static final String REGISTRAZIONE_COMPLETATA = 
 			"Congratulazioni! La registrazione è terminata con successo.";
 	private static final String ERRORE_SERVLET = 
-			"Ops! Qualcosa è andato storto, ci scusiamo per il disagio. Accedi di nuovo tra qualche istante.";
+			"Ops! Qualcosa è andato storto, ci scusiamo per il disagio, accedi per modificare il tuo profilo.";
 	private static final String CREDENZIALI_NON_VALIDE = 
 			"Le tue credenziali di accesso non sono valide. Controllale meglio!";
 	private static final String ERRORE_CREAZIONE_ABILITA = 
@@ -31,7 +31,7 @@ public final class Comunicazione {
 	private static final String ERRORE_CARICAMENTO_INFORMAZIONI =
 			"Ops! Qualcosa è andato storto durante il caricamento delle informazioni.";
 	private static final String FILE_TROPPO_GRANDE = 
-			"Il file caricato supera le dimensioni massime accettate.";
+			"L'immagine caricata supera le dimensioni massime accettate, ti è stato settato l'avatar di dafault.";
 	
 	
 	private Comunicazione() {

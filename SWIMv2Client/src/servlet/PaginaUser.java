@@ -50,6 +50,7 @@ public class PaginaUser extends HttpServlet {
 			gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
 			user = gestoreUser.getUser(nickname);
 			request.setAttribute("nomeCompleto", user.getNome() + " " + user.getCognome());
+			request.setAttribute("avatar", user.getAvatarPath());
 			request.setAttribute("sesso", user.getSesso());
 			request.setAttribute("annoNascita", user.getAnnoNascita());
 			request.setAttribute("citta", user.getCitta());
