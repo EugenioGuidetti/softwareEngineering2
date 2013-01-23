@@ -119,7 +119,7 @@ public class CreaAbilita extends HttpServlet {
 		catch (IOException ioE) {
 			//modificare messaggio: file immagine troppo grande
 			request.getSession().setAttribute("messaggio", Comunicazione.fileIconaTroppoGrande());
-			response.sendRedirect("/SWIMv2Client/PagineAdmin/paginaAdmin.jsp");
+			response.sendRedirect("PaginaAdmin");
 		}
 	}
 
