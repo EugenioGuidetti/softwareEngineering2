@@ -19,6 +19,12 @@ public class GestioneProposteActions extends HttpServlet {
 	private static final String VISIONA = "visiona";
 	private static final String CANCELLA = "cancella";
 
+	private RequestDispatcher dispatcher;
+	private Context context;
+	private GestorePropostaAbilitaRemote gestoreProposta;
+	private String[] proposteScelte;
+	private String azione;
+	
     public GestioneProposteActions() {
         super();
     }
@@ -28,11 +34,8 @@ public class GestioneProposteActions extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher;
-		Context context;
-		GestorePropostaAbilitaRemote gestoreProposta;
-		String[] proposteScelte = request.getParameterValues("proposteScelte");
-		String azione = request.getParameter("azione");
+		proposteScelte = request.getParameterValues("proposteScelte");
+		azione = request.getParameter("azione");
 		try {
 			context = new InitialContext();
 			gestoreProposta = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");

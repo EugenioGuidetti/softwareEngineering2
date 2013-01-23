@@ -125,11 +125,11 @@ body {
 	margin-right: 10px;
 }
 
-#proposteActions, #filtriRicerca {
+#proposteActions, #filtriRicerca, #amicizieActions {
 	text-align: center;
 }
 
-#proposteActions input, #filtriRicerca input {
+#proposteActions input, #filtriRicerca input, #amicizieActions input {
 	width: auto;
 	margin-right: auto;
 }
@@ -185,15 +185,11 @@ body {
 	height: 65px;
 }
 
-#checkAbilita input {
+#checkAbilita input, #proposta input, #richiestaAmiciziaRicevuta input {
 	width: auto;
 }
 
-#proposta input {
-	width: auto;
-}
-
-#checkAbilita, #proposta, #abilita {
+#checkAbilita, #proposta, #abilita, #richiestaAmiciziaInviata, #richiestaAmiciziaRicevuta {
 	text-align: left;
 	overflow: auto;
 	margin-bottom: 5px;
@@ -201,7 +197,7 @@ body {
 	margin-right: 10px;
 }
 
-#iconaAbilita, #corpoAbilita, #corpoProposta {	
+#iconaAbilita, #corpoAbilita, #corpoProposta, #corpoRichiesta {	
 	border: 1px solid grey;
 	border-radius: 5px;
 	background-color: white;
@@ -223,8 +219,12 @@ body {
 }
 
 
-#corpoProposta {
+#corpoProposta, #richiestaAmiciziaRicevuta #corpoRichiesta {
 	width: 295px;
+}
+
+#richiestaAmiciziaInviata #corpoRichiesta {
+	width: 328px;
 }
 
 #pulsante {

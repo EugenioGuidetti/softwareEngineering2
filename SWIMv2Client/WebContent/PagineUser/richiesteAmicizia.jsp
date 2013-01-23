@@ -1,3 +1,5 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.GregorianCalendar"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Amicizia" %>
@@ -71,9 +73,12 @@
 								(List<Amicizia>) request.getAttribute("richiesteInviate");
 							if(!richiesteInviate.isEmpty()) {
 								for(Amicizia richiesta: richiesteInviate) {
+									Calendar data = richiesta.getMomentoRichiesta();
 						%>
-									<div id="richiestaAmicizia">
-										<%= richiesta.getMomentoRichiesta() %> hai inviato una richiesta di amicizia a <strong>@<%= richiesta.getUserDestinatario().getNickname() %></strong>
+									<div id="richiestaAmiciziaInviata">
+										<div id="corpoRichiesta">
+										Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di amicizia a <strong>@<%= richiesta.getUserDestinatario().getNickname() %></strong>, che non ha ancora ricevuto risposta
+										</div>
 									</div>
 						<%
 								}
@@ -85,7 +90,7 @@
 					<div id="titoloBox">
 						<center>Richieste di amicizia ricevute</center>
 					</div>
-					<form action="cancellaAmicizie" method="post">
+					<form action="AmicizieActions" method="post">
 						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")
@@ -94,8 +99,8 @@
 								if(!richiesteRicevute.isEmpty()) {
 									for(Amicizia richiesta: richiesteRicevute) {
 							%>
-										<div id="richiestaAmicizia">
-											<input name="richiesteScelte" type="checkbox" value="<%= richiesta.getId() %>">
+										<div id="richiestaAmiciziaRicevuta">
+											<input name="amicizieScelte" type="checkbox" value="<%= richiesta.getId() %>">
 											<div id="corpoRichiesta">
 												Hai ricevuto una richiesta di amicizia da parte di <strong>@<%= richiesta.getUserRichiedente().getNickname() %></strong>
 											</div>											
@@ -104,7 +109,7 @@
 									}
 								}
 							%>
-							<div id="richiesteAmiciziaActions">
+							<div id="amicizieActions">
 								<br>
 								<input id="azione1" name="azione" type="radio" value="accetta">
 								<label for="azione1"> Accetta la/e richiesta/e</label>

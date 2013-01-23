@@ -23,7 +23,7 @@ public class AmicizieActions extends HttpServlet {
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreAmiciziaRemote gestoreAmicizia;
-	private String[] richiesteScelte;
+	private String[] amicizieScelte;
 	private String azione;
 
     public AmicizieActions() {
@@ -35,13 +35,13 @@ public class AmicizieActions extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		richiesteScelte = request.getParameterValues("richiesteScelte");
+		amicizieScelte = request.getParameterValues("amicizieScelte");
 		azione = request.getParameter("azione");
 		try {
 			context = new InitialContext();
 			gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
-			if(richiesteScelte != null && azione != null) {
-				for(String idRichiesta: richiesteScelte) {
+			if(amicizieScelte != null && azione != null) {
+				for(String idRichiesta: amicizieScelte) {
 					try {
 						long id = Long.parseLong(idRichiesta);
 						if(azione.equals(ACCETTA)) {
