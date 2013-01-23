@@ -82,6 +82,12 @@ body {
 	margin-right: 13px;
 }
 
+#containerLeft {
+	float: left;
+	overflow: auto;
+	width: 400px;
+}
+
 #boxLeft, #boxRight, #boxCenter {
 	border: 1px solid grey;
 	border-radius: 15px;

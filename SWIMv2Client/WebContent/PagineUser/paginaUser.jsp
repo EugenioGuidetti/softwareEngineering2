@@ -51,72 +51,74 @@
 					</li>
 				</ul>
 			</div>
-			<div id="body">
-				<div id="boxLeft">
-					<div id="titoloBox">
-						<center>Informazioni personali</center>
-					</div>
-					<div id="informazioniBox">
-						<div id="infoProfilo">
-							<div id="avatar">
-								<img src="<%= request.getAttribute("avatar") %>" width="65" height="65">
+			<div id="body">				
+				<div id="containerLeft">
+					<div id="boxLeft">
+						<div id="titoloBox">
+							<center>Informazioni personali</center>
+						</div>
+						<div id="informazioniBox">
+							<div id="infoProfilo">
+								<div id="avatar">
+									<img src="<%= request.getAttribute("avatar") %>" width="65" height="65">
+								</div>
+								<div id="testo">
+									<%= request.getAttribute("nomeCompleto") %>
+									<br>
+									@<%= request.getSession().getAttribute("nickname") %>
+								</div>
 							</div>
-							<div id="testo">
-								<%= request.getAttribute("nomeCompleto") %>
-								<br>
-								@<%= request.getSession().getAttribute("nickname") %>
+							<div id="altreInfoProfilo">
+								Email: <%= request.getAttribute("email") %><br>
+								Sesso: <%= request.getAttribute("sesso") %><br>
+								Anno di nascita: <%= request.getAttribute("annoNascita") %><br>
+								Citt&agrave;: <%= request.getAttribute("citta") %><br>
 							</div>
 						</div>
-						<div id="altreInfoProfilo">
-							Email: <%= request.getAttribute("email") %><br>
-							Sesso: <%= request.getAttribute("sesso") %><br>
-							Anno di nascita: <%= request.getAttribute("annoNascita") %><br>
-							Citt&agrave;: <%= request.getAttribute("citta") %><br>
+						<center>
+							<a href="PagineUser/modificaInfoUser.jsp">
+								<button id="pulsante" type="button">Modifica informazioni</button>
+							</a>
+						</center>
+					</div>				
+					<div id="boxLeft">
+						<div id="titoloBox">
+							<center>Abilit&agrave; dichiarate</center>
 						</div>
-					</div>
-					<center>
-						<a href="PagineUser/modificaInfoUser.jsp">
-							<button id="pulsante" type="button">Modifica informazioni</button>
-						</a>
-					</center>
-				</div>
-				<div id="boxLeft">
-					<div id="titoloBox">
-						<center>Abilit&agrave; dichiarate</center>
-					</div>
-					<div id="informazioniBox">
-						<%
-							@SuppressWarnings("unchecked")
-							Map<Abilita, ReputazioneAbilita> abilitaUser = 
-								(Map<Abilita, ReputazioneAbilita>) request.getAttribute("abilitaValutate");
-							if(abilitaUser != null) {
-								for(Abilita abilita: abilitaUser.keySet()) {
-						%>
-									<div id="abilita">
-										<div id="corpoAbilita">
-											<strong><%= abilita.getNome() %></strong> (<%= abilitaUser.get(abilita).getNumeroFeedbackRicevuti() %>)
-											<br>
-											<img class="stelle" src="/SWIMv2Client/Immagini/stelle<%= abilitaUser.get(abilita).getMediaValutazioniFeedback() %>.png" width="179" height="34">											
+						<div id="informazioniBox">
+							<%
+								@SuppressWarnings("unchecked")
+								Map<Abilita, ReputazioneAbilita> abilitaUser = 
+									(Map<Abilita, ReputazioneAbilita>) request.getAttribute("abilitaValutate");
+								if(abilitaUser != null) {
+									for(Abilita abilita: abilitaUser.keySet()) {
+							%>
+										<div id="abilita">
+											<div id="corpoAbilita">
+												<strong><%= abilita.getNome() %></strong> (<%= abilitaUser.get(abilita).getNumeroFeedbackRicevuti() %>)
+												<br>
+												<img class="stelle" src="/SWIMv2Client/Immagini/stelle<%= abilitaUser.get(abilita).getMediaValutazioniFeedback() %>.png" width="179" height="34">											
+											</div>
+											<div id="iconaAbilita">
+												<img src="<%= abilita.getIconaPath() %>" width="65" height="65">
+											</div>
 										</div>
-										<div id="iconaAbilita">
-											<img src="<%= abilita.getIconaPath() %>" width="65" height="65">
-										</div>
-									</div>
-						<%
+							<%
+									}
 								}
-							}
-						%>
+							%>
+						</div>
+						<center>
+							<a href="PagineUser/modificaInfoUser.jsp">
+								<button id="pulsante" type="button">Modifica le tue abilit&agrave;</button>
+							</a>
+						</center>
+						<center>
+							<a href="PagineUser/proponiAbilita.jsp">
+								<button class="pulsantiVicini" id="pulsante" type="button">Proponi una nuova abilit&agrave;</button>
+							</a>
+						</center>
 					</div>
-					<center>
-						<a href="PagineUser/modificaInfoUser.jsp">
-							<button id="pulsante" type="button">Modifica le tue abilit&agrave;</button>
-						</a>
-					</center>
-					<center>
-						<a href="PagineUser/proponiAbilita.jsp">
-							<button class="pulsantiVicini" id="pulsante" type="button">Proponi una nuova abilit&agrave;</button>
-						</a>
-					</center>
 				</div>
 				<div id="boxRight">
 					<div id="titoloBox">
