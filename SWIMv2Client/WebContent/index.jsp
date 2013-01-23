@@ -21,7 +21,15 @@
 				<img src="/SWIMv2Client/Immagini/logo.png">
 			</div>
 			<%
-				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
+				Messaggio messaggio = null;
+				
+				//recupero messaggio dalla request
+				messaggio = (Messaggio) request.getAttribute("messaggio");
+				if(messaggio == null){
+					//recuper messaggio dalla session e la invalido
+					messaggio = (Messaggio) request.getSession().getAttribute("messaggio");
+					request.getSession().invalidate();
+				}
 				if(messaggio != null) {
 			%>
 					<div id="messaggio<%= messaggio.getTipo().toString() %>">

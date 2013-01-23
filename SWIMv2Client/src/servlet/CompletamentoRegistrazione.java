@@ -59,23 +59,20 @@ public class CompletamentoRegistrazione extends HttpServlet {
 			context = new InitialContext(); 
 			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-			
+
 			multiRequest = new MultipartRequest(request, tempDirPath);
-			System.out.println("sono qui");
 			nickname = (String) request.getSession().getAttribute("nickname");
-			System.out.println("nickname: " + nickname);
 
 			//dichiaro le abilità scelte 
 			abilitaScelte = multiRequest.getParameterValues("abilitaScelte");
 			if(abilitaScelte != null) {
 				for(String abilitaScelta: abilitaScelte) {
-					System.out.println("abilità id: " + abilitaScelta);
 					long id = Long.parseLong(abilitaScelta);
 					abilitaDichiarate.add(gestoreAbilita.getAbilita(id));
 				}
 				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
 			}
-			
+
 			//recupero dell'avatar
 			avatar = multiRequest.getFile("rAvatar");
 
@@ -114,19 +111,29 @@ public class CompletamentoRegistrazione extends HttpServlet {
 					gestoreUser.modificaAvatar(nickname, avatarPath);
 				}
 			}
+
+			//invalido la sessione di registrazione
+			request.setAttribute("messaggio", Comunicazione.confermaAvatarAbilita());
+			request.getSession().invalidate();
+			dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+			
 		} catch (IOException ioEx) {
-			System.out.println("sto lanciando l'eccezione");
-			request.setAttribute("messaggio", Comunicazione.fileTroppoGrande());
+			request.getSession().setAttribute("messaggio", Comunicazione.fileTroppoGrande());
+			response.sendRedirect("index.jsp");
 		} catch (NamingException nEx) {
 			request.setAttribute("messaggio", Comunicazione.erroreServlet());
-		} catch (NumberFormatException numberFormatE) {
-			request.setAttribute("messaggio", Comunicazione.erroreServlet());
-		} finally {
 			//invalido la sessione di registrazione
 			request.getSession().invalidate();
 			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);			
-		}
+			dispatcher.forward(request, response);	
+		} catch (NumberFormatException numberFormatE) {
+			request.setAttribute("messaggio", Comunicazione.erroreServlet());
+			//invalido la sessione di registrazione
+			request.getSession().invalidate();
+			dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+		} 
 	}
 
 }

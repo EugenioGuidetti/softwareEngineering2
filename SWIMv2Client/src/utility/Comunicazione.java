@@ -32,6 +32,8 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante il caricamento delle informazioni.";
 	private static final String FILE_TROPPO_GRANDE = 
 			"L'immagine caricata supera le dimensioni massime accettate, ti è stato settato l'avatar di dafault.";
+	private static final String CONFERMA_AVATAR_ABILITA = 
+			"L'avatar e le abilità scelta sono stati settati correttamente";
 	
 	
 	private Comunicazione() {
@@ -96,6 +98,10 @@ public final class Comunicazione {
 	
 	public static Messaggio fileTroppoGrande() {
 		return new Messaggio(TipoMessaggio.ERRORE, FILE_TROPPO_GRANDE);
+	}
+	
+	public static Messaggio confermaAvatarAbilita() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_AVATAR_ABILITA);
 	}
 	
 }
