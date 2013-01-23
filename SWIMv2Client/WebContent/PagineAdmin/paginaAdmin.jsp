@@ -14,7 +14,15 @@
 				<img src="/SWIMv2Client/Immagini/logo.png" width="235" height="107">
 			</div>
 			<%
-				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
+				Messaggio messaggio = null;
+				
+				//recupero messaggio dalla request
+				messaggio = (Messaggio) request.getAttribute("messaggio");
+				if(messaggio == null){
+					//recuper messaggio dalla session e la invalido
+					messaggio = (Messaggio) request.getSession().getAttribute("messaggio");
+					request.getSession().removeAttribute("messaggio");
+				}
 				if(messaggio != null) {
 			%>
 					<div id="messaggio<%= messaggio.getTipo().toString() %>">
@@ -89,7 +97,7 @@
 							</p>
 							<p>
 								<label for="icona">Icona:</label>
-								<input id="icona" name="icona" type="file" accept="image/*">
+								<input id="icona" name="icona" type="file" accept="image/*" required="required">
 							</p>
 						</div>
 						<center>

@@ -119,7 +119,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		} catch (IOException ioEx) {
-			request.getSession().setAttribute("messaggio", Comunicazione.fileTroppoGrande());
+			request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrande());
 			response.sendRedirect("index.jsp");
 		} catch (NamingException nEx) {
 			request.setAttribute("messaggio", Comunicazione.erroreServlet());

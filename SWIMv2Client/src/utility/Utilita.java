@@ -6,6 +6,8 @@ public class Utilita {
 	
 	public static final String IMG_PATH_BASE ="/SWIMv2Client/Immagini/";
 	
+	public static final String ICONA_PATH_BASE ="/SWIMv2Client/Immagini/Icone/";
+	
 	public static final String USER_DEFAULT_AVATAR = 
 			"/SWIMv2Client/Immagini/user.png";
 	public static final String ADMIN_DEFAULT_AVATAR = 
@@ -18,3 +20,4 @@ public class Utilita {
 	}
 	
 }
+

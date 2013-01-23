@@ -32,8 +32,10 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante la modifica delle informazioni.";
 	private static final String ERRORE_CARICAMENTO_INFORMAZIONI =
 			"Ops! Qualcosa è andato storto durante il caricamento delle informazioni.";
-	private static final String FILE_TROPPO_GRANDE = 
+	private static final String FILE_AVATAR_TROPPO_GRANDE = 
 			"L'immagine caricata supera le dimensioni massime accettate, ti è stato settato l'avatar di dafault.";
+	private static final String FILE_ICONA_TROPPO_GRANDE = 
+			"L'immagine caricata supera le dimensioni massime accettate, l'abilità non è stata creata.";
 	private static final String CONFERMA_AVATAR_ABILITA = 
 			"L'avatar e le abilità scelta sono stati settati correttamente";
 	
@@ -102,8 +104,12 @@ public final class Comunicazione {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_INFORMAZIONI);
 	}
 	
-	public static Messaggio fileTroppoGrande() {
-		return new Messaggio(TipoMessaggio.ERRORE, FILE_TROPPO_GRANDE);
+	public static Messaggio fileAvatarTroppoGrande() {
+		return new Messaggio(TipoMessaggio.ERRORE, FILE_AVATAR_TROPPO_GRANDE);
+	}
+	
+	public static Messaggio fileIconaTroppoGrande() {
+		return new Messaggio(TipoMessaggio.ERRORE, FILE_ICONA_TROPPO_GRANDE);
 	}
 	
 	public static Messaggio confermaAvatarAbilita() {
