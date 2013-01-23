@@ -199,4 +199,14 @@
     <servlet-name>ModificaAbilita</servlet-name>
     <url-pattern>/ModificaAbilita</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProponiAbilita</display-name>
+    <servlet-name>ProponiAbilita</servlet-name>
+    <servlet-class>servlet.ProponiAbilita</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProponiAbilita</servlet-name>
+    <url-pattern>/ProponiAbilita</url-pattern>
+  </servlet-mapping>
 </web-app>
