@@ -151,12 +151,32 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>AmicizieActions</display-name>
-    <servlet-name>AmicizieActions</servlet-name>
-    <servlet-class>servlet.AmicizieActions</servlet-class>
+    <display-name>RichiesteAmiciziaActions</display-name>
+    <servlet-name>RichiesteAmiciziaActions</servlet-name>
+    <servlet-class>servlet.RichiesteAmiciziaActions</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AmicizieActions</servlet-name>
-    <url-pattern>/AmicizieActions</url-pattern>
+    <servlet-name>RichiesteAmiciziaActions</servlet-name>
+    <url-pattern>/RichiesteAmiciziaActions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Amicizie</display-name>
+    <servlet-name>Amicizie</servlet-name>
+    <servlet-class>servlet.Amicizie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Amicizie</servlet-name>
+    <url-pattern>/Amicizie</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RimuoviAmicizie</display-name>
+    <servlet-name>RimuoviAmicizie</servlet-name>
+    <servlet-class>servlet.RimuoviAmicizie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RimuoviAmicizie</servlet-name>
+    <url-pattern>/RimuoviAmicizie</url-pattern>
   </servlet-mapping>
 </web-app>

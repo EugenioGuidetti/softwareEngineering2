@@ -15,7 +15,7 @@
 	<body>
 		<div id="pagina">
 			<div id="logo">
-				<img src="/SWIMv2Client/Immagini/logo.png">
+				<img src="/SWIMv2Client/Immagini/logo.png" width="235" height="107">
 			</div>
 			<%
 				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
@@ -100,7 +100,7 @@
 									for(Amicizia richiesta: richiesteRicevute) {
 							%>
 										<div id="richiestaAmiciziaRicevuta">
-											<input name="amicizieScelte" type="checkbox" value="<%= richiesta.getId() %>">
+											<input name="richiesteScelte" type="checkbox" value="<%= richiesta.getId() %>">
 											<div id="corpoRichiesta">
 												Hai ricevuto una richiesta di amicizia da parte di <strong>@<%= richiesta.getUserRichiedente().getNickname() %></strong>
 											</div>											

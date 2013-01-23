@@ -129,7 +129,7 @@ body {
 	text-align: center;
 }
 
-#proposteActions input, #filtriRicerca input, #amicizieActions input {
+#proposteActions input, #filtriRicerca input, #amicizieActions input, #amicizia input {
 	width: auto;
 	margin-right: auto;
 }
@@ -189,7 +189,7 @@ body {
 	width: auto;
 }
 
-#checkAbilita, #proposta, #abilita, #richiestaAmiciziaInviata, #richiestaAmiciziaRicevuta {
+#checkAbilita, #proposta, #abilita, #richiestaAmiciziaInviata, #richiestaAmiciziaRicevuta, #amicizia {
 	text-align: left;
 	overflow: auto;
 	margin-bottom: 5px;
@@ -209,9 +209,13 @@ body {
 	margin-right: 5px;
 }
 
-#corpoAbilita {
+#corpoAbilita, #amicizia #testo {
 	margin-left: 5px;
 	width: 210px;
+}
+
+#amicizia #testo, #amicizia #avatar {
+	float: right;
 }
 
 #abilita #corpoAbilita {

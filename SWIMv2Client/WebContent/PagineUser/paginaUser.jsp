@@ -159,7 +159,7 @@
 						%>
 					</div>
 					<center>
-						<a href="PagineUser/modificaAmicizie.jsp">
+						<a href="/SWIMv2Client/Amicizie">
 							<button id="pulsante" type="button">Modifica amicizie</button>
 						</a>
 					</center>

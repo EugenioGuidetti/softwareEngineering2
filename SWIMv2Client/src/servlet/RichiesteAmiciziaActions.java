@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import session.GestoreAmiciziaRemote;
 import utility.Comunicazione;
 
-public class AmicizieActions extends HttpServlet {
+public class RichiesteAmiciziaActions extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,10 +23,10 @@ public class AmicizieActions extends HttpServlet {
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreAmiciziaRemote gestoreAmicizia;
-	private String[] amicizieScelte;
+	private String[] richiesteScelte;
 	private String azione;
 
-    public AmicizieActions() {
+    public RichiesteAmiciziaActions() {
         super();
     }
 
@@ -35,13 +35,13 @@ public class AmicizieActions extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		amicizieScelte = request.getParameterValues("amicizieScelte");
+		richiesteScelte = request.getParameterValues("richiesteScelte");
 		azione = request.getParameter("azione");
 		try {
 			context = new InitialContext();
 			gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
-			if(amicizieScelte != null && azione != null) {
-				for(String idRichiesta: amicizieScelte) {
+			if(richiesteScelte != null && azione != null) {
+				for(String idRichiesta: richiesteScelte) {
 					try {
 						long id = Long.parseLong(idRichiesta);
 						if(azione.equals(ACCETTA)) {
