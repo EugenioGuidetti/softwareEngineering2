@@ -14,6 +14,12 @@ public class Utilita {
 			"/SWIMv2Client/Immagini/admin.png";
 	public static final String EMAIL_PATTERN = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@" +
 			"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+	
+	public static final String OGGETTO_MAIL_REGISTRAZIONE = "Registrazione completata - SWIMv2";
+	
+	public static final String from = "swimv2.polimi@gmail.com";
+	
+	public static final String host = "localhost";
 
 	private Utilita() {
 		super();
