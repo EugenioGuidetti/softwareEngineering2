@@ -28,14 +28,14 @@
 					<div id="titoloBox">
 						<center>Proponi una nuova abilita</center>
 					</div>
-					<form action="/SWIMv2/ProponiAbilita">
+					<form action="/SWIMv2Client/ProponiAbilita">
 						<div id="informazioniBox">
 							<p>
 								<label for="nome">Nome:</label>
 								<input id="nome" nome="nome" type="text" maxlength="255" required="required">
 							</p>
 							<p>
-								<label for="descrizione">Descrizione</label>
+								<label for="descrizione">Descrizione:</label>
 								<textarea id="descrizione" name="descrizione" maxlength="140" rows="7" required="required"></textarea>
 							</p>
 						</div>
@@ -52,7 +52,7 @@
 						<p>
 							Qui puoi proporre all'Admin una tua idea per una nuova abilit&agrave;.
 							<br>
-							Compila i campi inserendo il nome e la descrizione che hai pensato l'abilit&agrave;.
+							Compila i campi inserendo il nome e la descrizione che hai pensato per l'abilit&agrave;.
 						</p>
 					</div>
 				</div>
