@@ -47,6 +47,10 @@ public class Utilita {
 	public static final String HOST = "localhost";
 
 	public static final String TIPO_UPLOAD_ICONA = "icona";
+	
+	public static final String TIPO_UPLOAD_REGISTRAZIONE = "rAvatar";
+	
+	public static final String TIPO_UPLOAD_MODIFICA = "nAvatar";
 
 	private Utilita() {
 		super();
@@ -113,7 +117,7 @@ public class Utilita {
 		}
 		else{
 			//effettuo l'upload
-
+			System.out.println("sto provando a fare l'upload");
 			//creo gli stream
 			output = new File(destinazione);
 			inputStream = new FileInputStream(inputFile);

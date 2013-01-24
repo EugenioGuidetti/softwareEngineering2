@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,9 +26,6 @@ public class CompletamentoRegistrazione extends HttpServlet {
 	private MultipartRequest multiRequest;
 	private File tempDirectory;
 	private String tempDirPath;
-	private File output;
-	private FileInputStream inputStream;
-	private FileOutputStream outputStream;
 
 	private RequestDispatcher dispatcher;
 	private Context context;
@@ -40,6 +35,7 @@ public class CompletamentoRegistrazione extends HttpServlet {
 	private File avatar;
 	private String[] abilitaScelte;
 	private Set<Abilita> abilitaDichiarate;
+	private String avatarPath;
 
 	public CompletamentoRegistrazione() {
 		super();
@@ -50,6 +46,11 @@ public class CompletamentoRegistrazione extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nomeFileRicevuto;
+		String estensioneAvatar;
+		String nomeFileAvatar;
+		String destinazione;
+
 		abilitaDichiarate = new HashSet<Abilita>();		
 		tempDirectory = new File(System.getProperty("java.io.tmpdir"));
 		tempDirPath = tempDirectory.getCanonicalPath();
@@ -63,7 +64,28 @@ public class CompletamentoRegistrazione extends HttpServlet {
 			multiRequest = new MultipartRequest(request, tempDirPath);
 			nickname = (String) request.getSession().getAttribute("nickname");
 
-			//dichiaro le abilità scelte 
+			//recupero il file di cui fare l'upload ed il suo nome
+			avatar = multiRequest.getFile("rAvatar");
+
+			//verifico se l'utente ha caricato un file
+			if(avatar != null) {
+				nomeFileRicevuto = multiRequest.getOriginalFileName("rAvatar");
+
+				//COSTRUISCO IL NOME DEL FILE UPLOADATO
+				estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
+				nomeFileAvatar = '\\' + nickname + estensioneAvatar;
+
+				//COSTRUISCO IL PATH DI DESTINAZIONE DELL'AVATAR SUL SERVER
+				destinazione = getServletContext().getRealPath("/Immagini/Avatar") + nomeFileAvatar;
+
+				//EFFETTUO L'UPLOAD
+				avatarPath = Utilita.uploadFile(avatar, Utilita.TIPO_UPLOAD_REGISTRAZIONE, nomeFileAvatar, destinazione);
+
+				//MODIFICO L'AVATAR DELLO USER NEL DATABASE
+				gestoreUser.modificaAvatar(nickname, avatarPath);
+			}
+
+			//DICHIARO LE ABILITA' SCELTE 
 			abilitaScelte = multiRequest.getParameterValues("abilitaScelte");
 			if(abilitaScelte != null) {
 				for(String abilitaScelta: abilitaScelte) {
@@ -73,67 +95,32 @@ public class CompletamentoRegistrazione extends HttpServlet {
 				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
 			}
 
-			//recupero dell'avatar
-			avatar = multiRequest.getFile("rAvatar");
-
-			if(avatar != null) {
-				String nomeFileRicevuto = multiRequest.getOriginalFileName("rAvatar");
-
-				//controllo dimensioni file
-				long dimensioneAvatarKB = avatar.length() / 1024;
-				if(dimensioneAvatarKB > Utilita.DIMENSIONE_MAX_IMG) {
-
-					//immagine troppo grande
-					throw new IOException();
-				} else {
-
-					//modifico nome del file dell'avatar
-					String estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
-					String nomeFileAvatar = '\\' + nickname + estensioneAvatar;
-
-					//costruisco il path di destinazione dell'avatar(sul server)
-					String destinazione = getServletContext().getRealPath("/Immagini") + nomeFileAvatar;
-
-					//creo gli stream
-					output = new File(destinazione);
-					inputStream = new FileInputStream(avatar);
-					outputStream = new FileOutputStream(output);
-
-					//passaggio dei byte dalla sorgente alla destinazione
-					while(inputStream.available() > 0) {
-						outputStream.write(inputStream.read());
-					}
-					inputStream.close();
-					outputStream.close();
-
-					//costruisco path da memorizzare nell'entità user
-					String avatarPath = Utilita.IMG_PATH_BASE + nomeFileAvatar.replace("\\", "");
-					gestoreUser.modificaAvatar(nickname, avatarPath);
-				}
-			}
-
 			//invalido la sessione di registrazione
 			request.setAttribute("messaggio", Comunicazione.confermaAvatarAbilita());
 			request.getSession().invalidate();
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
-			
-		} catch (IOException ioEx) {
+
+		} 
+		catch (IOException ioEx) {
 			request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrande());
 			response.sendRedirect("index.jsp");
-		} catch (NamingException nEx) {
+		} 
+		catch (NamingException nEx) {
 			request.setAttribute("messaggio", Comunicazione.erroreServlet());
 			//invalido la sessione di registrazione
 			request.getSession().invalidate();
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);	
-		} catch (NumberFormatException numberFormatE) {
+		} 
+		catch (NumberFormatException numberFormatE) {
 			request.setAttribute("messaggio", Comunicazione.erroreServlet());
 			//invalido la sessione di registrazione
 			request.getSession().invalidate();
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
-		} 
+		}
+
 	}
 
 }
