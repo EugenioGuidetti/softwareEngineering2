@@ -53,7 +53,15 @@ public class Registrazione extends HttpServlet {
 		nickname = (String) request.getParameter("rNickname");
 		password = (String) request.getParameter("rPassword");
 		email = (String) request.getParameter("rEmail");
-		avatar = Utilita.USER_DEFAULT_AVATAR;
+		
+		if(sesso.equals(Utilita.SESSO_MASCHIO)){
+			//utente maschio
+			avatar = Utilita.USER_DEFAULT_AVATAR_MASCHIO;
+		}
+		else{
+			//utente femmina
+			avatar = Utilita.USER_DEFAULT_AVATAR_FEMMINA;
+		}
 		try {
 			context = new InitialContext();
 			gestoreProfilo = (GestoreProfiloRemote) context.lookup("GestoreProfiloJNDI");

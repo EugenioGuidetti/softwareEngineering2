@@ -27,10 +27,19 @@ public class Utilita {
 
 	public static final String EMAIL_ADMIN = "swimv2.polimi@gmail.com";
 
-	public static final String USER_DEFAULT_AVATAR = 
-			"/SWIMv2Client/Immagini/user.png";
+	public static final String SESSO_MASCHIO = "Maschio";
+	
+	public static final String SESSO_FEMMINA = "Femmina";
+	
+	public static final String USER_DEFAULT_AVATAR_MASCHIO = 
+			"/SWIMv2Client/Immagini/Avatar/userMaschio.png";
+	
+	public static final String USER_DEFAULT_AVATAR_FEMMINA = 
+			"/SWIMv2Client/Immagini/Avatar/userFemmina.png";
+	
 	public static final String ADMIN_DEFAULT_AVATAR = 
 			"/SWIMv2Client/Immagini/admin.png";
+	
 	public static final String EMAIL_PATTERN = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@" +
 			"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
@@ -117,7 +126,7 @@ public class Utilita {
 		}
 		else{
 			//effettuo l'upload
-			System.out.println("sto provando a fare l'upload");
+			
 			//creo gli stream
 			output = new File(destinazione);
 			inputStream = new FileInputStream(inputFile);

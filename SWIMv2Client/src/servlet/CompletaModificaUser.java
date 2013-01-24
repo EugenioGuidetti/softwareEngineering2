@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,13 +39,11 @@ public class CompletaModificaUser extends HttpServlet {
 	private String citta;
 	private String annoNascita;
 	private File avatar;
+	private String avatarPath;
 
 	private MultipartRequest multiRequest;
 	private File tempDirectory;
 	private String tempDirPath;
-	private File output;
-	private FileInputStream inputStream;
-	private FileOutputStream outputStream;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -70,7 +66,11 @@ public class CompletaModificaUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		boolean inviaMail = false;
-		
+		String nomeFileRicevuto;
+		String estensioneAvatar;
+		String nomeFileAvatar;
+		String destinazione;
+
 		tempDirectory = new File(System.getProperty("java.io.tmpdir"));
 		tempDirPath = tempDirectory.getCanonicalPath();
 
@@ -88,7 +88,30 @@ public class CompletaModificaUser extends HttpServlet {
 
 			context = new InitialContext();
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
+			
+			//recupero il file di cui fare l'upload ed il suo nome
+			avatar = multiRequest.getFile("nAvatar");
 
+			//verifico se l'utente ha caricato un file
+			if(avatar != null) {
+				nomeFileRicevuto = multiRequest.getOriginalFileName("nAvatar");
+
+				//COSTRUISCO IL NOME DEL FILE UPLOADATO
+				estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
+				nomeFileAvatar = '\\' + nickname + estensioneAvatar;
+
+				//COSTRUISCO IL PATH DI DESTINAZIONE DELL'AVATAR SUL SERVER
+				destinazione = getServletContext().getRealPath("/Immagini/Avatar") + nomeFileAvatar;
+
+				//EFFETTUO L'UPLOAD
+				avatarPath = Utilita.uploadFile(avatar, Utilita.TIPO_UPLOAD_MODIFICA, nomeFileAvatar, destinazione);
+
+				//MODIFICO L'AVATAR DELLO USER NEL DATABASE
+				gestoreUser.modificaAvatar(nickname, avatarPath);
+			}
+			
+			//se l'immagine caricata non superava i 700kb allora procedo a modificare gli altri campi
+			
 			//modifica email
 			if(!email.equals("")){
 				pattern = Pattern.compile(Utilita.EMAIL_PATTERN);
@@ -151,49 +174,8 @@ public class CompletaModificaUser extends HttpServlet {
 					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
 				}
 			}
-
-
-			//recupero dell'avatar
-			avatar = multiRequest.getFile("nAvatar");
-
-			//modifica dell'avatar
-			if(avatar != null){
-				
-				String nomeFileRicevuto = multiRequest.getOriginalFileName("nAvatar");
-
-				//controllo dimensioni file
-				long dimensioneAvatarKB = avatar.length() / 1024;
-				if(dimensioneAvatarKB > Utilita.DIMENSIONE_MAX_IMG) {
-
-					//immagine troppo grande
-					throw new IOException();
-				} else {
-
-					//modifico nome del file dell'avatar
-					String estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
-					String nomeFileAvatar = '\\' + nickname + estensioneAvatar;
-
-					//costruisco il path di destinazione dell'avatar(sul server)
-					String destinazione = getServletContext().getRealPath("/Immagini/Avatar") + nomeFileAvatar;
-
-					//creo gli stream
-					output = new File(destinazione);
-					inputStream = new FileInputStream(avatar);
-					outputStream = new FileOutputStream(output);
-
-					//passaggio dei byte dalla sorgente alla destinazione
-					while(inputStream.available() > 0) {
-						outputStream.write(inputStream.read());
-					}
-					inputStream.close();
-					outputStream.close();
-
-					//costruisco path da memorizzare nell'entità user
-					String avatarPath = Utilita.AVATAR_PATH_BASE + nomeFileAvatar.replace("\\", "");
-					gestoreUser.modificaAvatar(nickname, avatarPath);
-				}
-			}
 			
+			//la mail viene inviata solo se si è modificata la password o il precedente indirizzo mail
 			if(inviaMail){
 				User user = gestoreUser.getUser(nickname);
 				//mail o password modificata... devo inviare una mail di conferma
@@ -202,7 +184,7 @@ public class CompletaModificaUser extends HttpServlet {
 
 			dispatcher = request.getRequestDispatcher("PaginaUser");
 			dispatcher.forward(request, response);
-			
+
 		} catch (IOException ioEx) {
 			request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrandeModifica());
 			response.sendRedirect("PaginaUser");
@@ -218,4 +200,3 @@ public class CompletaModificaUser extends HttpServlet {
 	}
 
 }
-

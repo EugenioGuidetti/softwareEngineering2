@@ -4,56 +4,91 @@ public final class Comunicazione {
 	
 	private static final String EMAIL_NON_VALIDA = 
 			"L'indirizzo di posta elettronica specificato non rispetta il formato email.";
+	
 	private static final String NICKNAME_NON_DISPONIBILE = 
 			"Il nickname scelto è già in uso! Scegliere un altro nickname e ritentare.";
+	
 	private static final String REGISTRAZIONE_COMPLETATA = 
 			"Congratulazioni! La registrazione è terminata con successo. Ti è stata inviata una mail di conferma.";
+	
 	private static final String ERRORE_SERVLET = 
 			"Ops! Qualcosa è andato storto, ci scusiamo per il disagio, accedi per modificare il tuo profilo.";
+	
 	private static final String CREDENZIALI_NON_VALIDE = 
 			"Le tue credenziali di accesso non sono valide. Controllale meglio!";
+	
 	private static final String ERRORE_CREAZIONE_ABILITA = 
 			"Ops! Qualcosa è andato storto durante la creazione dell'abilità.";
+	
 	private static final String CONFERMA_CREAZIONE_ABILITA = 
 			"Complimenti! L'abilità è stata creata con successo.";
+	
 	private static final String ERRORE_CARICAMENTO_ABILITA = 
 			"Ops! Qualcosa è andato storto durante il caricamento delle abilità.";
+	
 	private static final String ERRORE_MODIFICA_ABILITA = 
 			"Ops! Qualcosa è andato storto durante la modifica delle abilità.";
+	
 	private static final String ERRORE_INVIO_PROPOSTA = 
 			"Ops! Qualcosa è andato storto durante l'invio della proposta di abilità.";
+	
 	private static final String CONFERMA_INVIO_PROPOSTA = 
 			"La proposta di abilità è stata inviata correttamente all'admin.";
+	
 	private static final String ERRORE_CARICAMENTO_PROPOSTE = 
 			"Ops! Qualcosa è andato storto durante il caricamento delle proposte.";
+	
 	private static final String ERRORE_MODIFICA_PROPOSTE = 
 			"Ops! Qualcosa è andato storto durante la modifica delle proposte.";
+	
 	private static final String ERRORE_MODIFICA_RICHIESTE_AMICIZIA = 
 			"Ops! Qualcosa è andato storto durante la modifica delle richiesta di amicizia.";
+	
 	private static final String ERRORE_MODIFICA_AMICIZIE = 
 			"Ops! Qualcosa è andato storto durante la modifica delle amicizie.";
+	
 	private static final String ERRORE_CARICAMENTO_RICHIESTE_AIUTO = 
 			"Ops! Qualcosa è andato storto durante il caricamento delle richieste di aiuto.";
+	
 	private static final String ERRORE_CARICAMENTO_AIUTI = 
 			"Ops! Qualcosa è andato storto durante il caricamento degli aiuti.";
+	
 	private static final String ERRORE_CARICAMENTO_MONITOR = 
 			"Ops! Qualcosa è andato storto durante il caricamento dei dati.";
+	
 	private static final String ERRORE_RICERCA = 
 			"Ops! Qualcosa è andato storto durante l'esecuzione della ricerca.";
+	
 	private static final String ERRORE_MODICA_INFORMAZIONI = 
 			"Ops! Qualcosa è andato storto durante la modifica delle informazioni.";
+	
 	private static final String ERRORE_CARICAMENTO_INFORMAZIONI =
 			"Ops! Qualcosa è andato storto durante il caricamento delle informazioni.";
+	
 	private static final String FILE_AVATAR_TROPPO_GRANDE = 
 			"L'immagine caricata supera le dimensioni massime accettate. Ti è stato settato l'avatar di dafault.";
+	
 	private static final String FILE_AVATAR_TROPPO_GRANDE_MODIFICA = 
 			"L'immagine caricata supera le dimensioni massime accettate. Ti è stato lasciato l'avatar precedente.";
+	
 	private static final String FILE_ICONA_TROPPO_GRANDE = 
 			"L'immagine caricata supera le dimensioni massime accettate. L'abilità non è stata creata.";
+	
 	private static final String CONFERMA_AVATAR_ABILITA = 
-			"L'avatar e le abilità scelta sono stati settati correttamente.";
+			"L'avatar e le abilità scelti sono stati settati correttamente.";
+	
+	private static final String CONFERMA_AVATAR = 
+			"L'avatar scelto è stato settato correttamente.";
+	
+	private static final String CONFERMA_ABILITA = 
+			"Le abilità scelte sono state settate correttamente. Ti è stato assegnato l'avatar di default.";
+	
+	private static final String CONFERMA_AVATAR_DEFAULT = 
+			"Ti è stato assegnato l'avater di default. Per modificarlo accedi alla tua pagina personale.";
+	
 	private static final String CONFERMA_MODIFICA_INFORMAZIONI = 
 			"La modifica è stata eseguita correttamente. Ti è stata inviata una mail di conferma.";
+	
 	
 	private Comunicazione() {
 		super();
@@ -159,6 +194,17 @@ public final class Comunicazione {
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_AVATAR_ABILITA);
 	}
 	
+	public static Messaggio confermaAvatar() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_AVATAR);
+	}
+	
+	public static Messaggio confermaAbilita() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_ABILITA);
+	}
+	
+	public static Messaggio confermaAvatarDefault() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_AVATAR_DEFAULT);
+	}
 	public static Messaggio confermaModificaInformazioni(){
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_MODIFICA_INFORMAZIONI);
 	}

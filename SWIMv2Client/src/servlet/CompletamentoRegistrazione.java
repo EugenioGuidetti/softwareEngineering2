@@ -50,6 +50,8 @@ public class CompletamentoRegistrazione extends HttpServlet {
 		String estensioneAvatar;
 		String nomeFileAvatar;
 		String destinazione;
+		boolean inviaMessaggioConfermaAvatar = false;
+		boolean inviaMessaggioConfermaAbilita = false;
 
 		abilitaDichiarate = new HashSet<Abilita>();		
 		tempDirectory = new File(System.getProperty("java.io.tmpdir"));
@@ -83,6 +85,8 @@ public class CompletamentoRegistrazione extends HttpServlet {
 
 				//MODIFICO L'AVATAR DELLO USER NEL DATABASE
 				gestoreUser.modificaAvatar(nickname, avatarPath);
+				
+				inviaMessaggioConfermaAvatar = true;
 			}
 
 			//DICHIARO LE ABILITA' SCELTE 
@@ -93,10 +97,31 @@ public class CompletamentoRegistrazione extends HttpServlet {
 					abilitaDichiarate.add(gestoreAbilita.getAbilita(id));
 				}
 				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
+				inviaMessaggioConfermaAbilita = true;
 			}
 
+			if(inviaMessaggioConfermaAvatar){
+				if(inviaMessaggioConfermaAbilita){
+					//inserito sia l'avatar che le abilità
+					request.setAttribute("messaggio", Comunicazione.confermaAvatarAbilita());
+				}
+				else{
+					//inserito solo l'avatar
+					request.setAttribute("messaggio", Comunicazione.confermaAvatar());
+				}
+			}
+			else{
+				if(inviaMessaggioConfermaAbilita){
+					//inserito solo le abilità
+					request.setAttribute("messaggio", Comunicazione.confermaAbilita());
+				}
+				else{
+					//non inserito niente: settato avatar default
+					request.setAttribute("messaggio", Comunicazione.confermaAvatarDefault());
+				}
+			}
+						
 			//invalido la sessione di registrazione
-			request.setAttribute("messaggio", Comunicazione.confermaAvatarAbilita());
 			request.getSession().invalidate();
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
