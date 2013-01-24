@@ -24,6 +24,12 @@ public class GestoreAiuto implements GestoreAiutoRemote {
     	super();
     }
 
+    @Override
+    public Aiuto getAiuto(long id) {
+    	Aiuto aiuto = entityManager.find(Aiuto.class, id);
+    	return aiuto;
+    }
+    
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Aiuto> getRichiesteInviate(String nicknameRichiedente) {

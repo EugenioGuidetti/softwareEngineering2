@@ -138,8 +138,8 @@
 						<%
 									} else {
 						%>
-											<form action="/SWIMv2Client/RilasciaFeedback" method="post">
-												<input name="aiutoDaValutare" type="hidden" value="<%= aiuto.getId() %>">
+											<form action="/SWIMv2Client/AiutoValutato" method="post">
+												<input name="aiutoValutato" type="hidden" value="<%= aiuto.getId() %>">
 												<center>
 													<input id="pulsante" class="pulsantiVicini" type="submit" value="Valuta l'aiuto">
 												</center>

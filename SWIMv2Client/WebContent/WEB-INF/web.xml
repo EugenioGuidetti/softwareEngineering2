@@ -249,4 +249,24 @@
     <servlet-name>Aiuti</servlet-name>
     <url-pattern>/Aiuti</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AiutoValutato</display-name>
+    <servlet-name>AiutoValutato</servlet-name>
+    <servlet-class>servlet.AiutoValutato</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AiutoValutato</servlet-name>
+    <url-pattern>/AiutoValutato</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RilasciaFeedback</display-name>
+    <servlet-name>RilasciaFeedback</servlet-name>
+    <servlet-class>servlet.RilasciaFeedback</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RilasciaFeedback</servlet-name>
+    <url-pattern>/RilasciaFeedback</url-pattern>
+  </servlet-mapping>
 </web-app>

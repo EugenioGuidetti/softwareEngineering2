@@ -8,6 +8,8 @@ import entity.Aiuto;
 @Remote
 public interface GestoreAiutoRemote {
 	
+	Aiuto getAiuto(long id);
+	
 	/**
 	 * Il metodo serve per recuperare tutte le richieste di aiuto inviate (in attesa di essere accettate o rifiutate)
 	 * dallo user associato al nickname passato come parametro

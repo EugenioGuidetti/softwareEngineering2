@@ -9,7 +9,7 @@ public final class Comunicazione {
 			"Il nickname scelto è già in uso! Scegliere un altro nickname e ritentare.";
 	
 	private static final String REGISTRAZIONE_COMPLETATA = 
-			"Congratulazioni! La registrazione è terminata con successo. Ti è stata inviata una mail di conferma.";
+			"Congratulazioni! La registrazione è avvenuta con successo. Ti è stata inviata una mail di conferma.";
 	
 	private static final String ERRORE_SERVLET = 
 			"Ops! Qualcosa è andato storto, ci scusiamo per il disagio, accedi per modificare il tuo profilo.";
@@ -53,8 +53,14 @@ public final class Comunicazione {
 	private static final String ERRORE_CARICAMENTO_AIUTI = 
 			"Ops! Qualcosa è andato storto durante il caricamento degli aiuti.";
 	
+	private static final String ERRORE_CARICAMENTO_AIUTO = 
+			"Ops! Qualcosa è andato storto durante il caricamento dell'aiuto da valutare.";
+	
 	private static final String ERRORE_CARICAMENTO_MONITOR = 
 			"Ops! Qualcosa è andato storto durante il caricamento dei dati.";
+	
+	private static final String ERRORE_RILASCIO_FEEDBACK = 
+			"Ops! Qualcosa è andato storto durante il rilascio del feedback";
 	
 	private static final String ERRORE_RICERCA = 
 			"Ops! Qualcosa è andato storto durante l'esecuzione della ricerca.";
@@ -161,9 +167,17 @@ public final class Comunicazione {
 	public static Messaggio erroreCaricamentoAiuti() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_AIUTI);
 	}
+	
+	public static Messaggio erroreCaricamentoAiuto() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_AIUTO);
+	}
 
 	public static Messaggio erroreCaricamentoMonitor() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_MONITOR);
+	}
+	
+	public static Messaggio erroreRilascioFeedback() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_RILASCIO_FEEDBACK);
 	}
 	
 	public static Messaggio erroreRicerca() {
