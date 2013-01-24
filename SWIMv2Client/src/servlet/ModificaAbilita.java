@@ -44,8 +44,8 @@ public class ModificaAbilita extends HttpServlet {
 			context = new InitialContext();
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+			abilitaDichiarate = new HashSet<Abilita>();
 			if(abilitaScelte != null) {
-				abilitaDichiarate = new HashSet<Abilita>();
 				for(String idAbilita: abilitaScelte) {
 					try {
 						long id = Long.parseLong(idAbilita);
@@ -56,8 +56,8 @@ public class ModificaAbilita extends HttpServlet {
 						dispatcher.forward(request, response);
 					}
 				}
-				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
 			}
+			gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
 			response.sendRedirect("PaginaUser");
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
