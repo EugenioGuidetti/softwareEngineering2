@@ -1,9 +1,9 @@
-<%@page import="java.util.Calendar"%>
-<%@page import="java.util.GregorianCalendar"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Amicizia" %>
 <%@ page import="utility.Messaggio" %>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.GregorianCalendar"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -75,7 +75,7 @@
 								for(Amicizia richiesta: richiesteInviate) {
 									Calendar data = richiesta.getMomentoRichiesta();
 						%>
-									<div id="richiestaAmiciziaInviata">
+									<div id="richiestaInviata">
 										<div id="corpoRichiesta">
 										Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di amicizia a <strong>@<%= richiesta.getUserDestinatario().getNickname() %></strong>, che non ha ancora ricevuto risposta
 										</div>
@@ -99,7 +99,7 @@
 								if(!richiesteRicevute.isEmpty()) {
 									for(Amicizia richiesta: richiesteRicevute) {
 							%>
-										<div id="richiestaAmiciziaRicevuta">
+										<div id="richiestaRicevuta">
 											<input name="richiesteScelte" type="checkbox" value="<%= richiesta.getId() %>">
 											<div id="corpoRichiesta">
 												Hai ricevuto una richiesta di amicizia da parte di <strong>@<%= richiesta.getUserRichiedente().getNickname() %></strong>
@@ -109,7 +109,7 @@
 									}
 								}
 							%>
-							<div id="amicizieActions">
+							<div id="richiesteActions">
 								<br>
 								<input id="azione1" name="azione" type="radio" value="accetta">
 								<label for="azione1"> Accetta la/e richiesta/e</label>

@@ -125,11 +125,11 @@ body {
 	margin-right: 10px;
 }
 
-#proposteActions, #filtriRicerca, #amicizieActions {
+#proposteActions, #filtriRicerca, #richiesteActions {
 	text-align: center;
 }
 
-#proposteActions input, #filtriRicerca input, #amicizieActions input, #amicizia input {
+#proposteActions input, #filtriRicerca input, #richiesteActions input, #amicizia input {
 	width: auto;
 	margin-right: auto;
 }
@@ -185,11 +185,11 @@ body {
 	height: 65px;
 }
 
-#checkAbilita input, #proposta input, #richiestaAmiciziaRicevuta input {
+#checkAbilita input, #proposta input, #richiestaRicevuta input {
 	width: auto;
 }
 
-#checkAbilita, #proposta, #abilita, #richiestaAmiciziaInviata, #richiestaAmiciziaRicevuta, #amicizia {
+#checkAbilita, #proposta, #abilita, #richiestaInviata, #richiestaRicevuta, #amicizia {
 	text-align: left;
 	overflow: auto;
 	margin-bottom: 5px;
@@ -223,11 +223,11 @@ body {
 }
 
 
-#corpoProposta, #richiestaAmiciziaRicevuta #corpoRichiesta {
+#corpoProposta, #richiestaRicevuta #corpoRichiesta {
 	width: 295px;
 }
 
-#richiestaAmiciziaInviata #corpoRichiesta {
+#richiestaInviata #corpoRichiesta {
 	width: 328px;
 }
 

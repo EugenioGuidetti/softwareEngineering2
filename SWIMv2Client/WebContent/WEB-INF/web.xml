@@ -229,4 +229,14 @@
     <servlet-name>RichiesteAiuto</servlet-name>
     <url-pattern>/RichiesteAiuto</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RichiesteAiutoActions</display-name>
+    <servlet-name>RichiesteAiutoActions</servlet-name>
+    <servlet-class>servlet.RichiesteAiutoActions</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RichiesteAiutoActions</servlet-name>
+    <url-pattern>/RichiesteAiutoActions</url-pattern>
+  </servlet-mapping>
 </web-app>
