@@ -219,4 +219,14 @@
     <servlet-name>CompletaModificaUser</servlet-name>
     <url-pattern>/CompletaModificaUser</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RichiesteAiuto</display-name>
+    <servlet-name>RichiesteAiuto</servlet-name>
+    <servlet-class>servlet.RichiesteAiuto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RichiesteAiuto</servlet-name>
+    <url-pattern>/RichiesteAiuto</url-pattern>
+  </servlet-mapping>
 </web-app>
