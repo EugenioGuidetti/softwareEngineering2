@@ -209,4 +209,14 @@
     <servlet-name>ProponiAbilita</servlet-name>
     <url-pattern>/ProponiAbilita</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CompletaModificaUser</display-name>
+    <servlet-name>CompletaModificaUser</servlet-name>
+    <servlet-class>servlet.CompletaModificaUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CompletaModificaUser</servlet-name>
+    <url-pattern>/CompletaModificaUser</url-pattern>
+  </servlet-mapping>
 </web-app>
