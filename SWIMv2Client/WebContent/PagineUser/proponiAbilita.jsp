@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
+		<title>SWIMv2</title>
 		<link rel="stylesheet" href="/SWIMv2Client/CSS/style.css">
 	</head>
 	<body>
@@ -32,7 +32,7 @@
 						<div id="informazioniBox">
 							<p>
 								<label for="nome">Nome:</label>
-								<input id="nome" nome="nome" type="text" maxlength="255" required="required">
+								<input id="nome" name="nome" type="text" maxlength="255" required="required">
 							</p>
 							<p>
 								<label for="descrizione">Descrizione:</label>

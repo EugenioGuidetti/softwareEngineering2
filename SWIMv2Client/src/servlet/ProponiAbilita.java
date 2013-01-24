@@ -38,6 +38,7 @@ public class ProponiAbilita extends HttpServlet {
 		try {
 			context = new InitialContext();
 			gestoreProposta = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
+			
 			if(!gestoreProposta.inviaProposta(nickname, nomeAbilita, descrizioneAbilita)) {
 				request.setAttribute("messaggio", Comunicazione.erroreInvioProposta());
 				dispatcher = request.getRequestDispatcher("PagineUser/proponiAbilita.jsp");
