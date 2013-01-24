@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,9 +22,6 @@ public class CreaAbilita extends HttpServlet {
 	private MultipartRequest multiRequest;
 	private File tempDirectory;
 	private String tempDirPath;
-	private File output;
-	private FileInputStream inputStream;
-	private FileOutputStream outputStream;
 
 	private RequestDispatcher dispatcher;
 	private Context context;
@@ -47,6 +42,11 @@ public class CreaAbilita extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nomeFileRicevuto;
+		String estensioneIcona;
+		String nomeFileIcona;
+		String destinazione;
+		
 		dispatcher = request.getRequestDispatcher("PaginaAdmin");
 
 		tempDirectory = new File(System.getProperty("java.io.tmpdir"));
@@ -63,44 +63,24 @@ public class CreaAbilita extends HttpServlet {
 			nome = multiRequest.getParameter("nome");
 			descrizione = multiRequest.getParameter("descrizione");
 
-			//recupero l'icona
-			icona = multiRequest.getFile("icona");
+			//recupero il file di cui fare l'upload ed il suo nome
+			icona = multiRequest.getFile("icona"); //fileUpload
+			nomeFileRicevuto = multiRequest.getOriginalFileName("icona");
 
-			String nomeFileRicevuto = multiRequest.getOriginalFileName("icona");
+			//COSTRUISCO IL NOME DEL FILE UPLOADATO
+			
+			estensioneIcona = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
+			//recupero il numero di abilità disponibili nel sistema per dare il nome alla nuova immagine
+			long nomeSenzaEstensione = gestoreAbilita.getAbilitaSistema().size();
+			nomeFileIcona = "\\" + (nomeSenzaEstensione + 1) + estensioneIcona;
 
-			//controllo dimensioni file
-			long dimensioneIconaKB = icona.length() / 1024;
-			if(dimensioneIconaKB > Utilita.DIMENSIONE_MAX_IMG) {
-				//immagine troppo grande
-				throw new IOException();
-			} 
-			else {
-				//modifico nome del file dell'avatar
-				String estensioneIcona = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
-
-				//recupero il numero di abilità disponibili nel sistema per dare il nome alla nuova immagine
-				long nomeSenzaEstensione = gestoreAbilita.getAbilitaSistema().size();
-				String nomeFileIcona = "\\" + (nomeSenzaEstensione + 1) + estensioneIcona;
-
-				//costruisco il path di destinazione dell'avatar(sul server)
-				String destinazione = getServletContext().getRealPath("/Immagini/Icone") + nomeFileIcona;				
-
-				//creo gli stream
-				output = new File(destinazione);
-				inputStream = new FileInputStream(icona);
-				outputStream = new FileOutputStream(output);
-
-				//passaggio dei byte dalla sorgente alla destinazione
-				while(inputStream.available() > 0) {
-					outputStream.write(inputStream.read());
-				}
-				inputStream.close();
-				outputStream.close();
-
-				//costruisco path da memorizzare nell'entità abilita
-				iconaPath = Utilita.ICONA_PATH_BASE + nomeFileIcona.replace("\\", "");
-			}
-
+			//COSTRUISCO IL PATH DI DESTINAZIONE DELL'ICONA SUL SERVER
+			destinazione = getServletContext().getRealPath("/Immagini/Icone") + nomeFileIcona;
+			
+			//EFFETTUO L'UPLOAD
+			iconaPath = Utilita.uploadFile(icona, Utilita.TIPO_UPLOAD_ICONA, nomeFileIcona, destinazione);
+			
+			//CREO L'ABILITA'
 			if(gestoreAbilita.crea(nome, descrizione, iconaPath)) {
 				//l'abilità è stata creata
 				request.setAttribute("messaggio", Comunicazione.confermaCreazioneAbilita());
@@ -121,6 +101,7 @@ public class CreaAbilita extends HttpServlet {
 			request.getSession().setAttribute("messaggio", Comunicazione.fileIconaTroppoGrande());
 			response.sendRedirect("PaginaAdmin");
 		}
+			
 	}
 
 }
