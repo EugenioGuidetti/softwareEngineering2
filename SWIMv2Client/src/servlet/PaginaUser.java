@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,6 +17,7 @@ import entity.Abilita;
 import entity.Amicizia;
 import entity.ReputazioneAbilita;
 import entity.User;
+import session.GestoreAbilitaRemote;
 import session.GestoreAmiciziaRemote;
 import session.GestoreUserRemote;
 import session.GestoreUtilitiesRemote;
@@ -31,12 +31,13 @@ public class PaginaUser extends HttpServlet {
 	private Context context;
 	private GestoreUserRemote gestoreUser;
 	private GestoreAmiciziaRemote gestoreAmicizia;
+	private GestoreAbilitaRemote gestoreAbilita;
 	private GestoreUtilitiesRemote gestoreUtilities;
 	private String nickname;
 	private User user;
 	private List<Amicizia> amicizie;
 	private List<User> amici;
-	private Set<Abilita> abilitaDichiarate;
+	private List<Abilita> abilitaDichiarate;
 	private Map<Abilita, ReputazioneAbilita> abilitaValutate;
 	
     public PaginaUser() {
@@ -49,6 +50,7 @@ public class PaginaUser extends HttpServlet {
 			context = new InitialContext();
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 			gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
+			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
 			user = gestoreUser.getUser(nickname);
 			request.setAttribute("nomeCompleto", user.getNome() + " " + user.getCognome());
 			request.setAttribute("avatar", user.getAvatarPath());
@@ -64,7 +66,7 @@ public class PaginaUser extends HttpServlet {
 				}
 				request.setAttribute("amici", amici);
 			}
-			abilitaDichiarate = user.getAbilitaDichiarate();
+			abilitaDichiarate = gestoreAbilita.getAbilitaUser(nickname);
 			if(!abilitaDichiarate.isEmpty()) {
 				gestoreUtilities = (GestoreUtilitiesRemote) context.lookup("GestoreUtilitiesJNDI");
 				abilitaValutate = new HashMap<Abilita, ReputazioneAbilita>();
@@ -72,6 +74,7 @@ public class PaginaUser extends HttpServlet {
 					abilitaValutate.put
 						(abilita, gestoreUtilities.getReputazioneAbilita(nickname, abilita.getId()));
 				}
+				request.setAttribute("abilitaDichiarate", abilitaDichiarate);
 				request.setAttribute("abilitaValutate", abilitaValutate);
 			}
 		} catch (NamingException e) {

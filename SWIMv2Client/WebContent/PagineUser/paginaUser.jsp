@@ -105,10 +105,13 @@
 						<div id="informazioniBox">
 							<%
 								@SuppressWarnings("unchecked")
+								List<Abilita> abilitaDichiarate = 
+									(List<Abilita>) request.getAttribute("abilitaDichiarate");
+								@SuppressWarnings("unchecked")
 								Map<Abilita, ReputazioneAbilita> abilitaUser = 
 									(Map<Abilita, ReputazioneAbilita>) request.getAttribute("abilitaValutate");
-								if(abilitaUser != null) {
-									for(Abilita abilita: abilitaUser.keySet()) {
+								if(abilitaDichiarate != null) {
+									for(Abilita abilita: abilitaDichiarate) {
 							%>
 										<div id="abilita">
 											<div id="corpoAbilita">
