@@ -7,7 +7,7 @@ public final class Comunicazione {
 	private static final String NICKNAME_NON_DISPONIBILE = 
 			"Il nickname scelto è già in uso! Scegliere un altro nickname e ritentare.";
 	private static final String REGISTRAZIONE_COMPLETATA = 
-			"Congratulazioni! La registrazione è terminata con successo.";
+			"Congratulazioni! La registrazione è terminata con successo. Ti è stata inviata una mail di conferma.";
 	private static final String ERRORE_SERVLET = 
 			"Ops! Qualcosa è andato storto, ci scusiamo per il disagio, accedi per modificare il tuo profilo.";
 	private static final String CREDENZIALI_NON_VALIDE = 
@@ -20,6 +20,10 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante il caricamento delle abilità.";
 	private static final String ERRORE_MODIFICA_ABILITA = 
 			"Ops! Qualcosa è andato storto durante la modifica delle abilità.";
+	private static final String ERRORE_INVIO_PROPOSTA = 
+			"Ops! Qualcosa è andato storto durante l'invio della proposta di abilità.";
+	private static final String CONFERMA_INVIO_PROPOSTA = 
+			"La proposta di abilità è stata inviata correttamente all'admin.";
 	private static final String ERRORE_CARICAMENTO_PROPOSTE = 
 			"Ops! Qualcosa è andato storto durante il caricamento delle proposte.";
 	private static final String ERRORE_MODIFICA_PROPOSTE = 
@@ -82,6 +86,14 @@ public final class Comunicazione {
 	
 	public static Messaggio erroreModificaAbilita() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_ABILITA);
+	}
+	
+	public static Messaggio erroreInvioProposta() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_INVIO_PROPOSTA);
+	}
+	
+	public static Messaggio confermaInvioProposta() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_INVIO_PROPOSTA);
 	}
 
 	public static Messaggio erroreCaricamentoProposte() {
