@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
@@ -19,8 +17,6 @@ public class CompletaModificaAdmin extends HttpServlet {
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreAdminRemote gestoreAdmin;
-	private Pattern pattern;
-	private Matcher matcher;
 	private String nickname;
 	private String nome;
 	private String cognome;
@@ -42,24 +38,11 @@ public class CompletaModificaAdmin extends HttpServlet {
 		nome = request.getParameter("nNome");
 		cognome = request.getParameter("nCognome");
 		password = request.getParameter("nPassword");
-		email = request.getParameter("nEmail");
+		email = Utilita.EMAIL_ADMIN;
+		
 		try {
 		context = new InitialContext();
 		gestoreAdmin = (GestoreAdminRemote) context.lookup("GestoreAdminJNDI");
-		
-		//modifica email
-		if(!email.equals("")){
-			pattern = Pattern.compile(Utilita.EMAIL_PATTERN);
-			matcher = pattern.matcher(email);
-			if(!matcher.find()) {
-				request.setAttribute("messaggio", Comunicazione.emailNonValida());
-			} else {
-				System.out.println("Sto per provare a modificare la email.");
-				if(!gestoreAdmin.modificaEmail(nickname, email)) {
-					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
-				}
-			}
-		}
 		
 		//modifica nome
 		if(!nome.equals("")) {
@@ -79,6 +62,11 @@ public class CompletaModificaAdmin extends HttpServlet {
 		if(!password.equals("")) {
 			if(!gestoreAdmin.modificaPassword(nickname, password)) {
 				request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+			}
+			else{
+				//invio la mail di conferma
+				Utilita.sendMail(nickname, password, cognome, nome, email, Utilita.MESSAGGIO_MODIFICA);
+				request.setAttribute("messaggio", Comunicazione.confermaModificaInformazioni());
 			}
 		}
 		} catch (Exception e) {

@@ -43,12 +43,15 @@ public final class Comunicazione {
 	private static final String ERRORE_CARICAMENTO_INFORMAZIONI =
 			"Ops! Qualcosa è andato storto durante il caricamento delle informazioni.";
 	private static final String FILE_AVATAR_TROPPO_GRANDE = 
-			"L'immagine caricata supera le dimensioni massime accettate, ti è stato settato l'avatar di dafault.";
+			"L'immagine caricata supera le dimensioni massime accettate. Ti è stato settato l'avatar di dafault.";
+	private static final String FILE_AVATAR_TROPPO_GRANDE_MODIFICA = 
+			"L'immagine caricata supera le dimensioni massime accettate. Ti è stato lasciato l'avatar precedente.";
 	private static final String FILE_ICONA_TROPPO_GRANDE = 
-			"L'immagine caricata supera le dimensioni massime accettate, l'abilità non è stata creata.";
+			"L'immagine caricata supera le dimensioni massime accettate. L'abilità non è stata creata.";
 	private static final String CONFERMA_AVATAR_ABILITA = 
-			"L'avatar e le abilità scelta sono stati settati correttamente";
-	
+			"L'avatar e le abilità scelta sono stati settati correttamente.";
+	private static final String CONFERMA_MODIFICA_INFORMAZIONI = 
+			"La modifica è stata eseguita correttamente. Ti è stata inviata una mail di conferma.";
 	
 	private Comunicazione() {
 		super();
@@ -138,12 +141,20 @@ public final class Comunicazione {
 		return new Messaggio(TipoMessaggio.ERRORE, FILE_AVATAR_TROPPO_GRANDE);
 	}
 	
+	public static Messaggio fileAvatarTroppoGrandeModifica() {
+		return new Messaggio(TipoMessaggio.ERRORE, FILE_AVATAR_TROPPO_GRANDE_MODIFICA);
+	}
+	
 	public static Messaggio fileIconaTroppoGrande() {
 		return new Messaggio(TipoMessaggio.ERRORE, FILE_ICONA_TROPPO_GRANDE);
 	}
 	
 	public static Messaggio confermaAvatarAbilita() {
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_AVATAR_ABILITA);
+	}
+	
+	public static Messaggio confermaModificaInformazioni(){
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_MODIFICA_INFORMAZIONI);
 	}
 	
 }

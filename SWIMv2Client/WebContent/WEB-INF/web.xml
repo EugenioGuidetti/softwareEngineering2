@@ -239,4 +239,14 @@
     <servlet-name>RichiesteAiutoActions</servlet-name>
     <url-pattern>/RichiesteAiutoActions</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Aiuti</display-name>
+    <servlet-name>Aiuti</servlet-name>
+    <servlet-class>servlet.Aiuti</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Aiuti</servlet-name>
+    <url-pattern>/Aiuti</url-pattern>
+  </servlet-mapping>
 </web-app>

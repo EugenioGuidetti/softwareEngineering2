@@ -31,10 +31,6 @@
 								<label for="nPassword">Password:</label>
 								<input id="nPassword" name="nPassword" type="password" maxlength="255">
 							</p>
-							<p>
-								<label for="nEmail">Email:</label>
-								<input id="nEmail" name="nEmail" type="text" maxlength="255">
-							</p>
 						</div>
 						<center>
 							<input id="pulsante" type="submit" value="Modifica">
