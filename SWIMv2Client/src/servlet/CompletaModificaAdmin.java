@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entity.Admin;
 import session.GestoreAdminRemote;
 import utility.Comunicazione;
 import utility.Utilita;
@@ -21,7 +23,6 @@ public class CompletaModificaAdmin extends HttpServlet {
 	private String nome;
 	private String cognome;
 	private String password;
-	private String email;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +39,6 @@ public class CompletaModificaAdmin extends HttpServlet {
 		nome = request.getParameter("nNome");
 		cognome = request.getParameter("nCognome");
 		password = request.getParameter("nPassword");
-		email = Utilita.EMAIL_ADMIN;
 		
 		try {
 		context = new InitialContext();
@@ -65,7 +65,8 @@ public class CompletaModificaAdmin extends HttpServlet {
 			}
 			else{
 				//invio la mail di conferma
-				Utilita.sendMail(nickname, password, cognome, nome, email, Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
+				Admin admin = gestoreAdmin.getAdmin(nickname);
+				Utilita.sendMail(nickname, admin.getPassword(), admin.getCognome(), admin.getNome(), admin.getEmail(), Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
 				request.setAttribute("messaggio", Comunicazione.confermaModificaInformazioni());
 			}
 		}

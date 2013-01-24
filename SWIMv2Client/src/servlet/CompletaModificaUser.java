@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
+
+import entity.User;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
 import utility.Utilita;
@@ -193,9 +195,9 @@ public class CompletaModificaUser extends HttpServlet {
 			}
 			
 			if(inviaMail){
-				String emailUser = gestoreUser.getUser(nickname).getEmail();
+				User user = gestoreUser.getUser(nickname);
 				//mail o password modificata... devo inviare una mail di conferma
-				Utilita.sendMail(nickname, password, cognome, nome, emailUser, Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
+				Utilita.sendMail(nickname, user.getPassword(), user.getCognome(), user.getNome(), user.getEmail(), Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
 			}
 
 			dispatcher = request.getRequestDispatcher("PaginaUser");
