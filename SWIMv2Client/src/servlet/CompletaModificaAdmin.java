@@ -65,7 +65,7 @@ public class CompletaModificaAdmin extends HttpServlet {
 			}
 			else{
 				//invio la mail di conferma
-				Utilita.sendMail(nickname, password, cognome, nome, email, Utilita.MESSAGGIO_MODIFICA);
+				Utilita.sendMail(nickname, password, cognome, nome, email, Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
 				request.setAttribute("messaggio", Comunicazione.confermaModificaInformazioni());
 			}
 		}

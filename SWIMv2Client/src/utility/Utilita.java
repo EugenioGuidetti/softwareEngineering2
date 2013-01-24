@@ -32,6 +32,8 @@ public class Utilita {
 	
 	public static final String OGGETTO_MAIL_REGISTRAZIONE = "Registrazione completata - SWIMv2";
 	
+	public static final String OGGETTO_MAIL_MODIFICA = "Modifica completata - SWIMv2";
+	
 	public static final String MESSAGGIO_REGISTRAZIONE = "la registrazione è stata completata correttamente.\n\n";
 	
 	public static final String MESSAGGIO_MODIFICA = "la modifica dei dati è stata eseguita correttamente.\n\n";
@@ -45,7 +47,7 @@ public class Utilita {
 	}
 	
 	
-	public static void sendMail(String nickname, String password, String cognome, String nome, String email, String tipoMessaggio){
+	public static void sendMail(String nickname, String password, String cognome, String nome, String email, String tipoOggetto, String tipoMessaggio){
 
 		Properties properties = System.getProperties();
 		properties.setProperty("mail.smtp.host", Utilita.host);
@@ -60,7 +62,7 @@ public class Utilita {
 				message.setFrom( new InternetAddress(Utilita.from) );
 
 				message.addRecipient(RecipientType.TO, new InternetAddress(email));
-				message.setSubject( "Registrazione completata - SWIMv2");
+				message.setSubject(tipoOggetto);
 				message.setText( 
 						"Ciao "+ nome + " " + cognome +	",\n" +
 						tipoMessaggio +

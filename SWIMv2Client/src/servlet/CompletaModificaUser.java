@@ -84,16 +84,6 @@ public class CompletaModificaUser extends HttpServlet {
 			citta = multiRequest.getParameter("nCitta");
 			annoNascita = multiRequest.getParameter("nAnnoNascita");
 
-			System.out.println("nome: " + nome);
-			System.out.println("cognome: " + cognome);
-			System.out.println("password: " + password);
-			System.out.println("email: " + email);
-			System.out.println("sesso: " + sesso);
-			System.out.println("citta: " + citta);
-			System.out.println("annoNascita: " + annoNascita);
-			
-			
-			
 			context = new InitialContext();
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 
@@ -203,8 +193,9 @@ public class CompletaModificaUser extends HttpServlet {
 			}
 			
 			if(inviaMail){
+				String emailUser = gestoreUser.getUser(nickname).getEmail();
 				//mail o password modificata... devo inviare una mail di conferma
-				Utilita.sendMail(nickname, password, cognome, nome, email, Utilita.MESSAGGIO_MODIFICA);
+				Utilita.sendMail(nickname, password, cognome, nome, emailUser, Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
 			}
 
 			dispatcher = request.getRequestDispatcher("PaginaUser");

@@ -73,7 +73,7 @@ public class Registrazione extends HttpServlet {
 				gestoreUser.registra(nickname, password, email, nome, cognome, avatar, citta, sesso, annoNascita);
 
 				//invia mail di confermazione
-				Utilita.sendMail(nickname, password, cognome, nome, email, Utilita.MESSAGGIO_REGISTRAZIONE);
+				Utilita.sendMail(nickname, password, cognome, nome, email, Utilita.OGGETTO_MAIL_REGISTRAZIONE, Utilita.MESSAGGIO_REGISTRAZIONE);
 				request.getSession().setAttribute("nickname", nickname);
 				request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
 				request.setAttribute("messaggio", Comunicazione.registrazioneCompletata());
