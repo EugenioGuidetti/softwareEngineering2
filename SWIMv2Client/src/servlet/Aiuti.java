@@ -1,37 +1,47 @@
 package servlet;
 
 import java.io.IOException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import session.GestoreAiutoRemote;
+import utility.Comunicazione;
 
-/**
- * Servlet implementation class Aiuti
- */
 public class Aiuti extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	
+	private RequestDispatcher dispatcher;
+	private Context context;
+	private GestoreAiutoRemote gestoreAiuto;
+	private String nickname;
+
     public Aiuti() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		nickname = (String) request.getSession().getAttribute("nickname");
+		try {
+			context = new InitialContext();
+			gestoreAiuto = (GestoreAiutoRemote) context.lookup("GestoreAiutoJNDI");
+			request.setAttribute("aiutiForniti", gestoreAiuto.getAiutiForniti(nickname));
+			request.setAttribute("aiutiRicevuti", gestoreAiuto.getAiutiRicevuti(nickname));
+		} catch (NamingException e) {
+			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuti());
+		} finally {
+			dispatcher = request.getRequestDispatcher("PagineUser/storicoAiuti.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

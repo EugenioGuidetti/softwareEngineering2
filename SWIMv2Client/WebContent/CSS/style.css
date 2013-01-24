@@ -134,6 +134,11 @@ body {
 	margin-right: auto;
 }
 
+#aiuto input {
+	margin-right: auto;
+	margin-left: auto;
+}
+
  #filtroAbilita input {
  	width: auto;
  }
@@ -189,7 +194,7 @@ body {
 	width: auto;
 }
 
-#checkAbilita, #proposta, #abilita, #richiestaInviata, #richiestaRicevuta, #amicizia {
+#checkAbilita, #proposta, #abilita, #richiestaInviata, #richiestaRicevuta, #amicizia, #aiuto {
 	text-align: left;
 	overflow: auto;
 	margin-bottom: 5px;
@@ -197,7 +202,7 @@ body {
 	margin-right: 10px;
 }
 
-#iconaAbilita, #corpoAbilita, #corpoProposta, #corpoRichiesta {	
+#iconaAbilita, #corpoAbilita, #corpoProposta, #corpoRichiesta, #corpoAiuto {	
 	border: 1px solid grey;
 	border-radius: 5px;
 	background-color: white;
@@ -227,7 +232,7 @@ body {
 	width: 295px;
 }
 
-#richiestaInviata #corpoRichiesta {
+#richiestaInviata #corpoRichiesta, #corpoAiuto {
 	width: 328px;
 }
 
@@ -235,6 +240,11 @@ body {
 	width: 200px;
 	height: 30px;
 	font-weight: bold;
+}
+
+.imgNelTesto {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .stelle {

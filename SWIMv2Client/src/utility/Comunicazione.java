@@ -34,6 +34,8 @@ public final class Comunicazione {
 			"Ops! Qualcosa è andato storto durante la modifica delle amicizie.";
 	private static final String ERRORE_CARICAMENTO_RICHIESTE_AIUTO = 
 			"Ops! Qualcosa è andato storto durante il caricamento delle richieste di aiuto.";
+	private static final String ERRORE_CARICAMENTO_AIUTI = 
+			"Ops! Qualcosa è andato storto durante il caricamento degli aiuti.";
 	private static final String ERRORE_CARICAMENTO_MONITOR = 
 			"Ops! Qualcosa è andato storto durante il caricamento dei dati.";
 	private static final String ERRORE_RICERCA = 
@@ -119,6 +121,10 @@ public final class Comunicazione {
 	
 	public static Messaggio erroreCaricamentoRichiesteAiuto() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_RICHIESTE_AIUTO);
+	}
+	
+	public static Messaggio erroreCaricamentoAiuti() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_CARICAMENTO_AIUTI);
 	}
 
 	public static Messaggio erroreCaricamentoMonitor() {

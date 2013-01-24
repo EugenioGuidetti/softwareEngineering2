@@ -45,7 +45,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/SWIMv2Client/StoricoAiuti">
+						<a href="/SWIMv2Client/Aiuti">
 							<button type="button">Storico Aiuti</button>
 						</a>
 					</li>

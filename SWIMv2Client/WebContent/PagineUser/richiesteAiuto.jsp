@@ -48,7 +48,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/SWIMv2Client/StoricoAiuti">
+						<a href="/SWIMv2Client/Aiuti">
 							<button type="button">Storico Aiuti</button>
 						</a>
 					</li>
@@ -82,9 +82,9 @@
 						%>
 									<div id="richiestaInviata">
 										<div id="corpoRichiesta">
-										Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di aiuto a <strong>@<%= user.getNickname() %></strong> per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
-										<br>
-										La richiesta aveva la seguente descrizione: <i>&ldquo;<%= richiesta.getDescrizione() %>&rdquo;</i>
+											Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di aiuto a <strong>@<%= user.getNickname() %></strong> per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
+											<br>
+											La richiesta aveva la seguente descrizione: <i>&ldquo;<%= richiesta.getDescrizione() %>&rdquo;</i>
 										</div>
 									</div>
 						<%
