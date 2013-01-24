@@ -169,17 +169,4 @@ public class GestoreUtilitiesTest {
 		}
 	}
 	
-	@Test
-	public void test(){
-		File tempDir = new File(System.getProperty("java.io.tmpdir")); // to get temp directory path
-		String temp1;
-		try {
-			temp1 = tempDir.getCanonicalPath();
-			System.out.println(temp1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 }
