@@ -44,7 +44,7 @@ public class ProponiAbilita extends HttpServlet {
 				dispatcher.forward(request, response);
 			} else {
 				request.setAttribute("messaggio", Comunicazione.confermaInvioProposta());
-				dispatcher = request.getRequestDispatcher("PagineUser/paginaUser.jsp");
+				dispatcher = request.getRequestDispatcher("PaginaUser");
 				dispatcher.forward(request, response);				
 			}
 		} catch (NamingException e) {

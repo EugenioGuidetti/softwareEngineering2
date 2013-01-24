@@ -28,7 +28,7 @@
 					<div id="titoloBox">
 						<center>Proponi una nuova abilita</center>
 					</div>
-					<form action="/SWIMv2Client/ProponiAbilita">
+					<form action="/SWIMv2Client/ProponiAbilita" method="post">
 						<div id="informazioniBox">
 							<p>
 								<label for="nome">Nome:</label>
