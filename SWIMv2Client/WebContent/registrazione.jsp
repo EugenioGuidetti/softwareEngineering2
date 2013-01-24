@@ -12,9 +12,7 @@
 	</head>
 	<body>
 		<div id="pagina">
-			<div id="logo">
-				<img src="/SWIMv2Client/Immagini/logo.png">
-			</div>
+			<%@ include file="logoGrande.html" %>
 			<%
 				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
 				if(messaggio != null) {

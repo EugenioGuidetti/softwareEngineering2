@@ -13,64 +13,62 @@
 	</head>
 	<body>
 		<div id="pagina">
-		<div id="logo">
-			<img src="/SWIMv2Client/Immagini/logo.png" width="235" height="107">
-		</div>
-		<%
-			Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
-			if(messaggio != null) {
-		%>
-				<div id="messaggio<%= messaggio.getTipo().toString() %>">
-					<center><%= messaggio.getTesto() %></center>
-				</div>
-		<%
-			}
-		%>
-		<div id="body">
-			<div id="boxLeft">
-				<div id="titoloBox">
-					<center>Modifica le amicizie allacciate</center>
-				</div>
-				<form action="/SWIMv2Client/RimuoviAmicizie" method="post">
-					<div id="informazioniBox">
-						<%
-							@SuppressWarnings("unchecked")
-							List<Amicizia> amicizie = 
-								(List<Amicizia>) request.getAttribute("amicizie");
-							if(!amicizie.isEmpty()) {
-								for(Amicizia amicizia: amicizie) {
-									User amico = amicizia.getUserDestinatario();
-						%>
-									<div id="amicizia">
-										<input name="amicizieScelte" type="checkbox" value="<%= amicizia.getId() %>">										
-										<div id="testo">
-											<%= amico.getNome() %> <%= amico.getCognome() %>
-											<br>
-											@<%= amico.getNickname() %>
-										</div>
-										<div id="avatar">
-											<img src="<%= amico.getAvatarPath() %>" width="65" height="65">
-										</div>
-									</div>
-						<%
-								}
-							}
-						%>
+			<%@ include file="../logoPiccolo.html" %>
+			<%
+				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
+				if(messaggio != null) {
+			%>
+					<div id="messaggio<%= messaggio.getTipo().toString() %>">
+						<center><%= messaggio.getTesto() %></center>
 					</div>
-					<center>
-						<input id="pulsante" type="submit" value="Rimuovi">
-					</center>
-				</form>
-			</div>
-			<div id="boxRight">
-				<div id="titoloBox">
-					<center>Indicazioni</center>
+			<%
+				}
+			%>
+			<div id="body">
+				<div id="boxLeft">
+					<div id="titoloBox">
+						<center>Modifica le amicizie allacciate</center>
+					</div>
+					<form action="/SWIMv2Client/RimuoviAmicizie" method="post">
+						<div id="informazioniBox">
+							<%
+								@SuppressWarnings("unchecked")
+								List<Amicizia> amicizie = 
+									(List<Amicizia>) request.getAttribute("amicizie");
+								if(!amicizie.isEmpty()) {
+									for(Amicizia amicizia: amicizie) {
+										User amico = amicizia.getUserDestinatario();
+							%>
+										<div id="amicizia">
+											<input name="amicizieScelte" type="checkbox" value="<%= amicizia.getId() %>">										
+											<div id="testo">
+												<%= amico.getNome() %> <%= amico.getCognome() %>
+												<br>
+												@<%= amico.getNickname() %>
+											</div>
+											<div id="avatar">
+												<img src="<%= amico.getAvatarPath() %>" width="65" height="65">
+											</div>
+										</div>
+							<%
+									}
+								}
+							%>
+						</div>
+						<center>
+							<input id="pulsante" type="submit" value="Rimuovi">
+						</center>
+					</form>
 				</div>
-				<div id="indicazioni">
-					<p>Testo sul fatto che dopo aver terminato delle amicizie sarà sempre possibile instaurarle di nuovo in un secondo momento</p>
+				<div id="boxRight">
+					<div id="titoloBox">
+						<center>Indicazioni</center>
+					</div>
+					<div id="indicazioni">
+						<p>Testo sul fatto che dopo aver terminato delle amicizie sarà sempre possibile instaurarle di nuovo in un secondo momento</p>
+					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	</body>
 </html>

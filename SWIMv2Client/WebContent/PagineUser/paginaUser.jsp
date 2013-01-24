@@ -15,9 +15,7 @@
 	</head>
 	<body>
 		<div id="pagina">
-			<div id="logo">
-				<img src="/SWIMv2Client/Immagini/logo.png" width="235" height="107">
-			</div>
+			<%@ include file="../logoPiccolo.html" %>
 			<%
 				Messaggio messaggio = null;
 				
