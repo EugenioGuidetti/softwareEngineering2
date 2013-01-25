@@ -76,10 +76,12 @@
 									<label for="abilita">Abilit&agrave;</label>
 									<select id="abilita" name="abilita">
 										<%
-											for(Abilita abilita: abilitaDichiarate) {
+											if(abilitaDichiarate != null) {
+												for(Abilita abilita: abilitaDichiarate) {
 										%>
-												<option value="<%= abilita.getId() %>"><%= abilita.getNome() %></option>
+													<option value="<%= abilita.getId() %>"><%= abilita.getNome() %></option>
 										<%
+												}
 											}
 										%>
 									</select>

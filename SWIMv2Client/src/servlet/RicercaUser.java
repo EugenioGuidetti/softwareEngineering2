@@ -63,28 +63,25 @@ public class RicercaUser extends HttpServlet {
 			if(dominioRicerca != null && filtroRicerca != null) {
 				//ha selezionato un domino ed un tipo di ricerca
 				
-				if(filtroRicerca.equals(PER_ABILITA) /*&& abilita != null*/) {
+				if(filtroRicerca.equals(PER_ABILITA) && abilita != "") {
 					// ha selezionato la ricerca per abilità
 					
-					if(abilita.equals("")) {
-						request.setAttribute("messaggio", Comunicazione.erroreRicercaAbilita());
-					} else {
-						try {
-							long id = Long.parseLong(abilita);
-							if(dominioRicerca.equals(SISTEMA)) {
-								//ha scelto come dominio tutti gli user
-								
-								risultatiRicerca = gestoreUser.ricercaPerAbilita(id);
-							}
+					try {
+						long id = Long.parseLong(abilita);
+						if(dominioRicerca.equals(SISTEMA)) {
+							//ha scelto come dominio tutti gli user
+							
+							risultatiRicerca = gestoreUser.ricercaPerAbilita(id);
+						}
 							if(dominioRicerca.equals(AMICI)) {
-								//ga scelto come dominio gli amici
+							//ga scelto come dominio gli amici
 								
-								risultatiRicerca = gestoreUser.ricercaAmiciPerAbilita(nickname, id);
-							}
-						} catch (NumberFormatException numberFormatE) {
-							request.setAttribute("messaggio", Comunicazione.erroreRicerca());					
-						}						
-					}
+							risultatiRicerca = gestoreUser.ricercaAmiciPerAbilita(nickname, id);
+						}
+					} catch (NumberFormatException numberFormatE) {
+						request.setAttribute("messaggio", Comunicazione.erroreRicerca());					
+					}						
+					
 				}
 				
 				if(filtroRicerca.equals(PER_NOME)) {
