@@ -1,17 +1,23 @@
 package test;
 
 import static org.junit.Assert.*;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.naming.Context;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import entity.Abilita;
 import entity.Aiuto;
 import session.GestoreAbilitaRemote;
 import session.GestoreAiutoRemote;
 import session.GestoreUserRemote;
 
+/**
+ * Classe di test che verifica i singoli metodi definiti nella classe GestoreAiuto del package session
+ * 
+ * @author Eugenio Guidetti - Claudio Fratto
+ *
+ */
 public class GestoreAiutoTest {
 	/*
 	 * Definisco il contesto per poter agganciare il test alle session
@@ -49,6 +55,9 @@ public class GestoreAiutoTest {
 	@Test
 	public void testGetRichiesteEInviaRichiesta(){
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -88,13 +97,8 @@ public class GestoreAiutoTest {
 		//Test: verifico che l'abilità della richiesta corrisponda a quella identificata da idAbilita
 		assertEquals(idAbilita, richiestaAiutoInviata.getAbilitaRichiesta().getId());
 
-		//Elimino gli utenti e di conseguenza tutte le richieste di aiuto o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");		
-		//Elimino tutte le abilità create per il test successivo
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -106,6 +110,9 @@ public class GestoreAiutoTest {
 	 */
 	@Test
 	public void testAccettaRichiesta(){
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -128,7 +135,7 @@ public class GestoreAiutoTest {
 		
 		//inserisco una sleep per far trascorrere qualche secondo
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -152,13 +159,8 @@ public class GestoreAiutoTest {
 		//Test: verifico che il momento di accettazione della richiesta di aiuto accettata sia diverso da null
 		assertEquals(false, richiestaAiutoAccettata.getMomentoAccettazione() == null);
 
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
-		//Elimino tutte le abilità create per il test successivo
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 	
 	/**
@@ -168,6 +170,9 @@ public class GestoreAiutoTest {
 	@Test
 	public void testRifiutaRichiesta(){
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -194,13 +199,8 @@ public class GestoreAiutoTest {
 		//Test: verifico che il numero delle richieste di aiuto ricevute dallo user "pippo" sia pari a 0
 		assertEquals(0, gestoreAiutoRemote.getRichiesteRicevute("pippo").size());
 
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
-		//Elimino tutte le abilità create per il test successivo
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 

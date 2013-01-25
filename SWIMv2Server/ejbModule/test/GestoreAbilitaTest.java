@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,12 @@ import entity.Abilita;
 import session.GestoreAbilitaRemote;
 import session.GestoreUserRemote;
 
+/**
+ * Classe di test che verifica i singoli metodi definiti nella classe GestoreAbilita del package session
+ * 
+ * @author Eugenio Guidetti - Claudio Fratto
+ *
+ */
 public class GestoreAbilitaTest {
 	/*
 	 * Definisco il contesto per poter agganciare il test alle session
@@ -42,9 +49,9 @@ public class GestoreAbilitaTest {
 	@Test
 	public void testCreaElimina(){
 		
-		//Test: all'inizio nel sistema non sono presenti abilità
-		assertEquals(0, gestoreAbilitaRemote.getAbilitaSistema().size());
-		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+			
 		//Test: creo due nuova abilita
 		assertEquals(true, gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "path"));
 		assertEquals(true, gestoreAbilitaRemote.crea("cameriere", "per serate di gala", "path"));
@@ -63,10 +70,9 @@ public class GestoreAbilitaTest {
 			assertEquals(false, abilita.getId() == abilitaDaEliminare.getId());
 		}
 		
-		//Elimino le altre abilità per i test successivi
-		for(Abilita abilita: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(abilita.getId());
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
+		
 	}
 	
 	/**
@@ -76,8 +82,8 @@ public class GestoreAbilitaTest {
 	@Test
 	public void testGetAbilitaSistema(){
 		
-		//Test: all'inizio nel sistema non sono presenti abilità
-		assertEquals(true, gestoreAbilitaRemote.getAbilitaSistema().size() == 0);
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
 		
 		//Creo 3 abilita nel sistema
 		gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "gigolò.png");
@@ -88,11 +94,8 @@ public class GestoreAbilitaTest {
 		List<Abilita> abilitaSistema = gestoreAbilitaRemote.getAbilitaSistema();
 		assertEquals(true, abilitaSistema.size() == 3);
 		
-		//Elimino tutte le abilità create per il test successivo
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
-		}
-		
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -104,6 +107,9 @@ public class GestoreAbilitaTest {
 		List<Abilita> listaAbilita;
 		Set<Abilita> setAbilita = new HashSet<Abilita>();
 			
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//Aggiungole 3 abilità nel sistema ed uno user
 		gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "gigolò.png");
 		gestoreAbilitaRemote.crea("bagnino", "piscina", "bagnino.png");
@@ -121,13 +127,7 @@ public class GestoreAbilitaTest {
 		//Test: verifico se il numero di abilità dichiarate dallo user "vercingetorige" è pari a 3
 		assertEquals(true, gestoreAbilitaRemote.getAbilitaUser("vercingetorige").size() == 3);
 		
-		/*
-		 * Elimino lo user "vercingetorige"
-		 * Elimino tutte le abilità create per il test successivo
-		 */
-		gestoreUserRemote.elimina("vercingetorige");
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 }

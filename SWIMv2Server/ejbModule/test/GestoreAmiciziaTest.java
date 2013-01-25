@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.naming.Context;
@@ -10,6 +11,12 @@ import entity.Amicizia;
 import session.GestoreAmiciziaRemote;
 import session.GestoreUserRemote;
 
+/**
+ * Classe di test che verifica i singoli metodi definiti nella classe GestoreAmicizia del package session
+ * 
+ * @author Eugenio Guidetti - Claudio Fratto
+ *
+ */
 public class GestoreAmiciziaTest {
 	/*
 	 * Definisco il contesto per poter agganciare il test alle session
@@ -43,6 +50,9 @@ public class GestoreAmiciziaTest {
 	@Test
 	public void testGetRichiesteEInviaRichiesta(){
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -75,22 +85,24 @@ public class GestoreAmiciziaTest {
 		//Test: verifico che lo user destinatario dell'amicizia sia "pippo"
 		assertEquals("pippo", amiciziaInviata.getUserDestinatario().getNickname());
 
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
-
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
-	
+
 	/**
 	 * Verifica che uno user che abbia già inoltrato una richiesta di amicizia ad un altro user non ne possa inoltrare un'altra
 	 * mentre la prima è ancora in sospeso
 	 */
 	@Test
 	public void testInviaRichiestaGiaPresente(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
-		
+
 		//Test: lo user "toto" invia una richiesta di amicizia allo user "pippo"
 		Calendar momentoRichiesta = new GregorianCalendar();
 		assertEquals(true, gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta));
@@ -100,16 +112,15 @@ public class GestoreAmiciziaTest {
 
 		//Test: verifico che il momento di accettazione sia null (richiesta in sospeso)
 		assertEquals(null, amiciziaInviata.getMomentoAccettazione());
-		
+
 		//Test: lo user "toto" invia una nuova richiesta di amicizia allo user "pippo" nonostante ci sia una richiesta in sospeso
 		momentoRichiesta = new GregorianCalendar();
 		assertEquals(false, gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta));
-	
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
+
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
-	
+
 
 	/**
 	 * Verifica il funzionamento dei metodi:
@@ -119,6 +130,10 @@ public class GestoreAmiciziaTest {
 	 */
 	@Test
 	public void testGetAmicizieAllacciateEAccettaRichiesta(){
+	
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -134,7 +149,7 @@ public class GestoreAmiciziaTest {
 
 		//inserisco una sleep per far trascorrere qualche secondo
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -158,17 +173,20 @@ public class GestoreAmiciziaTest {
 		//Test: verifico che il momento di accettazione della richiesta di amicizia accettata sia diverso da null
 		assertEquals(false, amiciziaAccettata.getMomentoAccettazione() == null);
 
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
-	
+
 	/**
 	 * Verifica che uno user che abbia già allacciato un rapporto di amicizia con un altro user non possa inviare a quest'ultimo
 	 * un'altra richiesta di amicizia
 	 */
 	@Test
 	public void testInviaRichiestaGiaAmici(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -179,7 +197,7 @@ public class GestoreAmiciziaTest {
 
 		//inserisco una sleep per far trascorrere qualche secondo
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -200,12 +218,11 @@ public class GestoreAmiciziaTest {
 		//lo user "toto" invia una nuova richiesta di amicizia allo user "pippo"
 		momentoRichiesta = new GregorianCalendar();
 		assertEquals(false, gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta));
-				
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
+
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
-	
+
 
 	/**
 	 * Verifica il funzionamento del metodo rimuovi(long id) definito nella classe GestoreAmicizia del package session
@@ -213,6 +230,10 @@ public class GestoreAmiciziaTest {
 	 */
 	@Test
 	public void testRimuovi(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -233,15 +254,14 @@ public class GestoreAmiciziaTest {
 
 		//Test: lo user "pippo" rifiuta la richiesta di amicizia ricevuta dallo user "toto"
 		assertEquals(true, gestoreAmiciziaRemote.rimuovi(amiciziaDaNonAccettare.getId()));
-		
+
 		//Test: verifico che lo user "toto" non abbia richieste di amicizia inviate in sospeso
 		assertEquals(0, gestoreAmiciziaRemote.getRichiesteInviate("toto").size());
 
 		//Test: verifico che lo user "pippo" non abbia nessuna richiesta di amicizia ricevuta in sospeso
 		assertEquals(0, gestoreAmiciziaRemote.getRichiesteRicevute("pippo").size());
 
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 }

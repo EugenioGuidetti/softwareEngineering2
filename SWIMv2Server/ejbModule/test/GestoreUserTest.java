@@ -21,7 +21,7 @@ import session.GestoreAmiciziaRemote;
 import session.GestoreUserRemote;
 
 /**
- * Classe di test per testare tutti i metodi del GestoreUser definito nel package session
+ * Classe di test che verifica i singoli metodi definiti nella classe GestoreUser del package session
  * 
  * @author Eugenio Guidetti - Claudio Fratto
  *
@@ -63,12 +63,18 @@ public class GestoreUserTest {
 	@Test
 	public void testRegistraElimina(){		
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//Test: lo user "toto" si registra al sistema (nickname disponibile)
 		assertEquals(true, gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967));
 
 		//Test: lo user "toto" si elimina dal sistema e quindi non esiste più alcuno user con quel nickname
 		assertEquals(true, gestoreUserRemote.elimina("toto"));
 		assertEquals(null, gestoreUserRemote.getUser("toto"));
+		
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -77,6 +83,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaPassword(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -88,7 +98,8 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getPassword().equals("password"));
 
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 
@@ -98,6 +109,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaEmail(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -109,7 +124,8 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getEmail().equals("pippo.pippo@mail.com"));
 
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 
@@ -120,6 +136,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaNome(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -131,7 +151,8 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getNome().equals("antonio"));
 
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 
@@ -141,6 +162,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaCognome(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -152,7 +177,8 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getCognome().equals("la russa"));
 
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 
@@ -162,6 +188,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaPathAvatar(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -174,8 +204,8 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getAvatarPath().equals("/image/pippo2.png"));
 
-		gestoreUserRemote.elimina("pippo");
-
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -184,6 +214,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaCitta(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -195,8 +229,8 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getCitta().equals("palermo"));
 
-		gestoreUserRemote.elimina("pippo");
-
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -205,6 +239,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaAnnoNascita(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -216,7 +254,8 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getAnnoNascita() == 1970);
 
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 
@@ -226,6 +265,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testModificaSesso(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
 		User user = gestoreUserRemote.getUser("pippo");
@@ -237,9 +280,10 @@ public class GestoreUserTest {
 		user = gestoreUserRemote.getUser("pippo");
 		assertEquals(true, user.getSesso().equals("femmina"));
 
-		gestoreUserRemote.elimina("pippo");
-
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
+
 
 	/**
 	 * Verifica il funzionamento del metodo  modificaAbilitaDichiarate(String nickname, Set<Abilita> abilitaDichiarate) definito
@@ -252,6 +296,9 @@ public class GestoreUserTest {
 		Set<Abilita> abilitaUser;
 		Set<Abilita> setAbilita = new HashSet<Abilita>();
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//Aggiungo 3 abilità nel sistema (inizialmente vuoto)
 		gestoreAbilitaRemote.crea("gigolò", "per serate da favola", "gigolò.png");
 		gestoreAbilitaRemote.crea("bagnino", "piscina", "bagnino.png");
@@ -276,22 +323,19 @@ public class GestoreUserTest {
 		//Test: dopo la modifica l'insieme delle abilità dichiarate dalla user coinciderà con quello delle abilità disponibili nel sistema
 		assertEquals(3, abilitaUser.size());
 
-		/*
-		 * Elimino lo user "vercingetorige"
-		 * Elimino tutte le abilità create per il test successivo
-		 */
-		gestoreUserRemote.elimina("vercingetorige");
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());	
 		}
-
-	}
 
 	/**
 	 * Verifica il funzionamento del metodo getUserSistema() definito nella classe GestoreUser del package session
 	 */
 	@Test
 	public void testUserSistema(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//Test: all'inizio nel sistema non sono presenti user
 		assertEquals(0, gestoreUserRemote.getUserSistema().size());
 
@@ -302,10 +346,8 @@ public class GestoreUserTest {
 		//Test: nel sistema ora sono presenti 2 user
 		assertEquals(2, gestoreUserRemote.getUserSistema().size());
 
-		//elimino gli user per gli altri test
-		gestoreUserRemote.elimina("pippo");
-		gestoreUserRemote.elimina("toto");
-
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -314,6 +356,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testRicercaPerAbilita(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -346,18 +392,19 @@ public class GestoreUserTest {
 		assertEquals(true, nicknameRicerca.contains("kikka"));
 		assertEquals(false, nicknameRicerca.contains("toto"));
 
-		//elimino gli user e l'abilità creata per gli altri test
-		gestoreUserRemote.elimina("pippo");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
-		gestoreAbilitaRemote.elimina(abilita.getId());
-	}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());	
+		}
 
 	/**
 	 * Verifica il funzionamento del metodo ricercaPerNome(String nome) definito nella classe GestoreUser del package session
 	 */
 	@Test
 	public void testRicercaPerNome(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -378,10 +425,8 @@ public class GestoreUserTest {
 		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
 
-		//elimino gli user per gli altri test
-		gestoreUserRemote.elimina("tonino");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -389,6 +434,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testRicercaPerCognome(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -409,10 +458,8 @@ public class GestoreUserTest {
 		assertEquals(true, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
 
-		//elimino gli user per gli altri test
-		gestoreUserRemote.elimina("pippo");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -421,6 +468,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testRicercaPerNomeCognome(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -441,10 +492,8 @@ public class GestoreUserTest {
 		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(true, nicknameRicerca.contains("toto"));
 
-		//elimino gli user per gli altri test
-		gestoreUserRemote.elimina("pippo");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -453,6 +502,10 @@ public class GestoreUserTest {
 	 */
 	@Test
 	public void testRicercaAmiciPerAbilita(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -475,7 +528,7 @@ public class GestoreUserTest {
 		gestoreAmiciziaRemote.inviaRichiesta("kikka", "toto", momentoRichiesta);
 
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -500,11 +553,8 @@ public class GestoreUserTest {
 		assertEquals(false, nicknameRicerca.contains("pippo"));
 		assertEquals(false, nicknameRicerca.contains("toto"));
 
-		//elimino gli user e l'abilità creata per gli altri test
-		gestoreUserRemote.elimina("pippo");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
-		gestoreAbilitaRemote.elimina(abilita.getId());
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -517,6 +567,9 @@ public class GestoreUserTest {
 		List<User> risultatoRicerca;
 		List<String> nicknameRicerca;
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -531,7 +584,7 @@ public class GestoreUserTest {
 		gestoreAmiciziaRemote.inviaRichiesta("toto", "kikka", momentoRichiesta);
 
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -574,10 +627,8 @@ public class GestoreUserTest {
 		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(false, nicknameRicerca.contains("tonino"));
 
-		//elimino gli user per gli altri test
-		gestoreUserRemote.elimina("tonino");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -590,6 +641,9 @@ public class GestoreUserTest {
 		List<User> risultatoRicerca;
 		List<String> nicknameRicerca;
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -604,7 +658,7 @@ public class GestoreUserTest {
 		gestoreAmiciziaRemote.inviaRichiesta("toto", "pippo", momentoRichiesta);
 
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -647,10 +701,8 @@ public class GestoreUserTest {
 		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(false, nicknameRicerca.contains("toto"));
 
-		//elimino gli user per gli altri test
-		gestoreUserRemote.elimina("pippo");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");	
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());	
 	}
 
 	/**
@@ -664,6 +716,9 @@ public class GestoreUserTest {
 		List<User> risultatoRicerca;
 		List<String> nicknameRicerca;
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "antonio", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("kikka", "mamma", "kikka@mail.com", "federica", "rossi", "path/kikka.png", "milano", "femmina", 1990);
@@ -678,7 +733,7 @@ public class GestoreUserTest {
 		gestoreAmiciziaRemote.inviaRichiesta("kikka", "pippo", momentoRichiesta);
 
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -721,10 +776,8 @@ public class GestoreUserTest {
 		assertEquals(false, nicknameRicerca.contains("kikka"));
 		assertEquals(false, nicknameRicerca.contains("toto"));
 
-		//elimino gli user per gli altri test
-		gestoreUserRemote.elimina("pippo");
-		gestoreUserRemote.elimina("kikka");
-		gestoreUserRemote.elimina("toto");	
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());	
 	}
 
 }

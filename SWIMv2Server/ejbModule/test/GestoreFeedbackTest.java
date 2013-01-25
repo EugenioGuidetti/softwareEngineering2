@@ -1,18 +1,24 @@
 package test;
 
 import static org.junit.Assert.*;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.naming.Context;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import entity.Abilita;
 import entity.Aiuto;
 import session.GestoreAbilitaRemote;
 import session.GestoreAiutoRemote;
 import session.GestoreFeedbackRemote;
 import session.GestoreUserRemote;
 
+/**
+ * Classe di test che verifica i singoli metodi definiti nella classe GestoreFeedback del package session
+ * 
+ * @author Eugenio Guidetti - Claudio Fratto
+ *
+ */
 public class GestoreFeedbackTest {
 	/*
 	 * Definisco il contesto per poter agganciare il test alle session
@@ -51,6 +57,10 @@ public class GestoreFeedbackTest {
 	 */
 	@Test
 	public void testRilascia(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -67,7 +77,7 @@ public class GestoreFeedbackTest {
 
 		//inserisco una sleep per far trascorrere qualche secondo
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -81,7 +91,7 @@ public class GestoreFeedbackTest {
 
 		//inserisco una sleep per far trascorrere qualche secondo
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -91,13 +101,8 @@ public class GestoreFeedbackTest {
 		Aiuto aiutoRicevuto = gestoreAiutoRemote.getAiutiRicevuti("toto").get(0);
 		assertEquals(true, gestoreFeedbackRemote.rilascia(aiutoRicevuto.getId(), 3, "potevi fare meglio", momentoRilascio));
 
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
-		//Elimino tutte le abilità create per il test successivo
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -105,6 +110,10 @@ public class GestoreFeedbackTest {
 	 */
 	@Test
 	public void testGetFeedback(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		//creo due user
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -148,10 +157,10 @@ public class GestoreFeedbackTest {
 
 		//Test: esiste il feedback associato all'aiuto ricevuto dallo user "toto"
 		assertEquals(false, gestoreFeedbackRemote.getFeedback(aiutoRicevuto.getId()) == null  );
-		
+
 		//recupero l'aiuto associato al feedback
 		Aiuto aiutoValutato = gestoreFeedbackRemote.getFeedback(idAiutoRicevuto).getAiutoValutato();
-		
+
 		//Test: verifico che l'aiuto valutato recuperato si riferisca all'aiuto ricevuto
 		assertEquals(idAiutoRicevuto, aiutoValutato.getId());
 		assertEquals(aiutoRicevuto.getAbilitaRichiesta().getId(), aiutoValutato.getAbilitaRichiesta().getId());
@@ -160,14 +169,9 @@ public class GestoreFeedbackTest {
 		assertEquals(aiutoRicevuto.getMomentoAccettazione(), aiutoValutato.getMomentoAccettazione());
 		assertEquals(aiutoRicevuto.getUserRichiedente().getNickname(), aiutoValutato.getUserRichiedente().getNickname());
 		assertEquals(aiutoRicevuto.getUserDestinatario().getNickname(), aiutoValutato.getUserDestinatario().getNickname());
-		
-		//Elimino gli utenti e di conseguenza tutte le richieste di amicizia o amicizie già allacciate da essi
-		gestoreUserRemote.elimina("toto");
-		gestoreUserRemote.elimina("pippo");
-		//Elimino tutte le abilità create per il test successivo
-		for(Abilita a: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(a.getId());
-		}
+
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());	
 	}
 
 }

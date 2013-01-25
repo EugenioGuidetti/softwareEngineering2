@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+
 import javax.naming.Context;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import session.GestorePropostaAbilitaRemote;
 import session.GestoreUserRemote;
 
 /**
- * Classe di test per testare tutti i metodi del GestorePropostaAbilita definito nel package session
+ * Classe di test che verifica i singoli metodi definiti nella classe GestorePropostaAbilita del package session
  * 
  * @author Eugenio Guidetti - Claudio Fratto
  *
@@ -46,6 +47,9 @@ public class GestorePropostaAbilitaTest {
 	@Test
 	public void testInviaProposta(){
 		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//Creo un nuovo user (all'inizio non ha proposte di abilità inviate)
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 		
@@ -55,13 +59,8 @@ public class GestorePropostaAbilitaTest {
 		//Test: verifico se il numero di proposte abilita del sistema è pari ad 1
 		assertEquals(true, gestorePropostaAbilitaRemote.getProposteNonVisionate().size() == 1);
 		
-		//Elimino lo user "pippo" e di conseguenza tutte le proposte a lui riferite (per gli altri test)
-		gestoreUserRemote.elimina("pippo");
-		
-		//Test: verifico che non ci siano proposte di abilita associata all'utente "pippo"
-		for(PropostaAbilita proposta: gestorePropostaAbilitaRemote.getProposteNonVisionate()){
-			assertEquals(false, proposta.getUserProponente().getNickname() == "pippo");
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 	
 		
@@ -75,6 +74,9 @@ public class GestorePropostaAbilitaTest {
 	 */
 	@Test
 	public void testGetNonVisionateVisionProposta(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
 		
 		//Creo un nuovo user (all'inizio non ha proposte di abilità inviate)
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
@@ -96,8 +98,8 @@ public class GestorePropostaAbilitaTest {
 		assertEquals(true, gestorePropostaAbilitaRemote.getProposteNonVisionate().size() == 0);
 		assertEquals(true, gestorePropostaAbilitaRemote.getProposteVisionate().size() == 1);
 		
-		//elimino lo user "pippo" e di conseguenza tutte le proposte a lui riferite (per gli altri test)
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 	
 	
@@ -107,6 +109,10 @@ public class GestorePropostaAbilitaTest {
 	 */
 	@Test
 	public void testCancellaProposta(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//Creo un nuovo user (all'inizio non ha proposte di abilità inviate)
 		gestoreUserRemote.registra("pippo", "pwd", "pippo@mail.com", "filippo", "roi", "/image/pippo.png", "cagliari", "maschio", 1988);
 
@@ -125,8 +131,8 @@ public class GestorePropostaAbilitaTest {
 			assertEquals(false, proposta.getId() == propostaDaEliminare.getId());
 		}
 		
-		//Elimino lo user "pippo" e di conseguenza tutte le proposte a lui riferite (per gli altri test)
-		gestoreUserRemote.elimina("pippo");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 }

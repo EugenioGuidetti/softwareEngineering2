@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+
 import javax.naming.Context;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import session.GestoreAdminRemote;
 
 
 /**
- * Classe di test per testare tutti i metodi del GestoreAdmin definito nel package session
+ * Classe di test che verifica i singoli metodi definiti nella classe GestoreAdmin del package session
  * 
  * @author Eugenio Guidetti - Claudio Fratto
  *
@@ -43,11 +44,17 @@ public class GestoreAdminTest {
 	@Test
 	public void testCreaRimuoviAdmin(){
 
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		//Test: creo un utente amministratore con il nickname "admin"
 		assertEquals(true, gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "path/admin.png"));
 
 		//Test: rimuovo il profilo utente associato al nickname "admin"
 		assertEquals(true, gestoreAdminRemote.rimuoviAdmin("admin"));
+		
+		//Test: verifico che il database sia vuoto dopo aver eliminato l'utente admin (unico inserito)
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
 	}
 
 	/**
@@ -55,6 +62,10 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testGetAdmin(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
 
 		/*
@@ -70,8 +81,9 @@ public class GestoreAdminTest {
 		assertEquals(true, admin.getNome().equals("nome admin"));
 		assertEquals(true, admin.getCognome().equals("cognome admin"));
 		assertEquals(true, admin.getAvatarPath().equals("avatar path admin"));
-
-		gestoreAdminRemote.rimuoviAdmin("admin");
+		
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -80,6 +92,10 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaPassword(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+		
 		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
 
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
@@ -92,7 +108,8 @@ public class GestoreAdminTest {
 		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getPassword().equals("passwordAdmin"));
 
-		gestoreAdminRemote.rimuoviAdmin("admin");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -101,6 +118,10 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaEmail(){
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
 
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
@@ -115,7 +136,8 @@ public class GestoreAdminTest {
 		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getEmail().equals("admin.admin@mail.com"));
 
-		gestoreAdminRemote.rimuoviAdmin("admin");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -124,6 +146,10 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaNome(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
 
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
@@ -135,7 +161,8 @@ public class GestoreAdminTest {
 		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getNome().equals("Admin"));
 
-		gestoreAdminRemote.rimuoviAdmin("admin");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 	/**
@@ -144,6 +171,10 @@ public class GestoreAdminTest {
 	 */
 	@Test
 	public void testModificaCognome(){
+
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
+
 		gestoreAdminRemote.creaAdmin("admin", "admin", "admin@mail.com", "nome admin", "cognome admin", "avatar path admin");
 
 		Admin admin = gestoreAdminRemote.getAdmin("admin");
@@ -155,7 +186,8 @@ public class GestoreAdminTest {
 		admin = gestoreAdminRemote.getAdmin("admin");
 		assertEquals(true, admin.getCognome().equals("Cognome"));
 
-		gestoreAdminRemote.rimuoviAdmin("admin");
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 
 }

@@ -1,9 +1,6 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -15,13 +12,18 @@ import org.junit.Test;
 import entity.Abilita;
 import entity.Aiuto;
 import entity.ReputazioneAbilita;
-import entity.User;
 import session.GestoreAbilitaRemote;
 import session.GestoreAiutoRemote;
 import session.GestoreFeedbackRemote;
 import session.GestoreUserRemote;
 import session.GestoreUtilitiesRemote;
 
+/**
+ * Classe di test che verifica i singoli metodi definiti nella classe GestoreUtilities del package session
+ * 
+ * @author Eugenio Guidetti - Claudio Fratto
+ *
+ */
 public class GestoreUtilitiesTest {
 
 	/*
@@ -59,8 +61,6 @@ public class GestoreUtilitiesTest {
 		gestoreUtilitiesRemote = (GestoreUtilitiesRemote) refUtilities;
 	}
 
-
-
 	/**
 	 * Verifica il funzionamento del metodo getReputazioneAbilita(String nickname, long idAbilita) definito nella classe
 	 * GestoreUtilities del package session
@@ -80,6 +80,9 @@ public class GestoreUtilitiesTest {
 		Aiuto aiutoRicevutoKikka;
 		
 		long idAiutoRicevuto;
+		
+		//Test: verifico che il database sia vuoto prima di iniziare il test
+		assertEquals(true, SupportoTest.verificaDatabaseVuoto());
 		
 		//aggiungo tre utenti al sistema
 		gestoreUserRemote.registra("toto", "prova", "toto@mail.com", "salvatore", "rossi", "path/toto.png", "palermo", "maschio", 1967);
@@ -159,14 +162,8 @@ public class GestoreUtilitiesTest {
 		//Test: lo user "toto" ha una media valutazioni in merito all'abilità di bagnino pari a 0
 		assertEquals(0, reputazioneBagnino.getMediaValutazioniFeedback());
 
-		//elimino gli user
-		for(User user: gestoreUserRemote.getUserSistema()){
-			gestoreUserRemote.elimina(user.getNickname());
-		}
-		//elimino le abilità
-		for(Abilita abilita: gestoreAbilitaRemote.getAbilitaSistema()){
-			gestoreAbilitaRemote.elimina(abilita.getId());
-		}
+		//Test: svuoto il database e verifico che non vi rimanga più alcuna informazione
+		assertEquals(true, SupportoTest.svuotaDB());
 	}
 	
 }
