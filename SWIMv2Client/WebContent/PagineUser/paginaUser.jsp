@@ -55,7 +55,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/SWIMv2Client/RicercaUser">
+						<a href="/SWIMv2Client/Ricerca">
 							<button type="button">Ricerca</button>
 						</a>
 					</li>

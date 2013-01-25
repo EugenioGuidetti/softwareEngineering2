@@ -9,20 +9,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import session.GestoreAbilitaRemote;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
 
 public class RicercaGuest extends HttpServlet {
 	
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
+	
 	private static final String PER_NOME = "perNome";
 	private static final String PER_ABILITA = "perAbilita";
 	
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreUserRemote gestoreUser;
-	private GestoreAbilitaRemote gestoreAbilita;
 	private String nome;
 	private String cognome;
 	private String abilita;
@@ -45,8 +44,6 @@ public class RicercaGuest extends HttpServlet {
 		try {
 			context = new InitialContext();
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
 			
 			if(filtroRicerca != null) {
 				//ha selezionato un tipo di ricerca
@@ -62,9 +59,9 @@ public class RicercaGuest extends HttpServlet {
 					}
 				}
 				
-				if(filtroRicerca.equals(PER_NOME)) {
-					
+				if(filtroRicerca.equals(PER_NOME)) {					
 					//ha selezionato la ricerca per nome
+					
 					if(!nome.equals("") && !cognome.equals("")) {
 						//ha inserito sia nome che cognome
 						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerNomeCognome(nome, cognome));
@@ -81,12 +78,11 @@ public class RicercaGuest extends HttpServlet {
 					}
 				}
 			}
-			dispatcher = request.getRequestDispatcher("PagineGuest/paginaGuest.jsp");
-			dispatcher.forward(request, response);
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreRicerca());
-			dispatcher = request.getRequestDispatcher("PagineGuest/paginaGuest.jsp");
-			dispatcher.forward(request, response);
+		} finally {
+			dispatcher = request.getRequestDispatcher("PaginaGuest");
+			dispatcher.forward(request, response);			
 		}
 	}
 

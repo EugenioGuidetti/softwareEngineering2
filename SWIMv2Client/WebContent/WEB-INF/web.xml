@@ -269,4 +269,24 @@
     <servlet-name>RilasciaFeedback</servlet-name>
     <url-pattern>/RilasciaFeedback</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RicercaUser</display-name>
+    <servlet-name>RicercaUser</servlet-name>
+    <servlet-class>servlet.RicercaUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RicercaUser</servlet-name>
+    <url-pattern>/RicercaUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ricerca</display-name>
+    <servlet-name>Ricerca</servlet-name>
+    <servlet-class>servlet.Ricerca</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ricerca</servlet-name>
+    <url-pattern>/Ricerca</url-pattern>
+  </servlet-mapping>
 </web-app>

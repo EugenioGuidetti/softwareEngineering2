@@ -125,11 +125,11 @@ body {
 	margin-right: 10px;
 }
 
-#proposteActions, #filtriRicerca, #richiesteActions {
+#proposteActions, #filtriRicerca, #richiesteActions, #dominioRicerca {
 	text-align: center;
 }
 
-#proposteActions input, #filtriRicerca input, #richiesteActions input, #amicizia input {
+#proposteActions input, #filtriRicerca input, #dominioRicerca input, #richiesteActions input, #amicizia input {
 	width: auto;
 	margin-right: auto;
 }

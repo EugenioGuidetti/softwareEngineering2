@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import session.GestoreAbilitaRemote;
 import utility.Comunicazione;
 
-public class PaginaGuest extends HttpServlet {
+public class Ricerca extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -20,7 +20,7 @@ public class PaginaGuest extends HttpServlet {
 	private Context context;
 	private GestoreAbilitaRemote gestoreAbilita;
 
-    public PaginaGuest() {
+    public Ricerca() {
         super();
     }
 
@@ -32,7 +32,7 @@ public class PaginaGuest extends HttpServlet {
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAbilita());
 		} finally {
-			dispatcher = request.getRequestDispatcher("PagineGuest/paginaGuest.jsp");
+			dispatcher = request.getRequestDispatcher("PagineUser/ricerca.jsp");
 			dispatcher.forward(request, response);			
 		}
 	}

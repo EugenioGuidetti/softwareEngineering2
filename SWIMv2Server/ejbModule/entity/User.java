@@ -201,5 +201,15 @@ public class User extends Profilo implements Serializable{
 	public void setProposteInviate(Set<PropostaAbilita> proposteInviate) {
 		this.proposteInviate = proposteInviate;
 	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 
 }
