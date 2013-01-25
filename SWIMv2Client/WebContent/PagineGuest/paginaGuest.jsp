@@ -80,23 +80,36 @@
 					<div id="titoloBox">
 						<center>Risultati della ricerca</center>
 					</div>
-					<div id="informazioniBox">
 						<%
 							@SuppressWarnings("unchecked")
 							List<User> risultatiRicerca = 
 								(List<User>) request.getAttribute("risultatiRicerca");
 							if(risultatiRicerca != null) {
-								for(User user: risultatiRicerca) {
+								if(!risultatiRicerca.isEmpty()) {
+						%>									
+									<div id="informazioniBox">
+						<%
+									for(User user: risultatiRicerca) {
 						%>
-									<div id="infoProfilo">							
-										<div id="avatar">
-											<img src="<%= user.getAvatarPath() %>" width="65" height="65">
+										<div id="infoProfilo">							
+											<div id="avatar">
+												<img src="<%= user.getAvatarPath() %>" width="65" height="65">
+											</div>
+											<div id="testo">
+												<%= user.getNome() %> <%= user.getCognome() %>
+												<br>
+												@<%= user.getNickname() %>
+											</div>
 										</div>
-										<div id="testo">
-											<%= user.getNome() %> <%= user.getCognome() %>
-											<br>
-											@<%= user.getNickname() %>
-										</div>
+						<%
+									}
+						%>
+									</div>
+						<%
+								} else {
+						%>
+									<div id="indicazioni">
+										<p>La ricerca non ha prodotto alcun risultato.</p>
 									</div>
 						<%
 								}
