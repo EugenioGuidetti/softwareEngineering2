@@ -40,13 +40,12 @@
 							<p>
 								<label for="vNumerica">In numeri:</label>
 								<select id="vNumerica" name="vNumerica">
-									<%
-										for(int i = 0; i < 6; i++) {
-									%>
-											<option value="<%= i %>"><%= i %></option>
-									<%
-										}
-									%>
+									<option value="0">&#9734;&#9734;&#9734;&#9734;&#9734;</option>
+									<option value="1">&#9733;&#9734;&#9734;&#9734;&#9734;</option>
+									<option value="2">&#9733;&#9733;&#9734;&#9734;&#9734;</option>
+									<option value="3">&#9733;&#9733;&#9733;&#9734;&#9734;</option>
+									<option value="4">&#9733;&#9733;&#9733;&#9733;&#9734;</option>
+									<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
 								</select>
 							</p>
 							<p>

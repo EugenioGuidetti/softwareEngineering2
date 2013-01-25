@@ -34,7 +34,7 @@ public class InviaRichiestaAiuto extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		nickname = (String) request.getSession().getAttribute("nikcname");
+		nickname = (String) request.getSession().getAttribute("nickname");
 		nicknameDestinatario = request.getParameter("nicknameDestinatario");
 		abilita = request.getParameter("abilita");
 		descrizione = request.getParameter("descrizione");

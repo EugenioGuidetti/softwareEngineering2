@@ -31,7 +31,31 @@
 							<input name="filtroRicerca" type="hidden" value="<%= filtroUsato %>">
 							<input name="dominioRicerca" type="hidden" value="<%= dominioScelto %>">
 							<center>
-								<input id="pulsante" type="submit" value="Risultati della ricerca">
+								<input id="pulsante" type="submit" value="Torna alla ricerca">
+							</center>
+						</form>
+					</div>
+					<div id="boxLeft">
+						<div id="titoloBox">
+							<center>Invia richiesta di Amicizia</center>
+						</div>
+						<form action="/SWIMv2Client/InviaRichiestaAmicizia" method="post">
+							<%
+								User userCercato = (User) request.getAttribute("userCercato");
+								Boolean amicizia = (Boolean) request.getAttribute("amicizia");
+								String disabilitato = "";
+								if(amicizia) {
+									disabilitato = " disabled=\"disabled\"";
+							%>
+									<div id="indicazioni">
+										<p>Non puoi inviare una richiesta di amicizia a <strong>@<%= userCercato.getNickname() %></strong>, questo vuol dire che o siete già amici o che esiste già una richiesta in attesa di una risposta.</p>
+									</div>
+							<%
+								}
+							%>
+							<input name="nicknameDestinatario" type="hidden" value="<%= userCercato.getNickname() %>">
+							<center>
+								<input id="pulsante" class="pulsantiVicini" type="submit" value="Invia richiesta amicizia"<%= disabilitato %>>
 							</center>
 						</form>
 					</div>
@@ -42,7 +66,6 @@
 						<form action="/SWIMv2Client/InviaRichiestaAiuto" method="post">
 							<div id="informazioniBox">
 								<%
-									User userCercato = (User) request.getAttribute("userCercato");
 									@SuppressWarnings("unchecked")
 									List<Abilita> abilitaDichiarate = 
 										(List<Abilita>) request.getAttribute("abilitaDichiarate");
@@ -70,29 +93,6 @@
 							</center>
 						</form>
 					</div>
-					<div id="boxLeft">
-						<div id="titoloBox">
-							<center>Invia richiesta di Amicizia</center>
-						</div>
-						<form action="/SWIMv2Client/InviaRichiestaAmicizia" method="post">
-							<%
-								Boolean amicizia = (Boolean) request.getAttribute("amicizia");
-								String disabilitato = "";
-								if(amicizia) {
-									disabilitato = "disabled";
-							%>
-									<div id="indicazioni">
-										<p>Non puoi inviare una richiesta di amicizia a <strong>@<%= userCercato.getNickname() %>, questo vuol dire che o siete già amici o che esiste già una richiesta in attesa di una risposta.</strong></p>
-									</div>
-							<%
-								}
-							%>
-							<input name="nicknameDestinatario" type="hidden" value="<%= userCercato.getNickname() %>">
-							<center>
-								<input id="pulsante" type="submit" value="Invia richiesta amicizia" disabled="<%= disabilitato %>">
-							</center>
-						</form>
-					</div>
 				</div>
 				<div id="containerRight">
 					<div id="boxRight">
@@ -102,7 +102,7 @@
 						<div id="informazioniBox">
 							<div id="infoProfilo">
 								<div id="avatar">
-									<img src="<%= request.getAttribute("avatar") %>" width="65" height="65">
+									<img src="<%= userCercato.getAvatarPath() %>" width="65" height="65">
 								</div>
 								<div id="testo">
 									<%= userCercato.getNome() %> <%= userCercato.getCognome() %>

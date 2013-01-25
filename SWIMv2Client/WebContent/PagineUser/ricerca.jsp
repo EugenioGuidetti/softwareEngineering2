@@ -132,7 +132,7 @@
 								String dominioScelto = (String) request.getAttribute("dominioScelto");
 								for(User user: risultatiRicerca) {
 						%>
-									<form action="/SWIMv2/DettagliProfilo" method="post">
+									<form action="/SWIMv2Client/DettagliProfilo" method="post">
 										<div id="infoProfilo">							
 											<div id="avatar">
 												<img src="<%= user.getAvatarPath() %>" width="65" height="65">
