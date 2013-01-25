@@ -107,6 +107,9 @@ public final class Comunicazione {
 	private static final String CONFERMA_MODIFICA_INFORMAZIONI = 
 			"La modifica è stata eseguita correttamente. Ti è stata inviata una mail di conferma.";
 	
+	private static final String CONFERMA_MODIFICA_ABILITA = 
+			"La modifica delle abilità dichiarate è stata completata correttamente.";
+	
 	
 	private Comunicazione() {
 		super();
@@ -249,6 +252,10 @@ public final class Comunicazione {
 	}
 	public static Messaggio confermaModificaInformazioni(){
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_MODIFICA_INFORMAZIONI);
+	}
+	
+	public static Messaggio confermaModificaAbilita() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_MODIFICA_ABILITA);
 	}
 	
 }

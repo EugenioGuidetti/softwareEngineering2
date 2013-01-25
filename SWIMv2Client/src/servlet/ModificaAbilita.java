@@ -57,8 +57,15 @@ public class ModificaAbilita extends HttpServlet {
 					}
 				}
 			}
-			gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
-			response.sendRedirect("PaginaUser");
+			if(!gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate)) {
+				request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
+				dispatcher = request.getRequestDispatcher("Abilita");
+				dispatcher.forward(request, response);				
+			} else {
+				request.setAttribute("messaggio", Comunicazione.confermaModificaAbilita());
+				dispatcher = request.getRequestDispatcher("PaginaUser");
+				dispatcher.forward(request, response);
+			}
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
 			dispatcher = request.getRequestDispatcher("Abilita");
