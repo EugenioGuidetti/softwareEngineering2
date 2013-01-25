@@ -110,6 +110,9 @@ public final class Comunicazione {
 	private static final String CONFERMA_MODIFICA_ABILITA = 
 			"La modifica delle abilità dichiarate è stata completata correttamente.";
 	
+	private static final String ERRORE_RICERCA_ABILITA = 
+			"Non hai selezionato alcuna abilità! Per poter effettuare la ricerca per abilità devi sceglierne una.";
+	
 	
 	private Comunicazione() {
 		super();
@@ -256,6 +259,10 @@ public final class Comunicazione {
 	
 	public static Messaggio confermaModificaAbilita() {
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_MODIFICA_ABILITA);
+	}
+	
+	public static Messaggio erroreRicercaAbilita() {
+		return new Messaggio(TipoMessaggio.ERRORE, ERRORE_RICERCA_ABILITA);
 	}
 	
 }
