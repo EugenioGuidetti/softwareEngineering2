@@ -75,7 +75,7 @@
 							<div id="filtroAbilita">
 								<center class="underline">Filtro per abilita:</center>
 								<br>
-								<label for="abilita">Abilita:</label>
+								<label for="abilita">Abilit&agrave;:</label>
 								<select id="abilita" name="abilita">
 									<%
 										@SuppressWarnings("unchecked")
@@ -125,18 +125,32 @@
 							List<User> risultatiRicerca = 
 								(List<User>) request.getAttribute("risultatiRicerca");
 							if(risultatiRicerca != null) {
+								String nomeCercato = (String) request.getAttribute("nomeCercato");
+								String cognomeCercato = (String) request.getAttribute("cognomeCercato");
+								String abilitaCercata = (String) request.getAttribute("abilitaCercata");
+								String filtroUsato = (String) request.getAttribute("filtroUsato");
+								String dominioScelto = (String) request.getAttribute("dominioScelto");
 								for(User user: risultatiRicerca) {
 						%>
-									<div id="infoProfilo">							
-										<div id="avatar">
-											<img src="<%= user.getAvatarPath() %>" width="65" height="65">
+									<form action="/SWIMv2/DettagliProfilo" method="post">
+										<div id="infoProfilo">							
+											<div id="avatar">
+												<img src="<%= user.getAvatarPath() %>" width="65" height="65">
+											</div>
+											<div id="testo">
+												<%= user.getNome() %> <%= user.getCognome() %>
+												<br>
+												@<%= user.getNickname() %>
+											</div>
 										</div>
-										<div id="testo">
-											<%= user.getNome() %> <%= user.getCognome() %>
-											<br>
-											@<%= user.getNickname() %>
-										</div>
-									</div>
+										<input name="userCercato" type="hidden" value="<%= user.getNickname() %>">
+										<input name="nomeCercato" type="hidden" value="<%= nomeCercato %>">
+										<input name="cognomeCercato" type="hidden" value="<%= cognomeCercato %>">
+										<input name="abilitaCercata" type="hidden" value="<%= abilitaCercata %>">
+										<input name="filtroUsato" type="hidden" value="<%= filtroUsato %>">
+										<input name="dominioScelto" type="hidden" value="<%= dominioScelto %>">
+										<input class="pulsanteRicerca" type="submit" value="Dettagli Profilo">
+									</form>
 						<%
 								}
 							}

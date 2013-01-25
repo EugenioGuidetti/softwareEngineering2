@@ -289,4 +289,34 @@
     <servlet-name>Ricerca</servlet-name>
     <url-pattern>/Ricerca</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InviaRichiestaAiuto</display-name>
+    <servlet-name>InviaRichiestaAiuto</servlet-name>
+    <servlet-class>servlet.InviaRichiestaAiuto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InviaRichiestaAiuto</servlet-name>
+    <url-pattern>/InviaRichiestaAiuto</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InviaRichiestaAmicizia</display-name>
+    <servlet-name>InviaRichiestaAmicizia</servlet-name>
+    <servlet-class>servlet.InviaRichiestaAmicizia</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InviaRichiestaAmicizia</servlet-name>
+    <url-pattern>/InviaRichiestaAmicizia</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DettagliProfilo</display-name>
+    <servlet-name>DettagliProfilo</servlet-name>
+    <servlet-class>servlet.DettagliProfilo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DettagliProfilo</servlet-name>
+    <url-pattern>/DettagliProfilo</url-pattern>
+  </servlet-mapping>
 </web-app>

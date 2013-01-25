@@ -41,11 +41,23 @@ public final class Comunicazione {
 	private static final String ERRORE_MODIFICA_PROPOSTE = 
 			"Ops! Qualcosa è andato storto durante la modifica delle proposte.";
 	
+	private static final String ERRORE_RICHIESTA_AMICIZIA = 
+			"Ops! qualcosa è andato storto durante l'invio della richiesta di amicizia.";
+	
+	private static final String CONFERMA_RICHIESTA_AMICIZIA = 
+			"La richiesta di amicizia è stata inviata correttamente.";
+	
 	private static final String ERRORE_MODIFICA_RICHIESTE_AMICIZIA = 
 			"Ops! Qualcosa è andato storto durante la modifica delle richiesta di amicizia.";
 	
 	private static final String ERRORE_MODIFICA_AMICIZIE = 
 			"Ops! Qualcosa è andato storto durante la modifica delle amicizie.";
+	
+	private static final String ERRORE_RICHIESTA_AIUTO = 
+			"Ops! qualcosa è andato storto durante l'invio della richiesta di aiuto.";
+	
+	private static final String CONFERMA_RICHIESTA_AIUTO = 
+			"La richiesta d'aiuto è stata inviata correttamente.";
 	
 	private static final String ERRORE_CARICAMENTO_RICHIESTE_AIUTO = 
 			"Ops! Qualcosa è andato storto durante il caricamento delle richieste di aiuto.";
@@ -152,12 +164,28 @@ public final class Comunicazione {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_PROPOSTE);
 	}
 	
+	public static Messaggio erroreRichiestaAmicizia() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_RICHIESTA_AMICIZIA);
+	}
+	
+	public static Messaggio confermaRichiestaAmicizia() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_RICHIESTA_AMICIZIA);
+	}
+	
 	public static Messaggio erroreModificaRichiesteAmicizia() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_RICHIESTE_AMICIZIA);
 	}
 	
 	public static Messaggio erroreModficaAmicizie() {
 		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_MODIFICA_AMICIZIE);
+	}
+	
+	public static Messaggio erroreRichiestaAiuto() {
+		return new Messaggio(TipoMessaggio.AVVISO, ERRORE_RICHIESTA_AIUTO);
+	}
+	
+	public static Messaggio confermaRichiestaAiuto() {
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_RICHIESTA_AIUTO);
 	}
 	
 	public static Messaggio erroreCaricamentoRichiesteAiuto() {

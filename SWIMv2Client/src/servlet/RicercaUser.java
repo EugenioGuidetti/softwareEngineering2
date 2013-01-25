@@ -50,6 +50,11 @@ public class RicercaUser extends HttpServlet {
 		abilita = request.getParameter("abilita");
 		dominioRicerca = request.getParameter("dominioRicerca");
 		filtroRicerca = request.getParameter("filtroRicerca");
+		request.setAttribute("nomeCercato", nome);
+		request.setAttribute("cognomeCercato", cognome);
+		request.setAttribute("abilitaCercata", abilita);
+		request.setAttribute("filtroUsato", filtroRicerca);
+		request.setAttribute("dominioScelto", dominioRicerca);
 		try {
 			context = new InitialContext();
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");			
