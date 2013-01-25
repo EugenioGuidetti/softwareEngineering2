@@ -263,3 +263,9 @@ body {
 .underline {
 	text-decoration: underline;
 }
+
+.special {
+	color: white;
+	font-size: 23px;
+	font-weight: bold;
+}

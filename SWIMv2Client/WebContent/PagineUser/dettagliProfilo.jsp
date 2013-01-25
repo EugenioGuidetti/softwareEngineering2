@@ -31,7 +31,9 @@
 							<input name="filtroRicerca" type="hidden" value="<%= filtroUsato %>">
 							<input name="dominioRicerca" type="hidden" value="<%= dominioScelto %>">
 							<center>
-								<input id="pulsante" type="submit" value="Torna alla ricerca">
+								<input id="ricerca" src="/SWIMv2Client/Immagini/indietro.png" type="image" name="submit" height="40" width="40">
+								<br>
+								<label class="special" for="ricerca">Torna alla ricerca</label>
 							</center>
 						</form>
 					</div>
