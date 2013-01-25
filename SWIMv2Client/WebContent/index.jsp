@@ -16,24 +16,7 @@
 	<body>
 		<div id="pagina">
 			<%@ include file="logoGrande.html" %>
-			<%
-				Messaggio messaggio = null;
-				
-				//recupero messaggio dalla request
-				messaggio = (Messaggio) request.getAttribute("messaggio");
-				if(messaggio == null){
-					//recuper messaggio dalla session e la invalido
-					messaggio = (Messaggio) request.getSession().getAttribute("messaggio");
-					request.getSession().invalidate();
-				}
-				if(messaggio != null) {
-			%>
-					<div id="messaggio<%= messaggio.getTipo().toString() %>">
-						<center><%= messaggio.getTesto() %></center>
-					</div>
-			<%
-				}
-			%>
+			<%@ include file="gestioneMessaggio.jsp" %>
 			<div id="body">
 				<div id="boxLeft">
 					<div id="titoloBox">

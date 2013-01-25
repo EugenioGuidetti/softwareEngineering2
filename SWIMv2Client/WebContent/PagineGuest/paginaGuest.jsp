@@ -19,7 +19,7 @@
 							<button type="button">&rarr; PaginaGuest</button>
 						</a>
 					</li>
-					<li>
+					<li class="aDestra">
 						<a href="/SWIMv2Client/Logout">
 							<button type="button">Home Page</button>
 						</a>
@@ -47,6 +47,7 @@
 								<br>
 								<label for="abilita">Abilita:</label>
 								<select id="abilita" name="abilita">
+									<option value=""></option>
 									<%
 										@SuppressWarnings("unchecked")
 										List<Abilita> abilitaSistema = 

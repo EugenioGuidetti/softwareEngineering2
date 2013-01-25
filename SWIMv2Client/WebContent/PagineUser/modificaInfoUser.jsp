@@ -15,7 +15,8 @@
 	</head>
 	<body>
 		<div id="pagina">
-			<%@ include file="../logoPiccolo.html" %>
+			<%@ include file="../logoPiccolo.html" %>			
+			<%@ include file="../gestioneMessaggio.jsp" %>
 			<div id="body">
 				<div id="boxLeft">
 					<div id="titoloBox">

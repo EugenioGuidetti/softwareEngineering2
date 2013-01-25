@@ -15,17 +15,8 @@
 	</head>
 	<body>
 		<div id="pagina">
-			<%@ include file="../logoPiccolo.html" %>
-			<%
-				Messaggio messaggio = (Messaggio) request.getAttribute("messaggio");
-				if(messaggio != null) {
-			%>
-					<div id="messaggio<%= messaggio.getTipo().toString() %>">
-						<center><%= messaggio.getTesto() %></center>
-					</div>
-			<%
-				}
-			%>
+			<%@ include file="../logoPiccolo.html" %>			
+			<%@ include file="../gestioneMessaggio.jsp" %>
 			<div id="menuUser">
 				<ul>
 					<li>
