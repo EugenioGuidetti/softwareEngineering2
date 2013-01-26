@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 body {
-	font-family: Arial;
+	font-family: comics sans-serif, arial;
 }
 
 #pagina {
@@ -267,6 +267,16 @@ margin-right: 10px;
 
 .aDestra {
 	margin-left: 434px;
+}
+
+.giustificato {
+	text-align: justify;
+	font-family: comics sans-serif;
+}
+
+.centrato {
+	text-align: center;
+	font-family: comics sans-serif;
 }
 
 .imgNelTesto {

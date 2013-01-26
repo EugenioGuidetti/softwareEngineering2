@@ -29,8 +29,9 @@
 									<div id="proposta">
 										<input name="proposteScelte" type="checkbox" value="<%= proposta.getId() %>">
 										<div id="corpoProposta">
-											<strong><%= proposta.getNome() %></strong><br>
-											<i>&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i><br>
+											<strong class><%= proposta.getNome() %></strong><br>
+											<i class = "giustificato">&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i>
+											<br>
 											proposta da @<%= proposta.getUserProponente().getNickname() %>
 										</div>
 									</div>
@@ -67,7 +68,8 @@
 										<input name="proposteScelte" type="checkbox" value="<%= proposta.getId() %>">
 										<div id="corpoProposta">
 											<strong><%= proposta.getNome() %></strong><br>
-											<i>&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i><br>
+											<i class = "giustificato">&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i>
+											<br>
 											proposta da @<%= proposta.getUserProponente().getNickname() %>
 										</div>
 									</div>

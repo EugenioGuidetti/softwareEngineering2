@@ -30,7 +30,7 @@
 									<div id="corpoAbilita">
 										<strong><%= abilita.getNome() %></strong>
 										<br>
-										<i>&ldquo;<%= abilita.getDescrizione() %>&rdquo;</i>
+										<i class = "giustificato">&ldquo;<%= abilita.getDescrizione() %>&rdquo;</i>
 									</div>
 									<div id="iconaAbilita">
 										<img src="<%= abilita.getIconaPath() %>" width="65" height="65">

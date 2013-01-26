@@ -39,8 +39,11 @@
 					<div id="titoloBox">
 						<center>Indicazioni</center>
 					</div>
-					<div id="indicazioni">
-						<p>Testo sul fatto che vanno compilati solo i campi che si intende modificare, gli altri vanno lasciati bianchi</p>
+					<div id="indicazioni" class = "giustificato">
+						<p>
+							Completa il form presente sulla sinistra inserendo solo le informazioni che desideri modificare. 
+							Nel caso decidessi di cambiare la password ti verrà inviata una mail riepilogativa all'indirizzo del sistema
+						</p>
 					</div>
 				</div>
 			</div>
