@@ -48,11 +48,6 @@
 								String disabilitato = "";
 								if(amicizia) {
 									disabilitato = " disabled=\"disabled\"";
-							%>
-									<div id="indicazioni">
-										<p>Non puoi inviare una richiesta di amicizia a <strong>@<%= userCercato.getNickname() %></strong>, questo vuol dire che o siete già amici o che esiste già una richiesta in attesa di una risposta.</p>
-									</div>
-							<%
 								}
 							%>
 							<input name="nicknameDestinatario" type="hidden" value="<%= userCercato.getNickname() %>">
@@ -82,6 +77,8 @@
 													<option value="<%= abilita.getId() %>"><%= abilita.getNome() %></option>
 										<%
 												}
+											} else {
+												disabilitato = " disabled=\"disabled\"";
 											}
 										%>
 									</select>
@@ -93,7 +90,7 @@
 							</div>
 							<input name="nicknameDestinatario" type="hidden" value="<%= userCercato.getNickname() %>">
 							<center>
-								<input id="pulsante" type="submit" value="Invia richiesta aiuto">
+								<input id="pulsante" type="submit" value="Invia richiesta aiuto"<%= disabilitato %>>
 							</center>
 						</form>
 					</div>
