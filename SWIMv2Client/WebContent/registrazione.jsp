@@ -56,7 +56,11 @@
 						<center>Indicazioni</center>
 					</div>
 					<div id="indicazioni">
-						<p>Testo sul fatto che le scelte contenute in questa pagina sono del tutto opzionali rispetto alla creazione del profilo</p>
+						<p class="giustificato">
+							Qui puoi scegliere di caricare un immagine, fino a 700KB, da usare come avatar, se non lo fai ti verrà assegnato l'avatar di default.
+							<br>
+							Inoltre puoi decidere di dichiarare subito le tue abilit&agrave; pubbliche, la scelta non è obbligatoria, potrai sempre dichiararle in un secondo momento dalla tua area personale.
+						</p>
 					</div>
 				</div>
 			</div>
