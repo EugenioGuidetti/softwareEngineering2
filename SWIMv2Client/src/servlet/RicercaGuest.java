@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -9,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entity.User;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
 
@@ -26,6 +31,7 @@ public class RicercaGuest extends HttpServlet {
 	private String cognome;
 	private String abilita;
 	private String filtroRicerca;
+	private List<User> risultatiRicerca;
 
     public RicercaGuest() {
         super();
@@ -43,7 +49,8 @@ public class RicercaGuest extends HttpServlet {
 
 		try {
 			context = new InitialContext();
-			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
+			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");			
+			risultatiRicerca = new ArrayList<User>();
 			
 			if(filtroRicerca != null) {
 				//ha selezionato un tipo di ricerca
@@ -53,7 +60,7 @@ public class RicercaGuest extends HttpServlet {
 					
 					try {
 						long id = Long.parseLong(abilita);
-						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerAbilita(id));
+						risultatiRicerca = gestoreUser.ricercaPerAbilita(id);
 					} catch (NumberFormatException numberFormatE) {
 						request.setAttribute("messaggio", Comunicazione.erroreRicerca());					
 					}
@@ -64,20 +71,21 @@ public class RicercaGuest extends HttpServlet {
 					
 					if(!nome.equals("") && !cognome.equals("")) {
 						//ha inserito sia nome che cognome
-						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerNomeCognome(nome, cognome));
+						risultatiRicerca = gestoreUser.ricercaPerNomeCognome(nome, cognome);
 					}
 					
 					if(!nome.equals("") && cognome.equals("")) {
 						//ha inserito solo il nome
-						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerNome(nome));
+						risultatiRicerca = gestoreUser.ricercaPerNome(nome);
 					}
 					
 					if(nome.equals("") && !cognome.equals("")) {
 						//ha inserito solo il cognome
-						request.setAttribute("risultatiRicerca", gestoreUser.ricercaPerCognome(cognome));
+						risultatiRicerca = gestoreUser.ricercaPerCognome(cognome);
 					}
 				}
 			}
+			request.setAttribute("risultatiRicerca", risultatiRicerca);
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreRicerca());
 		} finally {

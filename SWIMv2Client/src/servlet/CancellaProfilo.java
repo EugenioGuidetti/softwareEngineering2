@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 /**
  * Servlet implementation class CancellaProfilo
@@ -31,41 +32,42 @@ public class CancellaProfilo extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("index.jsp");
-	}
+		if(Utilita.controlloSessione(request, response)){
+			//recupero il nickname del profilo dello user da eliminare
+			nickname = (String) request.getSession().getAttribute("nickname");
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			try {
+				context = new InitialContext();
+				gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 
-		//recupero il nickname del profilo dello user da eliminare
-		nickname = (String) request.getSession().getAttribute("nickname");
+				//rimuovo lo user
+				if(gestoreUser.elimina(nickname)){
+					//user eliminato: invalido la sessione e ritorno alla homepage
+					//request.getSession().setAttribute("messaggio", Comunicazione.confermaCancellazioneProfilo());
+					//response.sendRedirect("index.jsp");
+					request.getSession().invalidate();
+					request.setAttribute("messaggio", Comunicazione.confermaCancellazioneProfilo());
+					dispatcher = request.getRequestDispatcher("confermaCancellazione.jsp");
+					dispatcher.forward(request, response);
+				}
+				else{
+					//errore nell'eliminazione dello user: ritorno alla pagina principale dello user con un messaggio di errore servlet
+					request.setAttribute("messaggio", Comunicazione.erroreServlet());
+					dispatcher = request.getRequestDispatcher("PaginaUser");
+					dispatcher.forward(request, response);
+				}			
 
-		try {
-			context = new InitialContext();
-			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-
-			//rimuovo lo user
-			if(gestoreUser.elimina(nickname)){
-				//user eliminato: invalido la sessione e ritorno alla homepage
-				//request.getSession().setAttribute("messaggio", Comunicazione.confermaCancellazioneProfilo());
-				//response.sendRedirect("index.jsp");
-				request.getSession().invalidate();
-				request.setAttribute("messaggio", Comunicazione.confermaCancellazioneProfilo());
-				dispatcher = request.getRequestDispatcher("confermaCancellazione.jsp");
-				dispatcher.forward(request, response);
+			} catch (NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else{
-				//errore nell'eliminazione dello user: ritorno alla pagina principale dello user con un messaggio di errore servlet
-				request.setAttribute("messaggio", Comunicazione.erroreServlet());
-				dispatcher = request.getRequestDispatcher("PaginaUser");
-				dispatcher.forward(request, response);
-			}			
-
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 }
 
 

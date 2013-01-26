@@ -113,12 +113,6 @@
 									</div>
 						<%
 								}
-							} else {
-						%>
-								<div id="indicazioni">
-									<p class="centrato">La ricerca non ha prodotto alcun risultato.</p>
-								</div>
-						<%
 							}
 						%>
 					</div>
