@@ -177,22 +177,19 @@ body {
 	border: 1px solid grey;
 	border-radius: 5px;
 	background-color: white;
-	float: left;
 }
 
 #avatar {
-	margin-right: 5px;
 	padding: 5px;
+	float: left;
 }
 
 #testo {
 	font-size: 20px;
-	margin-left: 5px;
-	padding-top: 10px;
-	padding-left:15px;
+	padding: 10px;
 	text-align: left;
 	width: 235px;
-	height: 65px;
+	float: right;
 }
 
 #checkAbilita input, #proposta input, #richiestaRicevuta input {
