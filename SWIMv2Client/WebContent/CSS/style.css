@@ -106,6 +106,10 @@ body {
 	float: right;
 }
 
+#boxCenter{
+	margin-left: 250px;
+}
+
 #titoloBox {
 	border: 1px solid grey;
 	border-radius: 5px;
@@ -246,11 +250,12 @@ body {
 /* credits */
 #credits p{
 	text-align: center;
+	color:grey;
 }
 
 #credits a{
     font-size:14px;
-    color:#000000;
+    color:grey;
 }
 
 #recuperaPassword {

@@ -104,7 +104,7 @@
 							<input id="pulsante" type="submit" value="Modifica">
 						</center>
 					</form>
-					<center>
+					<center class = "pulsantiVicini">
 						<a href="cancellaProfilo.jsp">
 							<button id="pulsante" type="button">Cancella profilo</button>
 						</a>

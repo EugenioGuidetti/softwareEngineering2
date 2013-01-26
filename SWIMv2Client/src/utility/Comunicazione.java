@@ -125,6 +125,9 @@ public final class Comunicazione {
 	private static final String CONFERMA_RILASCIO_FEEDBACK = 
 			"Il tuo feedback è stato rilasciato correttamente.";
 	
+	private static final String CONFERMA_CANCELLAZINE_PROFILO = 
+			"Il tuo profilo è stato rimosso definitivamente.";
+	
 	private Comunicazione() {
 		super();
 	}
@@ -291,4 +294,7 @@ public final class Comunicazione {
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_RILASCIO_FEEDBACK);
 	}
 	
+	public static Messaggio confermaCancellazioneProfilo(){
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_CANCELLAZINE_PROFILO);
+	}
 }
