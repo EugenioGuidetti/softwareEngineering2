@@ -113,6 +113,11 @@ public final class Comunicazione {
 	private static final String ERRORE_RICERCA_ABILITA = 
 			"Non hai selezionato alcuna abilità! Per poter effettuare la ricerca per abilità devi sceglierne una.";
 	
+	private static final String ERRORE_USER_INESISTENTE = 
+			"Il nickname inserito non corrisponde a nessuno user.";
+	
+	private static final String CONFERMA_RESET_PASSWORD =
+			"La password è stata resettata correttamente. Ti è stata inviata una mail con la nuova password";
 	
 	private Comunicazione() {
 		super();
@@ -263,6 +268,14 @@ public final class Comunicazione {
 	
 	public static Messaggio erroreRicercaAbilita() {
 		return new Messaggio(TipoMessaggio.ERRORE, ERRORE_RICERCA_ABILITA);
+	}
+	
+	public static Messaggio erroreUserInesistente(){
+		return new Messaggio(TipoMessaggio.ERRORE, ERRORE_USER_INESISTENTE);
+	}
+	
+	public static Messaggio confermaResetPassword(){
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_RESET_PASSWORD);
 	}
 	
 }

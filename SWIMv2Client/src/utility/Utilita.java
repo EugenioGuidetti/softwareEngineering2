@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -153,4 +154,22 @@ public class Utilita {
 		return stringaRitorno;
 	}
 
+	
+	/**
+	 * Il metodo serve per generare una stringa di 10 caratteri casuali
+	 * 
+	 * @return	una stringa alfanumerica composta da 10 caratteri
+	 */
+    public static String generatePassword() {
+    	String alfabeto = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmopqrstuvwxyz";
+        Random random = new Random(System.currentTimeMillis());
+        int lenght = 10;
+        
+        StringBuilder sb = new StringBuilder(lenght);
+        
+        for (int i = 0; i < lenght; i++) {
+            sb.append(alfabeto.charAt(random.nextInt(alfabeto.length())));
+        }
+        return sb.toString();
+    }
 }

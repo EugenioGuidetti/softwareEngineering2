@@ -244,14 +244,13 @@ body {
 }
 
 /* credits */
-#credits{
-    float:right;
-    margin:0 25px 0 0;
+#credits p{
+	text-align: center;
 }
 
 #credits a{
     font-size:14px;
-    color:#5454CB;
+    color:#000000;
 }
 
 #recuperaPassword {
@@ -288,7 +287,7 @@ margin-top: -5px;
 }
 
 .special {
-	color: white;
+	color: #0033FF;
 	font-size: 23px;
 	font-weight: bold;
 }

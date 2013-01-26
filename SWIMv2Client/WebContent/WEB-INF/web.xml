@@ -319,4 +319,14 @@
     <servlet-name>DettagliProfilo</servlet-name>
     <url-pattern>/DettagliProfilo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecuperaPassword</display-name>
+    <servlet-name>RecuperaPassword</servlet-name>
+    <servlet-class>servlet.RecuperaPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecuperaPassword</servlet-name>
+    <url-pattern>/RecuperaPassword</url-pattern>
+  </servlet-mapping>
 </web-app>
