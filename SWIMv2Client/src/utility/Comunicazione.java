@@ -117,7 +117,10 @@ public final class Comunicazione {
 			"Il nickname inserito non corrisponde a nessuno user.";
 	
 	private static final String CONFERMA_RESET_PASSWORD =
-			"La password è stata resettata correttamente. Ti è stata inviata una mail con la nuova password";
+			"La password è stata resettata correttamente. Ti è stata inviata una mail con la nuova password.";
+	
+	private static final String CONFERMA_RILASCIO_FEEDBACK = 
+			"Il tuo feedback è stato rilasciato correttamente.";
 	
 	private Comunicazione() {
 		super();
@@ -276,6 +279,10 @@ public final class Comunicazione {
 	
 	public static Messaggio confermaResetPassword(){
 		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_RESET_PASSWORD);
+	}
+	
+	public static Messaggio confermaRilascioFeedback(){
+		return new Messaggio(TipoMessaggio.CONFERMA, CONFERMA_RILASCIO_FEEDBACK);
 	}
 	
 }

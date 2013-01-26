@@ -11,23 +11,34 @@
 		<%@ include file="logoGrande.html"%>
 		<%@ include file="gestioneMessaggio.jsp"%>
 		<div id="body">
-			<div id="boxLeft">
-				<div id="titoloBox">
-					<center>Resetta la tua password</center>
-				</div>
-				<form action="/SWIMv2Client/RecuperaPassword" method="post">
-					<div id="informazioniBox">
-						<p>
-							<label for="nickname">Nickname: </label> 
-							<input type="text"	name="nickname" id = "nickname" maxlength="255" required = "required">
-						</p>
-					</div>
+			<div id="containerLeft">
+				<div id="boxLeft">
 					<center>
-							<input id="pulsante" type="submit" value = "Reset password">
+						<a href="index.jsp" id="homepage" class = "noUnderline"> 
+							<img src="/SWIMv2Client/Immagini/indietro.png" height="40" width="40">
+							<br>
+							<label class="special" for = "homepage">Torna alla homepage</label>
+						</a>
 					</center>
-				</form>
+				</div>
+				<div id="boxLeft">
+					<div id="titoloBox">
+						<center>Resetta la tua password</center>
+					</div>
+					<form action="/SWIMv2Client/RecuperaPassword" method="post">
+						<div id="informazioniBox">
+							<p>
+								<label for="nickname">Nickname: </label> <input type="text"
+									name="nickname" id="nickname" maxlength="255"
+									required="required">
+							</p>
+						</div>
+						<center>
+							<input id="pulsante" type="submit" value="Reset password">
+						</center>
+					</form>
+				</div>
 			</div>
-
 			<div id="boxRight">
 				<div id="titoloBox">
 					<center>Indicazioni</center>

@@ -47,7 +47,9 @@ public class RilasciaFeedback extends HttpServlet {
 					dispatcher = request.getRequestDispatcher("PagineUser/rilasciaFeedback.jsp");
 					dispatcher.forward(request, response);	
 				} else {
-					response.sendRedirect("Aiuti");
+					request.setAttribute("messaggio", Comunicazione.confermaRilascioFeedback());
+					dispatcher = request.getRequestDispatcher("Aiuti");
+					dispatcher.forward(request, response);	
 				}
 			} catch (NumberFormatException numberFormatE) {
 				request.setAttribute("messaggio", Comunicazione.erroreRilascioFeedback());
