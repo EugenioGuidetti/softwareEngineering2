@@ -11,31 +11,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestoreAmiciziaRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 public class Amicizie extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreAmiciziaRemote gestoreAmicizia;
 	private String nickname;
 
-    public Amicizie() {
-        super();
-    }
+	public Amicizie() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		nickname = (String) request.getSession().getAttribute("nickname");
-		try {
-			context = new InitialContext();
-			gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
-			request.setAttribute("amicizie", gestoreAmicizia.getAmicizieAllacciate(nickname));
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
-		} finally {
-			dispatcher = request.getRequestDispatcher("PagineUser/modificaAmicizie.jsp");
-			dispatcher.forward(request, response);
+
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			nickname = (String) request.getSession().getAttribute("nickname");
+			try {
+				context = new InitialContext();
+				gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
+				request.setAttribute("amicizie", gestoreAmicizia.getAmicizieAllacciate(nickname));
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
+			} finally {
+				dispatcher = request.getRequestDispatcher("PagineUser/modificaAmicizie.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 	}
 

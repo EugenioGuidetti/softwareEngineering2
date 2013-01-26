@@ -11,40 +11,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestoreAiutoRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 public class AiutoValutato extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreAiutoRemote gestoreAiuto;
 	private String idAiuto;
 
-    public AiutoValutato() {
-        super();
-    }
+	public AiutoValutato() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		idAiuto = request.getParameter("aiutoValutato");
-		try {
-			context = new InitialContext();
-			gestoreAiuto = (GestoreAiutoRemote) context.lookup("GestoreAiutoJNDI");
+
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			idAiuto = request.getParameter("aiutoValutato");
 			try {
-				long id = Long.parseLong(idAiuto);
-				request.setAttribute("aiutoValutato", gestoreAiuto.getAiuto(id));				
-			} catch (NumberFormatException numberFormatE) {
-				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());
+				context = new InitialContext();
+				gestoreAiuto = (GestoreAiutoRemote) context.lookup("GestoreAiutoJNDI");
+				try {
+					long id = Long.parseLong(idAiuto);
+					request.setAttribute("aiutoValutato", gestoreAiuto.getAiuto(id));				
+				} catch (NumberFormatException numberFormatE) {
+					request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());
+				}
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());			
+			} finally {
+				dispatcher = request.getRequestDispatcher("PagineUser/rilasciaFeedback.jsp");
+				dispatcher.forward(request, response);
 			}
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());			
-		} finally {
-			dispatcher = request.getRequestDispatcher("PagineUser/rilasciaFeedback.jsp");
-			dispatcher.forward(request, response);
 		}
 	}
 

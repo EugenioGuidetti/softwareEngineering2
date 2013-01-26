@@ -17,14 +17,15 @@ import session.GestoreAmiciziaRemote;
 import session.GestoreUserRemote;
 import session.GestoreUtilitiesRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 import entity.Abilita;
 import entity.ReputazioneAbilita;
 import entity.User;
 
 public class DettagliProfilo extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreUserRemote gestoreUser;
@@ -37,46 +38,51 @@ public class DettagliProfilo extends HttpServlet {
 	private List<Abilita> abilitaDichiarate;
 	private Map<Abilita, ReputazioneAbilita> abilitaValutate;
 
-    public DettagliProfilo() {
-        super();
-    }
+	public DettagliProfilo() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		nickname = (String) request.getSession().getAttribute("nickname");
-		nicknameCercato = request.getParameter("userCercato");
-		request.setAttribute("nomeCercato", request.getParameter("nomeCercato"));
-		request.setAttribute("cognomeCercato", request.getParameter("cognomeCercato"));
-		request.setAttribute("abilitaCercata", request.getParameter("abilitaCercata"));
-		request.setAttribute("filtroUsato", request.getParameter("filtroUsato"));
-		request.setAttribute("dominioScelto", request.getParameter("dominioScelto"));
-		try {
-			context = new InitialContext();
-			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
-			user = gestoreUser.getUser(nicknameCercato);
-			request.setAttribute("userCercato", user);
-			request.setAttribute("amicizia", gestoreAmicizia.controllaAmici(nickname, nicknameCercato));
-			abilitaDichiarate = gestoreAbilita.getAbilitaUser(nicknameCercato);
-			if(!abilitaDichiarate.isEmpty()) {
-				gestoreUtilities = (GestoreUtilitiesRemote) context.lookup("GestoreUtilitiesJNDI");
-				abilitaValutate = new HashMap<Abilita, ReputazioneAbilita>();
-				for(Abilita abilita: abilitaDichiarate) {
-					abilitaValutate.put
+
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			nickname = (String) request.getSession().getAttribute("nickname");
+			nicknameCercato = request.getParameter("userCercato");
+			request.setAttribute("nomeCercato", request.getParameter("nomeCercato"));
+			request.setAttribute("cognomeCercato", request.getParameter("cognomeCercato"));
+			request.setAttribute("abilitaCercata", request.getParameter("abilitaCercata"));
+			request.setAttribute("filtroUsato", request.getParameter("filtroUsato"));
+			request.setAttribute("dominioScelto", request.getParameter("dominioScelto"));
+			try {
+				context = new InitialContext();
+				gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
+				gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+				gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
+				user = gestoreUser.getUser(nicknameCercato);
+				request.setAttribute("userCercato", user);
+				request.setAttribute("amicizia", gestoreAmicizia.controllaAmici(nickname, nicknameCercato));
+				abilitaDichiarate = gestoreAbilita.getAbilitaUser(nicknameCercato);
+				if(!abilitaDichiarate.isEmpty()) {
+					gestoreUtilities = (GestoreUtilitiesRemote) context.lookup("GestoreUtilitiesJNDI");
+					abilitaValutate = new HashMap<Abilita, ReputazioneAbilita>();
+					for(Abilita abilita: abilitaDichiarate) {
+						abilitaValutate.put
 						(abilita, gestoreUtilities.getReputazioneAbilita(nicknameCercato, abilita.getId()));
+					}
+					request.setAttribute("abilitaDichiarate", abilitaDichiarate);
+					request.setAttribute("abilitaValutate", abilitaValutate);
 				}
-				request.setAttribute("abilitaDichiarate", abilitaDichiarate);
-				request.setAttribute("abilitaValutate", abilitaValutate);
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
+			} finally {
+				dispatcher = request.getRequestDispatcher("PagineUser/dettagliProfilo.jsp");
+				dispatcher.forward(request, response);
 			}
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
-		} finally {
-			dispatcher = request.getRequestDispatcher("PagineUser/dettagliProfilo.jsp");
-			dispatcher.forward(request, response);
 		}
 	}
 

@@ -14,11 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import entity.User;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 public class RicercaUser extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String PER_NOME = "perNome";
 	private static final String PER_ABILITA = "perAbilita";
 	private static final String SISTEMA = "sistema";
@@ -34,114 +35,118 @@ public class RicercaUser extends HttpServlet {
 	private String dominioRicerca;
 	private String filtroRicerca;
 	private List<User> risultatiRicerca;
-	
-    public RicercaUser() {
-        super();
-    }
+
+	public RicercaUser() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		nickname = (String) request.getSession().getAttribute("nickname");
-		nome = request.getParameter("nome");
-		cognome = request.getParameter("cognome");
-		abilita = request.getParameter("abilita");
-		dominioRicerca = request.getParameter("dominioRicerca");
-		filtroRicerca = request.getParameter("filtroRicerca");
-		request.setAttribute("nomeCercato", nome);
-		request.setAttribute("cognomeCercato", cognome);
-		request.setAttribute("abilitaCercata", abilita);
-		request.setAttribute("filtroUsato", filtroRicerca);
-		request.setAttribute("dominioScelto", dominioRicerca);
-		try {
-			context = new InitialContext();
-			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");			
-			risultatiRicerca = new ArrayList<User>();
-			
-			if(dominioRicerca != null && filtroRicerca != null) {
-				//ha selezionato un domino ed un tipo di ricerca
-				
-				if(filtroRicerca.equals(PER_ABILITA) && abilita != "") {
-					// ha selezionato la ricerca per abilità
-					
-					try {
-						long id = Long.parseLong(abilita);
-						if(dominioRicerca.equals(SISTEMA)) {
-							//ha scelto come dominio tutti gli user
-							
-							risultatiRicerca = gestoreUser.ricercaPerAbilita(id);
-						}
+
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			nickname = (String) request.getSession().getAttribute("nickname");
+			nome = request.getParameter("nome");
+			cognome = request.getParameter("cognome");
+			abilita = request.getParameter("abilita");
+			dominioRicerca = request.getParameter("dominioRicerca");
+			filtroRicerca = request.getParameter("filtroRicerca");
+			request.setAttribute("nomeCercato", nome);
+			request.setAttribute("cognomeCercato", cognome);
+			request.setAttribute("abilitaCercata", abilita);
+			request.setAttribute("filtroUsato", filtroRicerca);
+			request.setAttribute("dominioScelto", dominioRicerca);
+			try {
+				context = new InitialContext();
+				gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");			
+				risultatiRicerca = new ArrayList<User>();
+
+				if(dominioRicerca != null && filtroRicerca != null) {
+					//ha selezionato un domino ed un tipo di ricerca
+
+					if(filtroRicerca.equals(PER_ABILITA) && abilita != "") {
+						// ha selezionato la ricerca per abilità
+
+						try {
+							long id = Long.parseLong(abilita);
+							if(dominioRicerca.equals(SISTEMA)) {
+								//ha scelto come dominio tutti gli user
+
+								risultatiRicerca = gestoreUser.ricercaPerAbilita(id);
+							}
 							if(dominioRicerca.equals(AMICI)) {
-							//ga scelto come dominio gli amici
-								
-							risultatiRicerca = gestoreUser.ricercaAmiciPerAbilita(nickname, id);
+								//ga scelto come dominio gli amici
+
+								risultatiRicerca = gestoreUser.ricercaAmiciPerAbilita(nickname, id);
+							}
+						} catch (NumberFormatException numberFormatE) {
+							request.setAttribute("messaggio", Comunicazione.erroreRicerca());					
+						}						
+
+					}
+
+					if(filtroRicerca.equals(PER_NOME)) {
+						//ha selezionato la ricerca per nome
+
+						if(!nome.equals("") && !cognome.equals("")) {
+							//ha inserito sia nome che cognome
+
+							if(dominioRicerca.equals(SISTEMA)) {
+								//ha scelto come dominio tutti gli user
+								risultatiRicerca = gestoreUser.ricercaPerNomeCognome(nome, cognome);
+							}
+
+							if(dominioRicerca.equals(AMICI)) {
+								//ha scelto come dominio gli amici
+								risultatiRicerca = gestoreUser.ricercaAmiciPerNomeCognome(nickname, nome, cognome);
+							}
 						}
-					} catch (NumberFormatException numberFormatE) {
-						request.setAttribute("messaggio", Comunicazione.erroreRicerca());					
-					}						
-					
+
+						if(!nome.equals("") && cognome.equals("")) {
+							//ha inserito solo il nome
+
+							if(dominioRicerca.equals(SISTEMA)) {
+								//ha scelto come dominio tutti gli user
+								risultatiRicerca = gestoreUser.ricercaPerNome(nome);
+							}
+
+							if(dominioRicerca.equals(AMICI)) {
+								//ha scelto come dominio gli amici
+								risultatiRicerca = gestoreUser.ricercaAmiciPerNome(nickname, nome);
+							}
+						}
+
+						if(nome.equals("") && !cognome.equals("")) {
+							//ha inserito solo il cognome
+
+							if(dominioRicerca.equals(SISTEMA)) {
+								//ha scelto come dominio tutti gli user
+								risultatiRicerca = gestoreUser.ricercaPerCognome(cognome);
+							}
+
+							if(dominioRicerca.equals(AMICI)) {
+								//ha scelto come dominio gli amici
+								risultatiRicerca = gestoreUser.ricercaAmiciPerCognome(nickname, cognome);
+							}
+						}
+					}
+				}			
+				if(!risultatiRicerca.isEmpty()) {
+					//rimuovo lo user che ha eseguito la ricerca dai risultati
+
+					risultatiRicerca.remove(gestoreUser.getUser(nickname));
 				}
-				
-				if(filtroRicerca.equals(PER_NOME)) {
-					//ha selezionato la ricerca per nome
-					
-					if(!nome.equals("") && !cognome.equals("")) {
-						//ha inserito sia nome che cognome
-						
-						if(dominioRicerca.equals(SISTEMA)) {
-							//ha scelto come dominio tutti gli user
-							risultatiRicerca = gestoreUser.ricercaPerNomeCognome(nome, cognome);
-						}
-						
-						if(dominioRicerca.equals(AMICI)) {
-							//ha scelto come dominio gli amici
-							risultatiRicerca = gestoreUser.ricercaAmiciPerNomeCognome(nickname, nome, cognome);
-						}
-					}
-					
-					if(!nome.equals("") && cognome.equals("")) {
-						//ha inserito solo il nome
-						
-						if(dominioRicerca.equals(SISTEMA)) {
-							//ha scelto come dominio tutti gli user
-							risultatiRicerca = gestoreUser.ricercaPerNome(nome);
-						}
-						
-						if(dominioRicerca.equals(AMICI)) {
-							//ha scelto come dominio gli amici
-							risultatiRicerca = gestoreUser.ricercaAmiciPerNome(nickname, nome);
-						}
-					}
-					
-					if(nome.equals("") && !cognome.equals("")) {
-						//ha inserito solo il cognome
-						
-						if(dominioRicerca.equals(SISTEMA)) {
-							//ha scelto come dominio tutti gli user
-							risultatiRicerca = gestoreUser.ricercaPerCognome(cognome);
-						}
-						
-						if(dominioRicerca.equals(AMICI)) {
-							//ha scelto come dominio gli amici
-							risultatiRicerca = gestoreUser.ricercaAmiciPerCognome(nickname, cognome);
-						}
-					}
-				}
-			}			
-			if(!risultatiRicerca.isEmpty()) {
-				//rimuovo lo user che ha eseguito la ricerca dai risultati
-				
-				risultatiRicerca.remove(gestoreUser.getUser(nickname));
+				request.setAttribute("risultatiRicerca", risultatiRicerca);
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreRicerca());
+			} finally {
+				dispatcher = request.getRequestDispatcher("Ricerca");
+				dispatcher.forward(request, response);
 			}
-			request.setAttribute("risultatiRicerca", risultatiRicerca);
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreRicerca());
-		} finally {
-			dispatcher = request.getRequestDispatcher("Ricerca");
-			dispatcher.forward(request, response);
 		}
 	}
-
 }

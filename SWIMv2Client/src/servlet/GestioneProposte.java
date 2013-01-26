@@ -11,31 +11,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestorePropostaAbilitaRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 public class GestioneProposte extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestorePropostaAbilitaRemote gestoreProposta;
 
-    public GestioneProposte() {
-        super();
-    }
+	public GestioneProposte() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			context = new InitialContext();
-			gestoreProposta = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
-			request.setAttribute("proposteNonVisionate", gestoreProposta.getProposteNonVisionate());
-			request.setAttribute("proposteVisionate", gestoreProposta.getProposteVisionate());
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoProposte());
-		} finally {
-			request.setAttribute("paginaAttuale", "gestioneProposte");
-			dispatcher = request.getRequestDispatcher("PagineAdmin/gestioneProposte.jsp");
-			dispatcher.forward(request, response);			
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			try {
+				context = new InitialContext();
+				gestoreProposta = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
+				request.setAttribute("proposteNonVisionate", gestoreProposta.getProposteNonVisionate());
+				request.setAttribute("proposteVisionate", gestoreProposta.getProposteVisionate());
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoProposte());
+			} finally {
+				request.setAttribute("paginaAttuale", "gestioneProposte");
+				dispatcher = request.getRequestDispatcher("PagineAdmin/gestioneProposte.jsp");
+				dispatcher.forward(request, response);			
+			}
 		}
 	}
 

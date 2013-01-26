@@ -329,4 +329,14 @@
     <servlet-name>RecuperaPassword</servlet-name>
     <url-pattern>/RecuperaPassword</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CancellaProfilo</display-name>
+    <servlet-name>CancellaProfilo</servlet-name>
+    <servlet-class>servlet.CancellaProfilo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CancellaProfilo</servlet-name>
+    <url-pattern>/CancellaProfilo</url-pattern>
+  </servlet-mapping>
 </web-app>

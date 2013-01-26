@@ -15,6 +15,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class Utilita {
 
@@ -114,6 +116,18 @@ public class Utilita {
 	}
 
 
+	/**
+	 * Il metodo server per effettuare l'upload di un file
+	 * 
+	 * @param inputFile		file di cui si vuole effettuare l'upload
+	 * @param tipoUpload	tipo di file da uploadare {icona, avatar}
+	 * @param nomeFileUpload	nome del file da uploadare
+	 * @param destinazione		percorso del server in cui andare a memorizzare il file da uploadre
+	 * 
+	 * @return		restituisce il percorso relativo al progetto, del file uploadato
+	 * 
+	 * @throws IOException
+	 */
 	public static String uploadFile(File inputFile, String tipoUpload, String nomeFileUpload, String destinazione) throws IOException{
 
 		File output;
@@ -173,5 +187,26 @@ public class Utilita {
             sb.append(alfabeto.charAt(random.nextInt(alfabeto.length())));
         }
         return sb.toString();
+    }
+    
+    /**
+     * Il metodo controlla che non si possa accedere a pagine di una sessione utente senza aver eseguito prima 
+     * l'operazione di login
+     * 
+     * @param request	
+     * @param response
+     * 
+     * @return	restituisce true, se esiste una sessione utente instaurata con quel nickname; false altrimenti 
+     */
+    public static boolean controlloSessione(HttpServletRequest request, HttpServletResponse response){
+    	if(request.getSession().getAttribute("nickname") == null ){
+    		try {
+				response.sendRedirect("index.jsp");
+				return false;
+			} catch (IOException e) {
+				return false;
+			}
+    	}
+    	return true;    	
     }
 }

@@ -11,30 +11,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestoreAbilitaRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 public class Ricerca extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreAbilitaRemote gestoreAbilita;
 
-    public Ricerca() {
-        super();
-    }
+	public Ricerca() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			context = new InitialContext();
-			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAbilita());
-		} finally {
-			request.setAttribute("paginaAttuale", "ricerca");
-			dispatcher = request.getRequestDispatcher("PagineUser/ricerca.jsp");
-			dispatcher.forward(request, response);			
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			try {
+				context = new InitialContext();
+				gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+				request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAbilita());
+			} finally {
+				request.setAttribute("paginaAttuale", "ricerca");
+				dispatcher = request.getRequestDispatcher("PagineUser/ricerca.jsp");
+				dispatcher.forward(request, response);			
+			}
 		}
 	}
 

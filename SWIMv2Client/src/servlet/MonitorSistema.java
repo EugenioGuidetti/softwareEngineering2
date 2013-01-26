@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import session.GestoreAbilitaRemote;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 public class MonitorSistema extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;	
 
 	private RequestDispatcher dispatcher;
@@ -22,23 +23,28 @@ public class MonitorSistema extends HttpServlet {
 	private GestoreAbilitaRemote gestoreAbilita;
 	private GestoreUserRemote gestoreUser;
 
-    public MonitorSistema() {
-        super();
-    }
+	public MonitorSistema() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			context = new InitialContext();
-			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-			request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
-			request.setAttribute("userSistema", gestoreUser.getUserSistema());
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoMonitor());
-		} finally {
-			request.setAttribute("paginaAttuale", "monitorSistema");
-			dispatcher = request.getRequestDispatcher("PagineAdmin/monitorSistema.jsp");
-			dispatcher.forward(request, response);			
+
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			try {
+				context = new InitialContext();
+				gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+				gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
+				request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
+				request.setAttribute("userSistema", gestoreUser.getUserSistema());
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoMonitor());
+			} finally {
+				request.setAttribute("paginaAttuale", "monitorSistema");
+				dispatcher = request.getRequestDispatcher("PagineAdmin/monitorSistema.jsp");
+				dispatcher.forward(request, response);			
+			}
 		}
 	}
 

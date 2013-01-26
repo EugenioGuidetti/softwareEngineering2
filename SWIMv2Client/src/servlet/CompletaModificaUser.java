@@ -71,55 +71,84 @@ public class CompletaModificaUser extends HttpServlet {
 		String nomeFileAvatar;
 		String destinazione;
 
-		tempDirectory = new File(System.getProperty("java.io.tmpdir"));
-		tempDirPath = tempDirectory.getCanonicalPath();
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
 
-		try {
-			multiRequest = new MultipartRequest(request, tempDirPath);
+			tempDirectory = new File(System.getProperty("java.io.tmpdir"));
+			tempDirPath = tempDirectory.getCanonicalPath();
 
-			nickname = (String) request.getSession().getAttribute("nickname");
-			nome = multiRequest.getParameter("nNome");
-			cognome = multiRequest.getParameter("nCognome");
-			password = multiRequest.getParameter("nPassword");
-			email = multiRequest.getParameter("nEmail");
-			sesso = multiRequest.getParameter("nSesso");
-			citta = multiRequest.getParameter("nCitta");
-			annoNascita = multiRequest.getParameter("nAnnoNascita");
+			try {
+				multiRequest = new MultipartRequest(request, tempDirPath);
 
-			context = new InitialContext();
-			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-			
-			//recupero il file di cui fare l'upload ed il suo nome
-			avatar = multiRequest.getFile("nAvatar");
+				nickname = (String) request.getSession().getAttribute("nickname");
+				nome = multiRequest.getParameter("nNome");
+				cognome = multiRequest.getParameter("nCognome");
+				password = multiRequest.getParameter("nPassword");
+				email = multiRequest.getParameter("nEmail");
+				sesso = multiRequest.getParameter("nSesso");
+				citta = multiRequest.getParameter("nCitta");
+				annoNascita = multiRequest.getParameter("nAnnoNascita");
 
-			//verifico se l'utente ha caricato un file
-			if(avatar != null) {
-				nomeFileRicevuto = multiRequest.getOriginalFileName("nAvatar");
+				context = new InitialContext();
+				gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 
-				//COSTRUISCO IL NOME DEL FILE UPLOADATO
-				estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
-				nomeFileAvatar = '\\' + nickname + estensioneAvatar;
+				//recupero il file di cui fare l'upload ed il suo nome
+				avatar = multiRequest.getFile("nAvatar");
 
-				//COSTRUISCO IL PATH DI DESTINAZIONE DELL'AVATAR SUL SERVER
-				destinazione = getServletContext().getRealPath("/Immagini/Avatar") + nomeFileAvatar;
+				//verifico se l'utente ha caricato un file
+				if(avatar != null) {
+					nomeFileRicevuto = multiRequest.getOriginalFileName("nAvatar");
 
-				//EFFETTUO L'UPLOAD
-				avatarPath = Utilita.uploadFile(avatar, Utilita.TIPO_UPLOAD_MODIFICA, nomeFileAvatar, destinazione);
+					//COSTRUISCO IL NOME DEL FILE UPLOADATO
+					estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
+					nomeFileAvatar = '\\' + nickname + estensioneAvatar;
 
-				//MODIFICO L'AVATAR DELLO USER NEL DATABASE
-				gestoreUser.modificaAvatar(nickname, avatarPath);
-			}
-			
-			//se l'immagine caricata non superava i 700kb allora procedo a modificare gli altri campi
-			
-			//modifica email
-			if(!email.equals("")){
-				pattern = Pattern.compile(Utilita.EMAIL_PATTERN);
-				matcher = pattern.matcher(email);
-				if(!matcher.find()) {
-					request.setAttribute("messaggio", Comunicazione.emailNonValida());
-				} else {
-					if(!gestoreUser.modificaEmail(nickname, email)) {
+					//COSTRUISCO IL PATH DI DESTINAZIONE DELL'AVATAR SUL SERVER
+					destinazione = getServletContext().getRealPath("/Immagini/Avatar") + nomeFileAvatar;
+
+					//EFFETTUO L'UPLOAD
+					avatarPath = Utilita.uploadFile(avatar, Utilita.TIPO_UPLOAD_MODIFICA, nomeFileAvatar, destinazione);
+
+					//MODIFICO L'AVATAR DELLO USER NEL DATABASE
+					gestoreUser.modificaAvatar(nickname, avatarPath);
+				}
+
+				//se l'immagine caricata non superava i 700kb allora procedo a modificare gli altri campi
+
+				//modifica email
+				if(!email.equals("")){
+					pattern = Pattern.compile(Utilita.EMAIL_PATTERN);
+					matcher = pattern.matcher(email);
+					if(!matcher.find()) {
+						request.setAttribute("messaggio", Comunicazione.emailNonValida());
+					} else {
+						if(!gestoreUser.modificaEmail(nickname, email)) {
+							request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+						}
+						else{
+							//metto un flag sul fatto che devo inviare una mail
+							inviaMail = true;
+						}
+					}
+				}
+
+				//modifica nome
+				if(!nome.equals("")) {
+					if(!gestoreUser.modificaNome(nickname, nome)) {
+						request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+					}
+				}
+
+				//modifica cognome
+				if(!cognome.equals("")) {
+					if(!gestoreUser.modificaCognome(nickname, cognome)) {
+						request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+					}
+				}
+
+				//modifica password
+				if(!password.equals("")) {
+					if(!gestoreUser.modificaPassword(nickname, password)) {
 						request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
 					}
 					else{
@@ -127,72 +156,46 @@ public class CompletaModificaUser extends HttpServlet {
 						inviaMail = true;
 					}
 				}
-			}
 
-			//modifica nome
-			if(!nome.equals("")) {
-				if(!gestoreUser.modificaNome(nickname, nome)) {
-					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+				//modifica sesso
+				if(!sesso.equals("")){
+					if(!gestoreUser.modificaSesso(nickname, sesso)){
+						request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+					}
 				}
-			}
 
-			//modifica cognome
-			if(!cognome.equals("")) {
-				if(!gestoreUser.modificaCognome(nickname, cognome)) {
-					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+				//modifica citta
+				if(!citta.equals("")){
+					if(!gestoreUser.modificaCitta(nickname, citta)){
+						request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+					}
 				}
-			}
 
-			//modifica password
-			if(!password.equals("")) {
-				if(!gestoreUser.modificaPassword(nickname, password)) {
-					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+				//modifica anno nascita
+				if(!annoNascita.equals("")){
+					if(!gestoreUser.modificaAnnoNascita(nickname, Integer.parseInt(annoNascita))){
+						request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+					}
 				}
-				else{
-					//metto un flag sul fatto che devo inviare una mail
-					inviaMail = true;
+
+				//la mail viene inviata solo se si è modificata la password o il precedente indirizzo mail
+				if(inviaMail){
+					User user = gestoreUser.getUser(nickname);
+					//mail o password modificata... devo inviare una mail di conferma
+					Utilita.sendMail(nickname, user.getPassword(), user.getCognome(), user.getNome(), user.getEmail(), Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
 				}
-			}
-
-			//modifica sesso
-			if(!sesso.equals("")){
-				if(!gestoreUser.modificaSesso(nickname, sesso)){
-					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
-				}
-			}
-
-			//modifica citta
-			if(!citta.equals("")){
-				if(!gestoreUser.modificaCitta(nickname, citta)){
-					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
-				}
-			}
-
-			//modifica anno nascita
-			if(!annoNascita.equals("")){
-				if(!gestoreUser.modificaAnnoNascita(nickname, Integer.parseInt(annoNascita))){
-					request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
-				}
-			}
-			
-			//la mail viene inviata solo se si è modificata la password o il precedente indirizzo mail
-			if(inviaMail){
-				User user = gestoreUser.getUser(nickname);
-				//mail o password modificata... devo inviare una mail di conferma
-				Utilita.sendMail(nickname, user.getPassword(), user.getCognome(), user.getNome(), user.getEmail(), Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
-			}
 
 
-		} catch (IOException ioEx) {
-			request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrandeModifica());
-		} catch (NamingException nEx) {
-			request.setAttribute("messaggio", Comunicazione.erroreServlet());
-		} catch (Exception e) {
-			request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
-		} finally {
-			dispatcher = request.getRequestDispatcher("PaginaUser");
-			dispatcher.forward(request, response);			
+			} catch (IOException ioEx) {
+				request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrandeModifica());
+			} catch (NamingException nEx) {
+				request.setAttribute("messaggio", Comunicazione.erroreServlet());
+			} catch (Exception e) {
+				request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+			} finally {
+				dispatcher = request.getRequestDispatcher("PaginaUser");
+				dispatcher.forward(request, response);			
+			}
 		}
 	}
-
 }

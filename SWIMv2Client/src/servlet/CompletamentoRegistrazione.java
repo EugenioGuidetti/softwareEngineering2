@@ -53,99 +53,103 @@ public class CompletamentoRegistrazione extends HttpServlet {
 		boolean inviaMessaggioConfermaAvatar = false;
 		boolean inviaMessaggioConfermaAbilita = false;
 
-		abilitaDichiarate = new HashSet<Abilita>();		
-		tempDirectory = new File(System.getProperty("java.io.tmpdir"));
-		tempDirPath = tempDirectory.getCanonicalPath();
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
 
-		//verifico le dimensioni della post
-		try {
-			context = new InitialContext(); 
-			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
+			abilitaDichiarate = new HashSet<Abilita>();		
+			tempDirectory = new File(System.getProperty("java.io.tmpdir"));
+			tempDirPath = tempDirectory.getCanonicalPath();
 
-			multiRequest = new MultipartRequest(request, tempDirPath);
-			nickname = (String) request.getSession().getAttribute("nickname");
+			//verifico le dimensioni della post
+			try {
+				context = new InitialContext(); 
+				gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+				gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 
-			//recupero il file di cui fare l'upload ed il suo nome
-			avatar = multiRequest.getFile("rAvatar");
+				multiRequest = new MultipartRequest(request, tempDirPath);
+				nickname = (String) request.getSession().getAttribute("nickname");
 
-			//verifico se l'utente ha caricato un file
-			if(avatar != null) {
-				nomeFileRicevuto = multiRequest.getOriginalFileName("rAvatar");
+				//recupero il file di cui fare l'upload ed il suo nome
+				avatar = multiRequest.getFile("rAvatar");
 
-				//COSTRUISCO IL NOME DEL FILE UPLOADATO
-				estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
-				nomeFileAvatar = '\\' + nickname + estensioneAvatar;
+				//verifico se l'utente ha caricato un file
+				if(avatar != null) {
+					nomeFileRicevuto = multiRequest.getOriginalFileName("rAvatar");
 
-				//COSTRUISCO IL PATH DI DESTINAZIONE DELL'AVATAR SUL SERVER
-				destinazione = getServletContext().getRealPath("/Immagini/Avatar") + nomeFileAvatar;
+					//COSTRUISCO IL NOME DEL FILE UPLOADATO
+					estensioneAvatar = nomeFileRicevuto.substring(nomeFileRicevuto.lastIndexOf('.'));
+					nomeFileAvatar = '\\' + nickname + estensioneAvatar;
 
-				//EFFETTUO L'UPLOAD
-				avatarPath = Utilita.uploadFile(avatar, Utilita.TIPO_UPLOAD_REGISTRAZIONE, nomeFileAvatar, destinazione);
+					//COSTRUISCO IL PATH DI DESTINAZIONE DELL'AVATAR SUL SERVER
+					destinazione = getServletContext().getRealPath("/Immagini/Avatar") + nomeFileAvatar;
 
-				//MODIFICO L'AVATAR DELLO USER NEL DATABASE
-				gestoreUser.modificaAvatar(nickname, avatarPath);
-				
-				inviaMessaggioConfermaAvatar = true;
-			}
+					//EFFETTUO L'UPLOAD
+					avatarPath = Utilita.uploadFile(avatar, Utilita.TIPO_UPLOAD_REGISTRAZIONE, nomeFileAvatar, destinazione);
 
-			//DICHIARO LE ABILITA' SCELTE 
-			abilitaScelte = multiRequest.getParameterValues("abilitaScelte");
-			if(abilitaScelte != null) {
-				for(String abilitaScelta: abilitaScelte) {
-					long id = Long.parseLong(abilitaScelta);
-					abilitaDichiarate.add(gestoreAbilita.getAbilita(id));
+					//MODIFICO L'AVATAR DELLO USER NEL DATABASE
+					gestoreUser.modificaAvatar(nickname, avatarPath);
+
+					inviaMessaggioConfermaAvatar = true;
 				}
-				gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
-				inviaMessaggioConfermaAbilita = true;
-			}
 
-			if(inviaMessaggioConfermaAvatar){
-				if(inviaMessaggioConfermaAbilita){
-					//inserito sia l'avatar che le abilità
-					request.setAttribute("messaggio", Comunicazione.confermaAvatarAbilita());
+				//DICHIARO LE ABILITA' SCELTE 
+				abilitaScelte = multiRequest.getParameterValues("abilitaScelte");
+				if(abilitaScelte != null) {
+					for(String abilitaScelta: abilitaScelte) {
+						long id = Long.parseLong(abilitaScelta);
+						abilitaDichiarate.add(gestoreAbilita.getAbilita(id));
+					}
+					gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate);
+					inviaMessaggioConfermaAbilita = true;
 				}
-				else{
-					//inserito solo l'avatar
-					request.setAttribute("messaggio", Comunicazione.confermaAvatar());
-				}
-			}
-			else{
-				if(inviaMessaggioConfermaAbilita){
-					//inserito solo le abilità
-					request.setAttribute("messaggio", Comunicazione.confermaAbilita());
+
+				if(inviaMessaggioConfermaAvatar){
+					if(inviaMessaggioConfermaAbilita){
+						//inserito sia l'avatar che le abilità
+						request.setAttribute("messaggio", Comunicazione.confermaAvatarAbilita());
+					}
+					else{
+						//inserito solo l'avatar
+						request.setAttribute("messaggio", Comunicazione.confermaAvatar());
+					}
 				}
 				else{
-					//non inserito niente: settato avatar default
-					request.setAttribute("messaggio", Comunicazione.confermaAvatarDefault());
+					if(inviaMessaggioConfermaAbilita){
+						//inserito solo le abilità
+						request.setAttribute("messaggio", Comunicazione.confermaAbilita());
+					}
+					else{
+						//non inserito niente: settato avatar default
+						request.setAttribute("messaggio", Comunicazione.confermaAvatarDefault());
+					}
 				}
-			}
-						
-			//invalido la sessione di registrazione
-			request.getSession().invalidate();
-			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
 
-		} 
-		catch (IOException ioEx) {
-			request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrande());
-			response.sendRedirect("index.jsp");
-		} 
-		catch (NamingException nEx) {
-			request.setAttribute("messaggio", Comunicazione.erroreServlet());
-			//invalido la sessione di registrazione
-			request.getSession().invalidate();
-			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);	
-		} 
-		catch (NumberFormatException numberFormatE) {
-			request.setAttribute("messaggio", Comunicazione.erroreServlet());
-			//invalido la sessione di registrazione
-			request.getSession().invalidate();
-			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
+				//invalido la sessione di registrazione
+				request.getSession().invalidate();
+				dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+
+			} 
+			catch (IOException ioEx) {
+				request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrande());
+				response.sendRedirect("index.jsp");
+			} 
+			catch (NamingException nEx) {
+				request.setAttribute("messaggio", Comunicazione.erroreServlet());
+				//invalido la sessione di registrazione
+				request.getSession().invalidate();
+				dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);	
+			} 
+			catch (NumberFormatException numberFormatE) {
+				request.setAttribute("messaggio", Comunicazione.erroreServlet());
+				//invalido la sessione di registrazione
+				request.getSession().invalidate();
+				dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			}
+
 		}
-
 	}
 
 }

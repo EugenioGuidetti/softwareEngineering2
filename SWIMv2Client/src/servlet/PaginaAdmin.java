@@ -12,36 +12,42 @@ import javax.servlet.http.HttpServletResponse;
 import entity.Admin;
 import session.GestoreAdminRemote;
 import utility.Comunicazione;
+import utility.Utilita;
 
 public class PaginaAdmin extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private RequestDispatcher dispatcher;
 	private Context context;
 	private GestoreAdminRemote gestoreAdmin;
 	private Admin admin;
 	private String nickname;
 
-    public PaginaAdmin() {
-        super();
-    }
+	public PaginaAdmin() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		nickname = (String) request.getSession().getAttribute("nickname");
-		try {
-			context = new InitialContext();
-			gestoreAdmin = (GestoreAdminRemote) context.lookup("GestoreAdminJNDI");
-			admin = gestoreAdmin.getAdmin(nickname);
-			request.setAttribute("nomeCompleto", admin.getNome() + " " + admin.getCognome());
-			request.setAttribute("email", admin.getEmail());
-			request.setAttribute("avatar", admin.getAvatarPath());
-		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
-		} finally {
-			request.setAttribute("paginaAttuale", "paginaAdmin");
-			dispatcher = request.getRequestDispatcher("PagineAdmin/paginaAdmin.jsp");
-			dispatcher.forward(request, response);			
+		
+		if( Utilita.controlloSessione(request, response)){
+			//esiste una sessione utente
+
+			nickname = (String) request.getSession().getAttribute("nickname");
+			try {
+				context = new InitialContext();
+				gestoreAdmin = (GestoreAdminRemote) context.lookup("GestoreAdminJNDI");
+				admin = gestoreAdmin.getAdmin(nickname);
+				request.setAttribute("nomeCompleto", admin.getNome() + " " + admin.getCognome());
+				request.setAttribute("email", admin.getEmail());
+				request.setAttribute("avatar", admin.getAvatarPath());
+			} catch (NamingException e) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
+			} finally {
+				request.setAttribute("paginaAttuale", "paginaAdmin");
+				dispatcher = request.getRequestDispatcher("PagineAdmin/paginaAdmin.jsp");
+				dispatcher.forward(request, response);			
+			}
 		}
 	}
 
