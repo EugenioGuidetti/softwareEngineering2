@@ -48,7 +48,7 @@ public class RicercaGuest extends HttpServlet {
 			if(filtroRicerca != null) {
 				//ha selezionato un tipo di ricerca
 				
-				if(filtroRicerca.equals(PER_ABILITA) && abilita != null) {
+				if(filtroRicerca.equals(PER_ABILITA) && abilita != "") {
 					//ha selezionato la ricerca per abilità scegliendo un'abilità
 					
 					try {
