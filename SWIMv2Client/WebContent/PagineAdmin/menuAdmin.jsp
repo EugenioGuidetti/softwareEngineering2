@@ -14,10 +14,14 @@
 					%>
 								&rarr; Pagina Admin
 					<%
+							} else {
+					%>
+								Pagina Admin
+					<%
 							}
 						} else {
 					%>
-								Pagina Admin
+							Pagina Admin
 					<%
 						}
 					%>
@@ -33,10 +37,14 @@
 					%>
 								&rarr; Gestione Proposte
 					<%
-							}
-						} else {
+							} else {
 					%>								
 								Gestione Proposte
+					<%
+							}
+						} else {
+					%>
+							Gestione Proposte
 					<%
 						}
 					%>
@@ -52,10 +60,14 @@
 					%>
 								&rarr; Monitor Sistema
 					<%
-							}
-						} else {
+							} else {
 					%>								
 								Monitor Sistema
+					<%
+							}
+						} else {
+					%>
+							Monitor Sistema
 					<%
 						}
 					%>
