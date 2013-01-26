@@ -65,7 +65,6 @@ public class RecuperaPassword extends HttpServlet {
 			}
 			else{
 				request.setAttribute("messaggio", Comunicazione.confermaResetPassword());
-				System.out.println("nuova password: " + nuovaPassword);
 				inviaMail = true;
 			}
 
