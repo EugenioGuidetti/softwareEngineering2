@@ -41,6 +41,8 @@ public class Utilita {
 	public static final String ADMIN_DEFAULT_AVATAR = 
 			"/SWIMv2Client/Immagini/admin.png";
 	
+	public static final String NICKNAME_PATTERN = "^[a-zA-Z0-9]{1,25}$";
+	
 	public static final String EMAIL_PATTERN = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@" +
 			"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 

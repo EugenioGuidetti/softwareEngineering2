@@ -8,6 +8,9 @@ public final class Comunicazione {
 	private static final String NICKNAME_NON_DISPONIBILE = 
 			"Il nickname scelto è già in uso! Scegliere un altro nickname e ritentare.";
 	
+	private static final String NICKNAME_NON_VALIDO = 
+			"Il nickname deve essere composto da un minimo di 1 ad un massimo di 25 caratteri alfanumerici.";
+	
 	private static final String REGISTRAZIONE_COMPLETATA = 
 			"Congratulazioni! La registrazione è avvenuta con successo. Ti è stata inviata una mail di conferma.";
 	
@@ -133,7 +136,10 @@ public final class Comunicazione {
 	public static Messaggio nicknameNonDisponibile() {
 		return new Messaggio(TipoMessaggio.AVVISO, NICKNAME_NON_DISPONIBILE);
 	}
-	
+
+	public static Messaggio nicknameNonValido() {
+		return new Messaggio(TipoMessaggio.AVVISO, NICKNAME_NON_VALIDO);
+	}
 	public static Messaggio registrazioneCompletata() {
 		return new Messaggio(TipoMessaggio.CONFERMA, REGISTRAZIONE_COMPLETATA);
 	}
