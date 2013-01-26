@@ -243,6 +243,17 @@ body {
 	font-weight: bold;
 }
 
+/* credits */
+#credits{
+    float:right;
+    margin:0 25px 0 0;
+}
+
+#credits a{
+    font-size:14px;
+    color:#5454CB;
+}
+
 .aDestra {
 	margin-left: 434px;
 }
@@ -258,6 +269,10 @@ body {
 
 .pulsantiVicini {
 	margin-top: 10px;
+}
+
+.pulsanteRicerca{
+	margin-bottom: 5px;
 }
 
 .underline {
