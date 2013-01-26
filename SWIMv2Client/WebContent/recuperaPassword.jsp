@@ -29,7 +29,7 @@
 						<div id="informazioniBox">
 							<p>
 								<label for="nickname">Nickname: </label> <input type="text"
-									name="nickname" id="nickname" maxlength="255"
+									name="nickname" id="nickname" maxlength="25"
 									required="required">
 							</p>
 						</div>
@@ -50,5 +50,6 @@
 			</div>
 		</div>
 	</div>
+	<%@ include file="../credits.html" %>
 </body>
 </html>

@@ -46,5 +46,6 @@
 				</div>
 			</div>
 		</div>
+		<%@ include file="../credits.html" %>
 	</body>
 </html>
