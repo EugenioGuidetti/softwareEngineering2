@@ -72,6 +72,7 @@
 									<select id="abilita" name="abilita">
 										<%
 											if(abilitaDichiarate != null) {
+												disabilitato = "";
 												for(Abilita abilita: abilitaDichiarate) {
 										%>
 													<option value="<%= abilita.getId() %>"><%= abilita.getNome() %></option>

@@ -29,7 +29,7 @@
 				<button type="button">
 					<%
 						if(paginaAttuale != null) {
-							if(paginaAttuale.equals("paginaAdmin")) {
+							if(paginaAttuale.equals("gestioneProposte")) {
 					%>
 								&rarr; Gestione Proposte
 					<%
@@ -48,7 +48,7 @@
 				<button type="button">
 					<%
 						if(paginaAttuale != null) {
-							if(paginaAttuale.equals("paginaAdmin")) {
+							if(paginaAttuale.equals("monitorSistema")) {
 					%>
 								&rarr; Monitor Sistema
 					<%

@@ -12,31 +12,8 @@
 	<body>
 		<div id="pagina">
 			<%@ include file="../logoPiccolo.html" %>			
-			<%@ include file="../gestioneMessaggio.jsp" %>
-			<div id="menuAdmin">
-				<ul>
-					<li>
-						<a href="/SWIMv2Client/PaginaAdmin">
-							<button type="button">Pagina Admin</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/GestioneProposte">
-							<button type="button">Gestione Proposte</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/MonitorSistema">
-							<button type="button">&rarr; Monitor Sistema</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/Logout">
-							<button type="button">Logout</button>
-						</a>
-					</li>
-				</ul>
-			</div>
+			<%@ include file="../gestioneMessaggio.jsp" %>			
+			<%@ include file="menuAdmin.jsp" %>
 			<div id="body">
 				<div id="boxLeft">
 					<div id="titoloBox">

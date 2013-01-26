@@ -36,12 +36,12 @@ public class PaginaAdmin extends HttpServlet {
 			request.setAttribute("nomeCompleto", admin.getNome() + " " + admin.getCognome());
 			request.setAttribute("email", admin.getEmail());
 			request.setAttribute("avatar", admin.getAvatarPath());
-			dispatcher = request.getRequestDispatcher("PagineAdmin/paginaAdmin.jsp");
-			dispatcher.forward(request, response);
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
+		} finally {
+			request.setAttribute("paginaAttuale", "paginaAdmin");
 			dispatcher = request.getRequestDispatcher("PagineAdmin/paginaAdmin.jsp");
-			dispatcher.forward(request, response);
+			dispatcher.forward(request, response);			
 		}
 	}
 

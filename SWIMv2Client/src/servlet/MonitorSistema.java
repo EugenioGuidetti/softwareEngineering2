@@ -15,29 +15,30 @@ import utility.Comunicazione;
 
 public class MonitorSistema extends HttpServlet {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
+
+	private RequestDispatcher dispatcher;
+	private Context context;
+	private GestoreAbilitaRemote gestoreAbilita;
+	private GestoreUserRemote gestoreUser;
 
     public MonitorSistema() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher;
-		Context context;
-		GestoreAbilitaRemote gestoreAbilita;
-		GestoreUserRemote gestoreUser;
 		try {
 			context = new InitialContext();
 			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
 			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
 			request.setAttribute("abilitaSistema", gestoreAbilita.getAbilitaSistema());
 			request.setAttribute("userSistema", gestoreUser.getUserSistema());
-			dispatcher = request.getRequestDispatcher("PagineAdmin/monitorSistema.jsp");
-			dispatcher.forward(request, response);
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoMonitor());
+		} finally {
+			request.setAttribute("paginaAttuale", "monitorSistema");
 			dispatcher = request.getRequestDispatcher("PagineAdmin/monitorSistema.jsp");
-			dispatcher.forward(request, response);
+			dispatcher.forward(request, response);			
 		}
 	}
 

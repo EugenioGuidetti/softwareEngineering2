@@ -51,16 +51,14 @@ public class GestioneProposteActions extends HttpServlet {
 						}
 					} catch (NumberFormatException numberFormatE) {
 						request.setAttribute("messaggio", Comunicazione.erroreModificaProposte());
-						dispatcher = request.getRequestDispatcher("PagineAdmin/gestioneProposte.jsp");
-						dispatcher.forward(request, response);
 					}
 				}
 			}
-			response.sendRedirect("GestioneProposte");
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreModificaProposte());
-			dispatcher = request.getRequestDispatcher("PagineAdmin/gestioneProposte.jsp");
-			dispatcher.forward(request, response);
+		} finally {
+			dispatcher = request.getRequestDispatcher("GestioneProposte");
+			dispatcher.forward(request, response);			
 		}
 	}
 

@@ -8,7 +8,8 @@
 	<body>
 		<div id="pagina">
 			<%@ include file="../logoPiccolo.html" %>			
-			<%@ include file="../gestioneMessaggio.jsp" %>
+			<%@ include file="../gestioneMessaggio.jsp" %>			
+			<%@ include file="menuAdmin.jsp" %>
 			<div id="body">
 				<div id="boxLeft">
 					<div id="titoloBox">
