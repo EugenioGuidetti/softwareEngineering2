@@ -36,7 +36,7 @@
 					<div id="titoloBox">
 						<center>Indicazioni</center>
 					</div>
-					<div id="indicazioni">
+					<div id="indicazioni" class = "giustificato">
 						<p>
 							Qui puoi proporre all'Admin una tua idea per una nuova abilit&agrave;.
 							<br>
