@@ -254,6 +254,13 @@ body {
     color:#5454CB;
 }
 
+#recuperaPassword {
+font-size: 10px;
+text-align: right;
+margin-bottom: 15px;
+margin-right: 10px;
+}
+
 .aDestra {
 	margin-left: 434px;
 }
@@ -271,8 +278,9 @@ body {
 	margin-top: 10px;
 }
 
-.pulsanteRicerca{
-	margin-bottom: 5px;
+.pulsanteRicerca {
+margin-bottom: 10px;
+margin-top: -5px;
 }
 
 .underline {

@@ -109,6 +109,9 @@
 								<input id="password" name="password" type="password" maxlength="255" required="required">
 							</p>
 						</div>
+						<div id="recuperaPassword">
+ 							Hai dimenticato la password? <a href="recuperaPassword.jsp">clicca qui per resettarla </a> 
+ 						</div>
 						<center>
 							<input id="pulsante" type="submit" value="Login">
 						</center>
