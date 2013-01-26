@@ -55,7 +55,11 @@
 						<center>Indicazioni</center>
 					</div>
 					<div id="indicazioni">
-						<p>Testo sul fatto che dopo aver terminato delle amicizie sarà sempre possibile instaurarle di nuovo in un secondo momento</p>
+						<p class = "giustificato">
+							Seleziona i profili degli user che vuoi rimuovere dalla tua cerchia di amicizie.
+							<br>
+							Rimuovendoli ora potrai comunque riallacciare un rapporto di amicizia in futuro
+						</p>
 					</div>
 				</div>
 			</div>

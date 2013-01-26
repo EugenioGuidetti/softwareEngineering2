@@ -35,10 +35,14 @@
 									Calendar data = richiesta.getMomentoRichiesta();
 						%>
 									<div id="richiestaInviata">
-										<div id="corpoRichiesta">
-											Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di aiuto a <strong>@<%= user.getNickname() %></strong> per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
-											<br>
-											La richiesta aveva la seguente descrizione: <i>&ldquo;<%= richiesta.getDescrizione() %>&rdquo;</i>
+										<div id="corpoRichiesta" class="giustificato">
+											
+												Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di aiuto a <strong>@<%= user.getNickname() %></strong> per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
+												<br>
+												La richiesta aveva la seguente descrizione: 
+												<br>
+												<i>&ldquo;<%= richiesta.getDescrizione() %>&rdquo;</i>
+											
 										</div>
 									</div>
 						<%
@@ -65,10 +69,14 @@
 							%>
 										<div id="richiestaRicevuta">
 											<input name="richiesteScelte" type="checkbox" value="<%= richiesta.getId() %>">
-											<div id="corpoRichiesta">
-												Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai ricevuto una richiesta di aiuto da parte di <strong>@<%= user.getNickname() %></strong> per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
-												<br>
-												La richiesta ha i seguenti dettagli: <i>&ldquo;<%= richiesta.getDescrizione() %>&rdquo;</i>
+											<div id="corpoRichiesta" class="giustificato">
+												
+													Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai ricevuto una richiesta di aiuto da parte di <strong>@<%= user.getNickname() %></strong> per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
+													<br>
+													La richiesta ha i seguenti dettagli: 
+													<br>
+													<i>&ldquo;<%= richiesta.getDescrizione() %>&rdquo;</i>
+												
 											</div>
 										</div>
 							<%		

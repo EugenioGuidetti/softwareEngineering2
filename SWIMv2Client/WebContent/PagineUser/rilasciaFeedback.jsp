@@ -56,15 +56,19 @@
 						<center>Indicazioni</center>
 					</div>
 					<div id="indicazioni">
-						<p>
-							Qui puoi esprimere il tuo giudizio su un aiuto che hai ricevuto. 
-							La valutazione si compone di due parti: un voto su scala numerica da un minimo di 0 ad un massimo di 5 (consigliamo la scelta dello 0 se l'utente a cui hai chiesto aiuto non ha tenuto fede all'impegno preso) ed un commento libero a parole per un massimo di 140 caratteri.
+						<p class="giustificato">
+							Qui puoi esprimere il tuo giudizio su un aiuto che hai ricevuto.
+							<br>
+							La valutazione si compone di due parti: un voto su scala numerica da un minimo di 0 stelle ad un massimo di 5 (consigliamo la scelta dello 0 se l'utente a cui hai chiesto aiuto non ha tenuto fede all'impegno preso) ed un commento libero a parole per un massimo di 140 caratteri.
 							<br>
 							<br>
 							Qui di seguito riportiamo l'aiuto che stai valutando:
 							<br>
 							il giorno <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> <strong>@<%= user.getNickname() %></strong> ha accettato la tua richiesta di aiuto per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
-							La descrizione della richiesta di aiuto inviata recitava: <i>&ldquo;<%= aiuto.getDescrizione() %>&rdquo;</i>
+							<br>
+							La descrizione della richiesta di aiuto inviata recitava: 
+							<br>
+							<i>&ldquo;<%= aiuto.getDescrizione() %>&rdquo;</i>
 						</p>
 					</div>
 				</div>

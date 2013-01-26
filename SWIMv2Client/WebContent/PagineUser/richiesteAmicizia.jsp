@@ -30,8 +30,8 @@
 									Calendar data = richiesta.getMomentoRichiesta();
 						%>
 									<div id="richiestaInviata">
-										<div id="corpoRichiesta">
-										Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di amicizia a <strong>@<%= richiesta.getUserDestinatario().getNickname() %></strong>, che non ha ancora ricevuto risposta
+										<div id="corpoRichiesta" class = "giustificato">
+											Il <%= data.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data.get(GregorianCalendar.MONTH) + 1 %>.<%= data.get(GregorianCalendar.YEAR) %> hai inviato una richiesta di amicizia a <strong>@<%= richiesta.getUserDestinatario().getNickname() %></strong>, che non ha ancora ricevuto risposta
 										</div>
 									</div>
 						<%
@@ -55,7 +55,7 @@
 							%>
 										<div id="richiestaRicevuta">
 											<input name="richiesteScelte" type="checkbox" value="<%= richiesta.getId() %>">
-											<div id="corpoRichiesta">
+											<div id="corpoRichiesta" class = "giustificato">
 												Hai ricevuto una richiesta di amicizia da parte di <strong>@<%= richiesta.getUserRichiedente().getNickname() %></strong>
 											</div>											
 										</div>

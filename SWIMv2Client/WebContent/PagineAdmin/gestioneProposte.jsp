@@ -29,7 +29,8 @@
 									<div id="proposta">
 										<input name="proposteScelte" type="checkbox" value="<%= proposta.getId() %>">
 										<div id="corpoProposta">
-											<strong class><%= proposta.getNome() %></strong><br>
+											<strong><%= proposta.getNome() %></strong>
+											<br>
 											<i class = "giustificato">&ldquo;<%= proposta.getDescrizione() %>&rdquo;</i>
 											<br>
 											proposta da @<%= proposta.getUserProponente().getNickname() %>

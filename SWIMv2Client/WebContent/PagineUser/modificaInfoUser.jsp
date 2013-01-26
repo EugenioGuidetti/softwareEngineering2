@@ -115,7 +115,11 @@
 						<center>Indicazioni</center>
 					</div>
 					<div id="indicazioni">
-						<p>Testo sul fatto che vanno compilati solo i campi che si intende modificare, gli altri vanno lasciati bianchi</p>
+						<p class="giustificato">
+							Completa il form presente sulla sinistra inserendo solo le informazioni che desideri modificare.
+							<br> 
+							Nel caso decidessi di cambiare la password o l'indirizzo email, ti verrà inviata una mail riepilogativa al tuo indirizzo di posta elettornica (eventualmente modificato)
+						</p>
 					</div>
 				</div>
 			</div>

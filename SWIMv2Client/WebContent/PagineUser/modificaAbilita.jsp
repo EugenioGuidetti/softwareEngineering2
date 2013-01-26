@@ -51,7 +51,7 @@
 			 		<center>Indicazioni</center>
 			 	</div>
 			 	<div id="indicazioni">
-			 		<p>
+			 		<p class="giustificato">
 			 			Qui puoi modificare le tue abilit&agrave; dichiarate.
 			 			<br>
 			 			Le abilit&agrave; nelle quali ti sei reso disponibile a fornire aiuto sono:

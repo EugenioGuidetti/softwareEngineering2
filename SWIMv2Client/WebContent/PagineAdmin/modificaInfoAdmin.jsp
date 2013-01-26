@@ -42,6 +42,7 @@
 					<div id="indicazioni" class = "giustificato">
 						<p>
 							Completa il form presente sulla sinistra inserendo solo le informazioni che desideri modificare. 
+							<br>
 							Nel caso decidessi di cambiare la password ti verrà inviata una mail riepilogativa all'indirizzo del sistema
 						</p>
 					</div>

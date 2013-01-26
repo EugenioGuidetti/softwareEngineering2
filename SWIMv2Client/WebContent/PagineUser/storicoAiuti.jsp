@@ -36,19 +36,22 @@
 									Feedback feedback = aiuto.getFeedRicevuto();
 						%>
 									<div id="aiuto">
-										<div id="corpoAiuto">
-											Il <%= data1.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data1.get(GregorianCalendar.MONTH) + 1 %>.<%= data1.get(GregorianCalendar.YEAR) %> hai accettato la richiesta di aiuto per l'abilit&agrave; <strong><%= abilita.getNome() %></strong> iniviata da <strong>@<%= user.getNickname() %></strong>.
-											<br>
+										<div id="corpoAiuto"  class="giustificato">
+										
+												Il <%= data1.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data1.get(GregorianCalendar.MONTH) + 1 %>.<%= data1.get(GregorianCalendar.YEAR) %> hai accettato la richiesta di aiuto per l'abilit&agrave; <strong><%= abilita.getNome() %></strong> iniviata da <strong>@<%= user.getNickname() %></strong>.
+												<br>
+											
 						<%
 									if(feedback != null) {
 										Calendar data2 = feedback.getMomentoRilascio();
 						%>
 											<br>
 											Il <%= data2.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data2.get(GregorianCalendar.MONTH) + 1 %>.<%= data2.get(GregorianCalendar.YEAR) %> <strong>@<%= user.getNickname() %></strong> ha valutato il tuo aiuto:
+											
 											<center>
 												<img class="imgNelTesto" src="/SWIMv2Client/Immagini/stelle<%= feedback.getValutazioneNumerica() %>.png" width="179" height="34">
 											</center>
-											<i>&ldquo;<%= feedback.getValutazioenEstesa() %>&rdquo;</i>
+											<i class="giustificato">&ldquo;<%= feedback.getValutazioenEstesa() %>&rdquo;</i>
 						<%
 									}
 						%>
@@ -78,19 +81,21 @@
 									Feedback feedback = aiuto.getFeedRicevuto();
 						%>
 									<div id="aiuto">
-										<div id="corpoAiuto">
-											Il <%= data1.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data1.get(GregorianCalendar.MONTH) + 1 %>.<%= data1.get(GregorianCalendar.YEAR) %> <strong>@<%= user.getNickname() %></strong> ha accettato la tua richiesta di aiuto per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
-											<br>
+										<div id="corpoAiuto" class="giustificato">
+											
+												Il <%= data1.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data1.get(GregorianCalendar.MONTH) + 1 %>.<%= data1.get(GregorianCalendar.YEAR) %> <strong>@<%= user.getNickname() %></strong> ha accettato la tua richiesta di aiuto per l'abilit&agrave; <strong><%= abilita.getNome() %></strong>.
+												<br>
 						<%
 									if(feedback != null) {
 										Calendar data2 = feedback.getMomentoRilascio();
 						%>
-											<br>
-											Il <%= data2.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data2.get(GregorianCalendar.MONTH) + 1 %>.<%= data2.get(GregorianCalendar.YEAR) %> hai valutato l'aiuto ricevuto da <strong>@<%= user.getNickname() %></strong>:
+												<br>
+												Il <%= data2.get(GregorianCalendar.DAY_OF_MONTH) %>.<%= data2.get(GregorianCalendar.MONTH) + 1 %>.<%= data2.get(GregorianCalendar.YEAR) %> hai valutato l'aiuto ricevuto da <strong>@<%= user.getNickname() %></strong>:
+											
 											<center>
 												<img class="imgNelTesto" src="/SWIMv2Client/Immagini/stelle<%= feedback.getValutazioneNumerica() %>.png" width="179" height="34">
 											</center>
-											<i>&ldquo;<%= feedback.getValutazioenEstesa() %>&rdquo;</i><br>
+											<i class="giustificato">&ldquo;<%= feedback.getValutazioenEstesa() %>&rdquo;</i><br>
 						<%
 									} else {
 						%>
