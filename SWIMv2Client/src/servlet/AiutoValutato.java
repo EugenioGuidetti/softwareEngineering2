@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestoreAiutoRemote;
 import utility.Comunicazione;
-import utility.Utilita;
 
 public class AiutoValutato extends HttpServlet {
 
@@ -27,31 +26,27 @@ public class AiutoValutato extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		if( Utilita.controlloSessione(request, response)){
-			//esiste una sessione utente
-
-			idAiuto = request.getParameter("aiutoValutato");
+		idAiuto = request.getParameter("aiutoValutato");
+		try {
+			context = new InitialContext();
+			gestoreAiuto = (GestoreAiutoRemote) context.lookup("GestoreAiutoJNDI");
 			try {
-				context = new InitialContext();
-				gestoreAiuto = (GestoreAiutoRemote) context.lookup("GestoreAiutoJNDI");
-				try {
-					long id = Long.parseLong(idAiuto);
-					request.setAttribute("aiutoValutato", gestoreAiuto.getAiuto(id));				
-				} catch (NumberFormatException numberFormatE) {
-					request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());
-				}
-			} catch (NamingException e) {
-				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());			
-			} finally {
-				dispatcher = request.getRequestDispatcher("PagineUser/rilasciaFeedback.jsp");
-				dispatcher.forward(request, response);
+				long id = Long.parseLong(idAiuto);
+				request.setAttribute("aiutoValutato", gestoreAiuto.getAiuto(id));				
+			} catch (NumberFormatException numberFormatE) {
+				request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());
 			}
+		} catch (NamingException e) {
+			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuto());			
+		} finally {
+			dispatcher = request.getRequestDispatcher("PagineUser/rilasciaFeedback.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
-
 }
+
+

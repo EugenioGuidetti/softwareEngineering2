@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestoreAiutoRemote;
 import utility.Comunicazione;
-import utility.Utilita;
 
 public class InviaRichiestaAiuto extends HttpServlet {
 
@@ -31,38 +30,33 @@ public class InviaRichiestaAiuto extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		if( Utilita.controlloSessione(request, response)){
-			//esiste una sessione utente
-
-			nickname = (String) request.getSession().getAttribute("nickname");
-			nicknameDestinatario = request.getParameter("nicknameDestinatario");
-			abilita = request.getParameter("abilita");
-			descrizione = request.getParameter("descrizione");
+		nickname = (String) request.getSession().getAttribute("nickname");
+		nicknameDestinatario = request.getParameter("nicknameDestinatario");
+		abilita = request.getParameter("abilita");
+		descrizione = request.getParameter("descrizione");
+		try {
+			context = new InitialContext();
+			gestoreAiuto = (GestoreAiutoRemote) context.lookup("GestoreAiutoJNDI");
 			try {
-				context = new InitialContext();
-				gestoreAiuto = (GestoreAiutoRemote) context.lookup("GestoreAiutoJNDI");
-				try {
-					long id = Long.parseLong(abilita);
-					if(!gestoreAiuto.inviaRichiesta(nickname, nicknameDestinatario, id, descrizione, new GregorianCalendar())) {
-						request.setAttribute("messaggio", Comunicazione.erroreRichiestaAiuto());
-					} else {
-						request.setAttribute("messaggio", Comunicazione.confermaRichiestaAiuto());
-					}
-				} catch (NumberFormatException numberFormate) {
+				long id = Long.parseLong(abilita);
+				if(!gestoreAiuto.inviaRichiesta(nickname, nicknameDestinatario, id, descrizione, new GregorianCalendar())) {
 					request.setAttribute("messaggio", Comunicazione.erroreRichiestaAiuto());
+				} else {
+					request.setAttribute("messaggio", Comunicazione.confermaRichiestaAiuto());
 				}
-			} catch (NamingException e) {
+			} catch (NumberFormatException numberFormate) {
 				request.setAttribute("messaggio", Comunicazione.erroreRichiestaAiuto());
-			} finally {
-				dispatcher = request.getRequestDispatcher("Ricerca");
-				dispatcher.forward(request, response);
 			}
+		} catch (NamingException e) {
+			request.setAttribute("messaggio", Comunicazione.erroreRichiestaAiuto());
+		} finally {
+			dispatcher = request.getRequestDispatcher("Ricerca");
+			dispatcher.forward(request, response);
 		}
-
 	}
+
 }

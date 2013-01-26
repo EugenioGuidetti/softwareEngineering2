@@ -18,22 +18,25 @@ public class Login extends HttpServlet {
 	
 	private static final String USER = "user";
 	private static final String ADMIN = "admin";
+	
+	private RequestDispatcher dispatcher;
+	private Context contex;
+	private GestoreProfiloRemote gestoreProfilo;
+	private String ruolo;
+	private String nickname;
+	private String password;
     
     public Login() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher;
-		Context contex;
-		GestoreProfiloRemote gestoreProfilo;
-		String ruolo;
-		String nickname = request.getParameter("nickname");
-		String password = request.getParameter("password");
+		nickname = request.getParameter("nickname");
+		password = request.getParameter("password");
 		try {
 			contex = new InitialContext();
 			gestoreProfilo = (GestoreProfiloRemote) contex.lookup("GestoreProfiloJNDI");

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestoreAmiciziaRemote;
 import utility.Comunicazione;
-import utility.Utilita;
 
 public class InviaRichiestaAmicizia extends HttpServlet {
 
@@ -29,30 +28,26 @@ public class InviaRichiestaAmicizia extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		if( Utilita.controlloSessione(request, response)){
-			//esiste una sessione utente
-
-			nickname = (String) request.getSession().getAttribute("nickname");
-			nicknameDestinatario = request.getParameter("nicknameDestinatario");
-			try {
-				context = new InitialContext();
-				gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
-				if(!gestoreAmicizia.inviaRichiesta(nickname, nicknameDestinatario, new GregorianCalendar())) {
-					request.setAttribute("messaggio", Comunicazione.erroreRichiestaAmicizia());
-				} else {
-					request.setAttribute("messaggio", Comunicazione.confermaRichiestaAmicizia());
-				}
-			} catch (NamingException e) {
+		nickname = (String) request.getSession().getAttribute("nickname");
+		nicknameDestinatario = request.getParameter("nicknameDestinatario");
+		try {
+			context = new InitialContext();
+			gestoreAmicizia = (GestoreAmiciziaRemote) context.lookup("GestoreAmiciziaJNDI");
+			if(!gestoreAmicizia.inviaRichiesta(nickname, nicknameDestinatario, new GregorianCalendar())) {
 				request.setAttribute("messaggio", Comunicazione.erroreRichiestaAmicizia());
-			} finally {
-				dispatcher = request.getRequestDispatcher("Ricerca");
-				dispatcher.forward(request, response);
+			} else {
+				request.setAttribute("messaggio", Comunicazione.confermaRichiestaAmicizia());
 			}
+		} catch (NamingException e) {
+			request.setAttribute("messaggio", Comunicazione.erroreRichiestaAmicizia());
+		} finally {
+			dispatcher = request.getRequestDispatcher("Ricerca");
+			dispatcher.forward(request, response);
 		}
 	}
+
 }

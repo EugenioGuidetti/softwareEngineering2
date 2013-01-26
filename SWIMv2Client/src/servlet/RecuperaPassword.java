@@ -1,8 +1,6 @@
 package servlet;
 
-
 import java.io.IOException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -20,6 +18,7 @@ import utility.Utilita;
  * Servlet implementation class RecuperaPassword
  */
 public class RecuperaPassword extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
 	private Context context;
@@ -30,6 +29,10 @@ public class RecuperaPassword extends HttpServlet {
 
 	public RecuperaPassword() {
 		super();
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.sendRedirect("index.jsp");		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

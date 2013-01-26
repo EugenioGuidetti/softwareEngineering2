@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.GestorePropostaAbilitaRemote;
 import utility.Comunicazione;
-import utility.Utilita;
 
 public class ProponiAbilita extends HttpServlet {
 
@@ -29,35 +28,31 @@ public class ProponiAbilita extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		nickname = (String) request.getSession().getAttribute("nickname");
+		nomeAbilita = request.getParameter("nome");
+		descrizioneAbilita = request.getParameter("descrizione");
+		try {
+			context = new InitialContext();
+			gestoreProposta = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
 
-		if( Utilita.controlloSessione(request, response)){
-			//esiste una sessione utente
-
-			nickname = (String) request.getSession().getAttribute("nickname");
-			nomeAbilita = request.getParameter("nome");
-			descrizioneAbilita = request.getParameter("descrizione");
-			try {
-				context = new InitialContext();
-				gestoreProposta = (GestorePropostaAbilitaRemote) context.lookup("GestorePropostaAbilitaJNDI");
-
-				if(!gestoreProposta.inviaProposta(nickname, nomeAbilita, descrizioneAbilita)) {
-					request.setAttribute("messaggio", Comunicazione.erroreInvioProposta());
-					dispatcher = request.getRequestDispatcher("PagineUser/proponiAbilita.jsp");
-					dispatcher.forward(request, response);
-				} else {
-					request.setAttribute("messaggio", Comunicazione.confermaInvioProposta());
-					dispatcher = request.getRequestDispatcher("PaginaUser");
-					dispatcher.forward(request, response);				
-				}
-			} catch (NamingException e) {
+			if(!gestoreProposta.inviaProposta(nickname, nomeAbilita, descrizioneAbilita)) {
 				request.setAttribute("messaggio", Comunicazione.erroreInvioProposta());
 				dispatcher = request.getRequestDispatcher("PagineUser/proponiAbilita.jsp");
-				dispatcher.forward(request, response);			
+				dispatcher.forward(request, response);
+			} else {
+				request.setAttribute("messaggio", Comunicazione.confermaInvioProposta());
+				dispatcher = request.getRequestDispatcher("PaginaUser");
+				dispatcher.forward(request, response);				
 			}
+		} catch (NamingException e) {
+			request.setAttribute("messaggio", Comunicazione.erroreInvioProposta());
+			dispatcher = request.getRequestDispatcher("PagineUser/proponiAbilita.jsp");
+			dispatcher.forward(request, response);			
 		}
 	}
+
 }

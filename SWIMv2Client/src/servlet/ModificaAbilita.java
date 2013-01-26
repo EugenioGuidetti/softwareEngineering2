@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -16,7 +15,6 @@ import entity.Abilita;
 import session.GestoreAbilitaRemote;
 import session.GestoreUserRemote;
 import utility.Comunicazione;
-import utility.Utilita;
 
 public class ModificaAbilita extends HttpServlet {
 
@@ -35,47 +33,43 @@ public class ModificaAbilita extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		if( Utilita.controlloSessione(request, response)){
-			//esiste una sessione utente
-
-			nickname = (String) request.getSession().getAttribute("nickname");
-			abilitaScelte = request.getParameterValues("abilitaScelte");
-			try {
-				context = new InitialContext();
-				gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
-				gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
-				abilitaDichiarate = new HashSet<Abilita>();
-				if(abilitaScelte != null) {
-					for(String idAbilita: abilitaScelte) {
-						try {
-							long id = Long.parseLong(idAbilita);
-							abilitaDichiarate.add(gestoreAbilita.getAbilita(id));						
-						} catch (NumberFormatException numberFormatE) {
-							request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
-							dispatcher = request.getRequestDispatcher("Abilita");
-							dispatcher.forward(request, response);
-						}
+		nickname = (String) request.getSession().getAttribute("nickname");
+		abilitaScelte = request.getParameterValues("abilitaScelte");
+		try {
+			context = new InitialContext();
+			gestoreUser = (GestoreUserRemote) context.lookup("GestoreUserJNDI");
+			gestoreAbilita = (GestoreAbilitaRemote) context.lookup("GestoreAbilitaJNDI");
+			abilitaDichiarate = new HashSet<Abilita>();
+			if(abilitaScelte != null) {
+				for(String idAbilita: abilitaScelte) {
+					try {
+						long id = Long.parseLong(idAbilita);
+						abilitaDichiarate.add(gestoreAbilita.getAbilita(id));						
+					} catch (NumberFormatException numberFormatE) {
+						request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
+						dispatcher = request.getRequestDispatcher("Abilita");
+						dispatcher.forward(request, response);
 					}
 				}
-				if(!gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate)) {
-					request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
-					dispatcher = request.getRequestDispatcher("Abilita");
-					dispatcher.forward(request, response);				
-				} else {
-					request.setAttribute("messaggio", Comunicazione.confermaModificaAbilita());
-					dispatcher = request.getRequestDispatcher("PaginaUser");
-					dispatcher.forward(request, response);
-				}
-			} catch (NamingException e) {
+			}
+			if(!gestoreUser.modificaAbilitaDichiarate(nickname, abilitaDichiarate)) {
 				request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
 				dispatcher = request.getRequestDispatcher("Abilita");
-				dispatcher.forward(request, response);			
+				dispatcher.forward(request, response);				
+			} else {
+				request.setAttribute("messaggio", Comunicazione.confermaModificaAbilita());
+				dispatcher = request.getRequestDispatcher("PaginaUser");
+				dispatcher.forward(request, response);
 			}
+		} catch (NamingException e) {
+			request.setAttribute("messaggio", Comunicazione.erroreModificaAbilita());
+			dispatcher = request.getRequestDispatcher("Abilita");
+			dispatcher.forward(request, response);			
 		}
 	}
+
 }
