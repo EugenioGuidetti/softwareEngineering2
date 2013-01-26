@@ -41,15 +41,13 @@ public class RimuoviAmicizie extends HttpServlet {
 						gestoreAmicizia.rimuovi(id);						
 					} catch (NumberFormatException numberFormatE) {
 						request.setAttribute("messaggio", Comunicazione.erroreModficaAmicizie());
-						dispatcher = request.getRequestDispatcher("PagineUser/paginaUser.jsp");
-						dispatcher.forward(request, response);
 					}
 				}
 			}
-			response.sendRedirect("PaginaUser");
 		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreModficaAmicizie());
-			dispatcher = request.getRequestDispatcher("PagineUser/paginaUser.jsp");
+			request.setAttribute("messaggio", Comunicazione.erroreModficaAmicizie());			
+		} finally {
+			dispatcher = request.getRequestDispatcher("PaginaUser");
 			dispatcher.forward(request, response);			
 		}
 	}

@@ -17,40 +17,7 @@
 		<div id="pagina">
 			<%@ include file="../logoPiccolo.html" %>			
 			<%@ include file="../gestioneMessaggio.jsp" %>
-			<div id="menuUser">
-				<ul>
-					<li>
-						<a href="/SWIMv2Client/PaginaUser">
-							<button type="button">Pagina Personale</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/RichiesteAmicizia">
-							<button type="button">Richieste Amicizia</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/RichiesteAiuto">
-							<button type="button">&rarr; Richieste Aiuto</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/Aiuti">
-							<button type="button">Storico Aiuti</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/Ricerca">
-							<button type="button">Ricerca</button>
-						</a>
-					</li>
-					<li>
-						<a href="/SWIMv2Client/Logout">
-							<button type="button">Logout</button>
-						</a>
-					</li>
-				</ul>
-			</div>
+			<%@ include file="menuUser.jsp" %>
 			<div id="body">
 				<div id="boxLeft">
 					<div id="titoloBox">

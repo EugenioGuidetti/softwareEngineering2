@@ -52,16 +52,14 @@ public class RichiesteAiutoActions extends HttpServlet {
 						}
 					} catch (NumberFormatException numberFormatE) {
 						request.setAttribute("messaggio", Comunicazione.erroreModificaRichiesteAmicizia());
-						dispatcher = request.getRequestDispatcher("PagineUser/richiesteAiuto.jsp");
-						dispatcher.forward(request, response);
 					}
 				}
 			}
-			response.sendRedirect("RichiesteAiuto");
 		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreModificaRichiesteAmicizia());
-			dispatcher = request.getRequestDispatcher("PagineUser/richiesteAiuto.jsp");
-			dispatcher.forward(request, response);			
+			request.setAttribute("messaggio", Comunicazione.erroreModificaRichiesteAmicizia());		
+		} finally {
+			dispatcher = request.getRequestDispatcher("RichiesteAiuto");
+			dispatcher.forward(request, response);				
 		}
 	}
 

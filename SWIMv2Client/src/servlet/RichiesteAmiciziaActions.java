@@ -52,15 +52,13 @@ public class RichiesteAmiciziaActions extends HttpServlet {
 						}
 					} catch (NumberFormatException numberFormatE) {
 						request.setAttribute("messaggio", Comunicazione.erroreModificaRichiesteAmicizia());
-						dispatcher = request.getRequestDispatcher("PagineUser/richiesteAmicizia.jsp");
-						dispatcher.forward(request, response);
 					}
 				}
 			}
-			response.sendRedirect("RichiesteAmicizia");
 		} catch (NamingException e) {
-			request.setAttribute("messaggio", Comunicazione.erroreModificaRichiesteAmicizia());
-			dispatcher = request.getRequestDispatcher("PagineUser/richiesteAmicizia.jsp");
+			request.setAttribute("messaggio", Comunicazione.erroreModificaRichiesteAmicizia());			
+		} finally {
+			dispatcher = request.getRequestDispatcher("RichiesteAmicizia");
 			dispatcher.forward(request, response);			
 		}
 	}

@@ -13,6 +13,7 @@
 		<div id="pagina">
 			<%@ include file="../logoPiccolo.html" %>			
 			<%@ include file="../gestioneMessaggio.jsp" %>
+			<%@ include file="menuUser.jsp" %>
 			<div id="body">
 				<div id="boxLeft">
 					<div id="titoloBox">

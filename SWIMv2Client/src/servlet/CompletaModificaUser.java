@@ -182,21 +182,17 @@ public class CompletaModificaUser extends HttpServlet {
 				Utilita.sendMail(nickname, user.getPassword(), user.getCognome(), user.getNome(), user.getEmail(), Utilita.OGGETTO_MAIL_MODIFICA, Utilita.MESSAGGIO_MODIFICA);
 			}
 
-			dispatcher = request.getRequestDispatcher("PaginaUser");
-			dispatcher.forward(request, response);
 
 		} catch (IOException ioEx) {
 			request.getSession().setAttribute("messaggio", Comunicazione.fileAvatarTroppoGrandeModifica());
-			response.sendRedirect("PaginaUser");
 		} catch (NamingException nEx) {
 			request.setAttribute("messaggio", Comunicazione.erroreServlet());
-			dispatcher = request.getRequestDispatcher("PaginaUser");
-			dispatcher.forward(request, response);	
 		} catch (Exception e) {
 			request.setAttribute("messaggio", Comunicazione.erroreModificaInformazioni());
+		} finally {
 			dispatcher = request.getRequestDispatcher("PaginaUser");
-			dispatcher.forward(request, response);
-		} 
+			dispatcher.forward(request, response);			
+		}
 	}
 
 }

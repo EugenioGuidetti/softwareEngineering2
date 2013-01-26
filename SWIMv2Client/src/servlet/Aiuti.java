@@ -35,6 +35,7 @@ public class Aiuti extends HttpServlet {
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAiuti());
 		} finally {
+			request.setAttribute("paginaAttuale", "storicoAiuti");
 			dispatcher = request.getRequestDispatcher("PagineUser/storicoAiuti.jsp");
 			dispatcher.forward(request, response);
 		}

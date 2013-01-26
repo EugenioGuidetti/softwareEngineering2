@@ -80,6 +80,7 @@ public class PaginaUser extends HttpServlet {
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
 		} finally {
+			request.setAttribute("paginaAttuale", "paginaPersonale");
 			dispatcher = request.getRequestDispatcher("PagineUser/paginaUser.jsp");
 			dispatcher.forward(request, response);			
 		}

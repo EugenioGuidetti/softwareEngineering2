@@ -32,6 +32,7 @@ public class Ricerca extends HttpServlet {
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoAbilita());
 		} finally {
+			request.setAttribute("paginaAttuale", "ricerca");
 			dispatcher = request.getRequestDispatcher("PagineUser/ricerca.jsp");
 			dispatcher.forward(request, response);			
 		}

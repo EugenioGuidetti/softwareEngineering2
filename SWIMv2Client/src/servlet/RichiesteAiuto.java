@@ -35,6 +35,7 @@ public class RichiesteAiuto extends HttpServlet {
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoRichiesteAiuto());
 		} finally {
+			request.setAttribute("paginaAttuale", "richiesteAiuto");
 			dispatcher = request.getRequestDispatcher("PagineUser/richiesteAiuto.jsp");
 			dispatcher.forward(request, response);
 		}

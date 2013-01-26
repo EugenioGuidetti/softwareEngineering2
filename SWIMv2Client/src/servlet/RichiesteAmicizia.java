@@ -35,6 +35,7 @@ public class RichiesteAmicizia extends HttpServlet {
 		} catch (NamingException e) {
 			request.setAttribute("messaggio", Comunicazione.erroreCaricamentoInformazioni());
 		} finally {
+			request.setAttribute("paginaAttuale", "richiesteAmicizia");
 			dispatcher = request.getRequestDispatcher("PagineUser/richiesteAmicizia.jsp");
 			dispatcher.forward(request, response);
 		}
